@@ -16,7 +16,8 @@ int main()
 {
    const int N = 8, log2N = 3;                                             // Hardwired for testing
    //Complex fN] = { 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0 };
-   Complex f[N] = { 1.0, 2.0, 3.0, 4.0, 5.0, 4.0, 1.0, -1.0 };
+   Complex f[N] = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0 };
+   
    Complex ft [N];
 
    print( "Original:", f, log2N );
@@ -58,6 +59,20 @@ void FFT( Complex f[], Complex ftilde[], int log2N )                 // Fast Fou
       }
       ftilde[ii] = f[i];
    }
+
+    std::cout << "Array f:" << std::endl;
+    for (int i = 0; i < N; i++) {
+        std::cout << "(" << f[i] << ") ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Array ftilde:" << std::endl;
+    for (int i = 0; i < N; i++) {
+        std::cout << "(" << ftilde[i] << ", "  << ") ";
+    }
+    std::cout << std::endl;
+
+
 
    for ( int s = 1; s <= log2N; s++ )
    {

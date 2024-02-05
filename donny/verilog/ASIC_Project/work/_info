@@ -1,0 +1,96 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.01, Jan 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/dcc3637/ASIC_Project
+T_opt
+Z1 !s110 1706507024
+VSU5RBTM9eNk44ZDGU<z642
+04 6 4 work fft_tb fast 0
+=1-b49691574b56-65b73b10-84a47-1e3296
+o-quiet -auto_acc_if_foreign -work work -L work +acc
+Z2 tCvgOpt 0
+n@_opt
+OL;O;2020.1;71
+vDFF_16Bit
+Z3 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+R1
+!i10b 1
+!s100 R2Qei<2@SFTIVzOe:Ui;02
+Z4 !s11b Dg1SIo80bB@j0V0VzS_@n1
+I22bV4>kMzfY=PRmofITNj3
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+S1
+R0
+Z6 w1706506969
+Z7 8fft.sv
+Z8 Ffft.sv
+!i122 52
+L0 41 18
+Z9 OL;L;2020.1;71
+r1
+!s85 0
+31
+Z10 !s108 1706507024.000000
+Z11 !s107 fft.sv|
+Z12 !s90 -reportprogress|300|-work|work|fft.sv|
+!i113 0
+Z13 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+n@d@f@f_16@bit
+vfft
+R3
+R1
+!i10b 1
+!s100 IkMFiYoSNRMO`AKn4Mc>92
+R4
+IdPj6ISzTDU^]YZhBm:@;E1
+R5
+S1
+R0
+R6
+R7
+R8
+!i122 52
+L0 1 38
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+vfft_tb
+R3
+R1
+!i10b 1
+!s100 K=0[kTgNKdd;LeUH9A3^S2
+R4
+I]3=RU=n6mHUG:O7iHH;a30
+R5
+S1
+R0
+w1706507005
+8fft_tb.sv
+Ffft_tb.sv
+!i122 51
+L0 1 41
+R9
+r1
+!s85 0
+31
+R10
+!s107 fft_tb.sv|
+!s90 -reportprogress|300|-work|work|fft_tb.sv|
+!i113 0
+R13
+R2
