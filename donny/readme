@@ -1,0 +1,11 @@
+Determine how to handle decimals (twiddle factors are small and floating point is very expensive)
+	-Prolly additional bits as extra
+Make a second set of registers to handle imaginary numbers
+imaginary numbers make things difficult
+	handle one part of the new complex numbers at a time
+	use two multipliers. To determine the new real
+	multiply both the reals and multiply both the imaginary
+	subtract imaginary from real
+	the add other term
+	repeat step to find new imaginary but now multiply one real and one imm and the other real and other imm
+Use an always_comb block to mux and demux values into registers
