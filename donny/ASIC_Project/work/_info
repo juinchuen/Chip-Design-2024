@@ -1,0 +1,331 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.01, Jan 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/dcc3637/ASIC_Project
+T_opt
+Z1 !s110 1707261696
+VKE7BVJ?TAJ<AgDfzlmD^71
+04 6 4 work fft_tb fast 0
+=1-b49691574b56-65c2bf00-79cc4-2ab277
+o-quiet -auto_acc_if_foreign -work work -L work +acc
+Z2 tCvgOpt 0
+n@_opt
+OL;O;2020.1;71
+R0
+vCountTo64
+Z3 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+R1
+!i10b 1
+!s100 dbGF78YUQNd?d:H9Pjji:0
+Z4 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IFWR5[G;=lFD9:DZchAg`b3
+Z5 VDg1SIo80bB@j0V0VzS_@n1
+S1
+R0
+Z6 w1707261654
+Z7 8fft.sv
+Z8 Ffft.sv
+!i122 157
+L0 57 11
+Z9 OL;L;2020.1;71
+r1
+!s85 0
+31
+Z10 !s108 1707261696.000000
+Z11 !s107 fft.sv|
+Z12 !s90 -reportprogress|300|-work|work|fft.sv|
+!i113 0
+Z13 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+n@count@to64
+vDFF_16Bit
+R3
+R1
+!i10b 1
+!s100 WO<XN52HX4fFfQYYzo`JY0
+R4
+InhzYLoO;92:@YRNm2WTf:0
+R5
+S1
+R0
+R6
+R7
+R8
+!i122 157
+L0 112 18
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+n@d@f@f_16@bit
+vDFF_6Bit
+R3
+R1
+!i10b 1
+!s100 clR5B9OknZ`OnoK@aU>UE1
+R4
+I2ULb5NBdYc?4ZXLNSlFbc1
+R5
+S1
+R0
+R6
+R7
+R8
+!i122 157
+L0 149 16
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+n@d@f@f_6@bit
+vDFF_Bit
+R3
+R1
+!i10b 1
+!s100 2IffjgzQNc[M2U@9V=oT;2
+R4
+Ien0:EjX1A?8:S=_mM?e7d2
+R5
+S1
+R0
+R6
+R7
+R8
+!i122 157
+L0 131 17
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+n@d@f@f_@bit
+vfft
+R3
+Z14 !s110 1707261960
+!i10b 1
+!s100 1HIMk`@VL2<^Oj2H`1;fn1
+R4
+IezK<9bZINUYUj26`l6fT;1
+R5
+S1
+R0
+w1707261766
+R7
+R8
+!i122 163
+L0 5 37
+R9
+r1
+!s85 0
+31
+Z15 !s108 1707261959.000000
+!s107 twiddle_factor_mux.sv|fft.sv|
+R12
+!i113 0
+R13
+R2
+vfft_tb
+R3
+!s110 1707261959
+!i10b 1
+!s100 GV1B_@T3`LY2c1lIdzYZ^1
+R4
+Iz:f4Z18V_Ih=UTU?;mR7R3
+R5
+S1
+R0
+w1707261539
+Z16 8fft_tb.sv
+Z17 Ffft_tb.sv
+!i122 162
+L0 94 25
+R9
+r1
+!s85 0
+31
+R15
+Z18 !s107 fft_tb.sv|
+Z19 !s90 -reportprogress|300|-work|work|fft_tb.sv|
+!i113 0
+R13
+R2
+vImTwiddleMux
+R3
+R14
+!i10b 1
+!s100 N0D]NQFG^7T11h01Xb7H:1
+R4
+IO^T8K1b=Ag3R;[jWMg>Dn2
+R5
+S1
+R0
+Z20 w1707261948
+Z21 8twiddle_factor_mux.sv
+Z22 Ftwiddle_factor_mux.sv
+!i122 163
+L0 51 46
+R9
+r1
+!s85 0
+31
+R15
+Z23 !s107 twiddle_factor_mux.sv|fft.sv|
+R12
+!i113 0
+R13
+R2
+n@im@twiddle@mux
+vReTwiddleMux
+R3
+R14
+!i10b 1
+!s100 iUSfBS]`oo<T17fGG=<o52
+R4
+IaOe=Cm=QKfl5>HlM3NNKI3
+R5
+S1
+R0
+R20
+R21
+R22
+!i122 163
+L0 1 47
+R9
+r1
+!s85 0
+31
+R15
+R23
+R12
+!i113 0
+R13
+R2
+n@re@twiddle@mux
+vStageClock
+R3
+R1
+!i10b 1
+!s100 >h5Y_D_]6dJ[0n0F7C8cJ2
+R4
+IQMjKmK6ihZok;4C<:]E`Z0
+R5
+S1
+R0
+R6
+R7
+R8
+!i122 157
+L0 92 19
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+n@stage@clock
+vStageClock_TB
+R3
+!s110 1707256160
+!i10b 1
+!s100 i9XVZ]=2K2AB@z@>_k`B_3
+R4
+IEaH_R^aXCn4QT:[ehVdU@1
+R5
+S1
+R0
+w1707256111
+R16
+R17
+!i122 78
+L0 43 25
+R9
+r1
+!s85 0
+31
+!s108 1707256160.000000
+R18
+R19
+!i113 0
+R13
+R2
+n@stage@clock_@t@b
+vTwiddleAdder
+R3
+R1
+!i10b 1
+!s100 <ff=Y;1JFGcmNAghONn7Q1
+R4
+I@Lg?A[`eiPClG?UcSJW`f0
+R5
+S1
+R0
+R6
+R7
+R8
+!i122 157
+L0 83 8
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+n@twiddle@adder
+vTwiddleFactorIndex
+R3
+R1
+!i10b 1
+!s100 [4[`EMa3BD:0d7JkdfZ`l0
+R4
+I7PS3f^IF68LYzK3i0ZUhd3
+R5
+S1
+R0
+R6
+R7
+R8
+!i122 157
+L0 69 13
+R9
+r1
+!s85 0
+31
+R10
+R11
+R12
+!i113 0
+R13
+R2
+n@twiddle@factor@index
