@@ -60,7 +60,7 @@ with open("twiddle_factor_mux.sv", "w") as file:
     for index, (real_part, _) in enumerate(twiddle_factors):
         if i < 32:
             num = format_negative(real_part)
-            print(f"\t\t\t6'b{bin(i)[2:]}: twiddle = {num};", file=file)
+            print(f"\t\t\t6'b{bin(i)[2:]}: twiddle <= {num};", file=file)
         i = i + 1
     print(moduleEnd, file=file)
     print(moduleIm, file=file)
@@ -68,7 +68,7 @@ with open("twiddle_factor_mux.sv", "w") as file:
     for index, (real_part, imag_part) in enumerate(twiddle_factors):
         if i < 32:
             num = format_negative(imag_part)
-            print(f"\t\t\t6'b{bin(i)[2:]}: twiddle = {num};", file=file)
+            print(f"\t\t\t6'b{bin(i)[2:]}: twiddle <= {num};", file=file)
         i = i + 1
     print(moduleEnd, file=file)
 
