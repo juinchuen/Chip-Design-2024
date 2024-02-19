@@ -1,5 +1,5 @@
 `include "twiddle_factor_mux.sv"
-
+`include "registerMux.sv"
 module fft #(
     parameter D_WIDTH = 64,
     parameter LOG_2_WIDTH = 6
@@ -42,10 +42,10 @@ module Butterfly#(
   wire [15:0] reff_out [((D_WIDTH) - 1):0];
   wire [15:0] imff_in [((D_WIDTH) - 1):0];
   wire [15:0] imff_out [((D_WIDTH) - 1):0];
-  wire [15: 0] count, stage, twiddle_index;
+  wire [5:0] count, stage, index2;
+  wire [15:0] twiddle_index;
   wire twiddle_second;
   wire [8:0] re_twiddle, im_twiddle;
-
   wire [15:0] curr_reg_Re, other_reg_Re, curr_reg_Im, other_reg_Im, new_Re, new_Im;
 
   // Fix this to not interact with clock
@@ -59,7 +59,13 @@ module Butterfly#(
   //Get twiddle factor
   ReTwiddleMux ReTwiddleMux(.select(twiddle_index), .out(re_twiddle));
   ImTwiddleMux ImTwiddleMux(.select(twiddle_index), .out(im_twiddle));
-
+  
+  //Get the correct Registers
+  assign index2 = twiddle_second ? (count + stage) : (count - stage);
+  registerMux Get_Re_Reg1(.index(count), .regs(Re_reg), .out(curr_reg_Re));
+  registerMux Get_Re_Reg2(.index(index2), .regs(Re_reg), .out(other_reg_Re));
+  registerMux Get_Im_Reg1(.index(count), .regs(Im_reg), .out(curr_reg_Im));
+  registerMux Get_Im_Reg2(.index(index2), .regs(Im_reg), .out(other_reg_Im));
   //Get the output from the Twiddle factors
   Apply_Twiddle Apply_Twiddle(.curr_reg_RE(curr_reg_Re), .other_reg_RE(other_reg_Re), .curr_reg_IM(curr_reg_Im), .other_reg_IM(other_reg_Im),
     .twiddle_factorRe(re_twiddle), .twiddle_factorIm(im_twiddle), .twiddle_second(twiddle_second), .out_RE(new_Re), .out_IM(new_Im));
@@ -88,6 +94,7 @@ module Butterfly#(
     end
   endgenerate
 endmodule
+
 
 module Apply_Twiddle( 
     parameter D_WIDTH = 64,
