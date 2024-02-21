@@ -7,29 +7,37 @@ module fft #(
     input [15:0] input_sig_Re [((D_WIDTH) - 1):0],
     input [15:0] input_sig_Im [((D_WIDTH) - 1):0],
     input clk, rst,
-    output [15:0] output_sig_Re [((D_WIDTH) - 1):0]
+    output [15:0] output_sig_Re [((D_WIDTH) - 1):0],
     output [15:0] output_sig_Im [((D_WIDTH) - 1):0]
 );
     // Correctly route the input signal
 
     //wire [15:0] fft_data [((D_WIDTH) - 1):0]
-    generate
-    
-    for (genvar i = 0; i < D_WIDTH; i++) begin 
-        genvar [LOG_2_WIDTH-1:0] ii;
-        genvar [LOG_2_WIDTH-1:0] x;
-          x = i;
-          ii = 0;
-          for (int j = 0; j < LOG_2_WIDTH; j++) begin
-              ii <<= 1;
-              ii |= (x & 1);
-              x >>= 1;
-          end
-        assign output_sig[ii] = input_sig[i];
-    end
-  endgenerate
-endmodule
+  genvar i;
+ genvar i;
 
+generate
+  for (i = 0; i < D_WIDTH; i = i + 1) begin
+    integer x;
+    integer ii;
+
+    initial begin
+      x = i;
+      ii = 0;
+
+      for (int j = 0; j < LOG_2_WIDTH; j = j + 1) begin
+        ii = ii << 1;
+        ii = ii | (x & 1);
+        x = x >> 1;
+      end
+    end
+
+    assign output_sig_Re[ii] = input_sig_Re[i];
+    assign output_sig_Im[ii] = input_sig_Im[i];
+  end
+endgenerate
+
+endmodule
 module Butterfly#( 
     parameter D_WIDTH = 64,
     parameter LOG_2_WIDTH = 6
@@ -92,8 +100,8 @@ Apply_Twiddle_Oth Apply_Twiddle2(.curr_reg_RE(curr_reg_Re), .other_reg_RE(other_
           Re_reg[i] <= 16'b0;
           Im_reg[i] <= 16'b0;
         end else if(start) begin
-          Re_reg[i] <= input_sig_Re[i];
-          Im_reg[i] <= input_sig_Im[i];
+          Re_reg[i] <= input_Re[i];
+          Im_reg[i] <= input_Im[i];
         end else  if(count == i) begin
           Re_reg[i] <= new_Re_Curr;
           Im_reg[i] <= new_Im_Curr;
@@ -110,16 +118,13 @@ Apply_Twiddle_Oth Apply_Twiddle2(.curr_reg_RE(curr_reg_Re), .other_reg_RE(other_
 endmodule
 
 
-module Apply_Twiddle_Curr( 
-    parameter D_WIDTH = 64,
-    parameter LOG_2_WIDTH = 6
-) (
-    input [15:0] curr_reg_RE, other_reg_RE, curr_reg_IM, other_reg_IM,
-    input [9:0] twiddle_factorRe, twiddle_factorIm,
+module Apply_Twiddle_Curr(
+    input logic [15:0] curr_reg_RE, other_reg_RE, curr_reg_IM, other_reg_IM,
+    input logic [9:0] twiddle_factorRe, twiddle_factorIm,
    
-    output [15:0] out_RE, out_IM
+    output logic [15:0] out_RE, out_IM
 );
-  wire [24:0] multi_inRe, multi_inIm, add_inRe, add_inIm, RE_out_PreChop_curr, IM_out_PreChop_curr;
+  wire [33:0] multi_inRe, multi_inIm, add_inRe, add_inIm, RE_out_PreChop, IM_out_PreChop;
   
   assign multi_inRe = curr_reg_RE;
   assign multi_inIm = curr_reg_IM;
@@ -135,16 +140,13 @@ module Apply_Twiddle_Curr(
   
 endmodule
 
-module Apply_Twiddle_Oth( 
-    parameter D_WIDTH = 64,
-    parameter LOG_2_WIDTH = 6
-) (
-    input [15:0] curr_reg_RE, other_reg_RE, curr_reg_IM, other_reg_IM,
-    input [9:0] twiddle_factorRe, twiddle_factorIm,
+module Apply_Twiddle_Oth(
+    input logic [15:0] curr_reg_RE, other_reg_RE, curr_reg_IM, other_reg_IM,
+    input logic [9:0] twiddle_factorRe, twiddle_factorIm,
    
-    output [15:0] out_RE, out_IM
+    output logic [15:0] out_RE, out_IM
 );
-  wire [24:0] multi_inRe, multi_inIm, add_inRe, add_inIm, RE_out_PreChop_curr, IM_out_PreChop_curr;
+  wire [24:0] multi_inRe, multi_inIm, add_inRe, add_inIm, RE_out_PreChop, IM_out_PreChop;
   
   assign multi_inRe = curr_reg_RE;
   assign multi_inIm = curr_reg_IM;
@@ -165,12 +167,13 @@ module CountTo64(
   input wire start, clk, rst,
   output wire [5:0] out
 );
+  wire [5:0] reverse_stage; 
   wire [5:0] curr, next_before, next_after, next_val;
   assign next_before = curr + 1'b1;
   assign sel = ((next_before[5] & stage[0]) | (next_before[4] & stage[1]) | (next_before[3] & stage[2]) 
     | (next_before[2] & stage[3]) | (next_before[1] & stage[4]) | (next_before[0] & stage[5]));
-
-  assign next_after = (sel) ? stage[0:5] + next_before : next_before;
+  assign reverse_stage = {stage[0], stage[1], stage[2], stage[3], stage[4], stage[5]};
+  assign next_after = (sel) ? reverse_stage + next_before : next_before;
   assign next_val = start ? 6'b0 : next_after;  
   DFF_6Bit FF(.D(next_val), .clk(clk), .rst(rst), .Q(curr));
 

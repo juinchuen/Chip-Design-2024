@@ -18,24 +18,34 @@
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 17:25:59 on Feb 06,2024
+# Start time: 21:27:04 on Feb 20,2024
 # vlog -reportprogress 300 -work work fft_tb.sv 
 # -- Compiling module fft_tb
 # 
 # Top level modules:
 # 	fft_tb
-# End time: 17:25:59 on Feb 06,2024, Elapsed time: 0:00:00
+# End time: 21:27:04 on Feb 20,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 17:25:59 on Feb 06,2024
+# Start time: 21:27:04 on Feb 20,2024
 # vlog -reportprogress 300 -work work fft.sv 
 # -- Compiling module ReTwiddleMux
 # -- Compiling module ImTwiddleMux
+# -- Compiling module registerMux
 # -- Compiling module fft
+# ** Error (suppressible): fft.sv(17): (vlog-2388) 'i' already declared in this scope (fft) at fft.sv(16).
 # -- Compiling module Butterfly
-# ** Error: (vlog-13069) fft.sv(44): near "parameter": syntax error, unexpected parameter, expecting ')'.
-# End time: 17:26:00 on Feb 06,2024, Elapsed time: 0:00:01
-# Errors: 1, Warnings: 0
+# ** Error (suppressible): fft.sv(88): (vlog-2388) 'Re_reg' already declared in this scope (Butterfly) at fft.sv(75).
+# ** Error (suppressible): fft.sv(89): (vlog-2388) 'Im_reg' already declared in this scope (Butterfly) at fft.sv(77).
+# -- Compiling module Apply_Twiddle_Curr
+# -- Compiling module Apply_Twiddle_Oth
+# -- Compiling module CountTo64
+# -- Compiling module TwiddleFactorIndex
+# -- Compiling module StageClock
+# -- Compiling module DFF_Bit
+# -- Compiling module DFF_6Bit
+# End time: 21:27:04 on Feb 20,2024, Elapsed time: 0:00:00
+# Errors: 3, Warnings: 0
 # ** Error: /vol/mentor/modelsim-2020.1/modeltech/linux_x86_64/vlog failed.
 # Error in macro ./fft.do line 8
 # /vol/mentor/modelsim-2020.1/modeltech/linux_x86_64/vlog failed.
