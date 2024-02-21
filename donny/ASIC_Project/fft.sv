@@ -82,10 +82,10 @@ module Butterfly#(
   registerMux Get_Im_Reg2(.index(index2), .regs(Im_reg), .out(other_reg_Im));
   //Get the output from the Twiddle factors
   Apply_Twiddle_Curr Apply_Twiddle1(.curr_reg_RE(curr_reg_Re), .other_reg_RE(other_reg_Re), .curr_reg_IM(curr_reg_Im), .other_reg_IM(other_reg_Im),
-    .twiddle_factorRe(re_twiddle_curr), .twiddle_factorIM(im_twiddle_curr), .out_RE(new_Re_Curr), .out_IM(new_Im_Curr));
+    .twiddle_factorRe(re_twiddle_curr), .twiddle_factorIm(im_twiddle_curr), .out_RE(new_Re_Curr), .out_IM(new_Im_Curr));
 
 Apply_Twiddle_Oth Apply_Twiddle2(.curr_reg_RE(curr_reg_Re), .other_reg_RE(other_reg_Re), .curr_reg_IM(curr_reg_Im), .other_reg_IM(other_reg_Im),
-    .twiddle_factorRe(re_twiddle_other), .twiddle_factorIM(im_twiddle_other), .twiddle_second(twiddle_second), .out_RE(new_Re_Oth), .out_IM(new_Im_Oth));
+    .twiddle_factorRe(re_twiddle_other), .twiddle_factorIm(im_twiddle_other), .twiddle_second(twiddle_second), .out_RE(new_Re_Oth), .out_IM(new_Im_Oth));
 
 
   //Handle all of the differnet values 

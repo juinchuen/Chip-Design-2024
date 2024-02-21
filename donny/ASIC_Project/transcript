@@ -18,16 +18,16 @@
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 21:42:09 on Feb 20,2024
+# Start time: 21:45:49 on Feb 20,2024
 # vlog -reportprogress 300 -work work fft_tb.sv 
 # -- Compiling module fft_tb
 # 
 # Top level modules:
 # 	fft_tb
-# End time: 21:42:09 on Feb 20,2024, Elapsed time: 0:00:00
+# End time: 21:45:49 on Feb 20,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 21:42:09 on Feb 20,2024
+# Start time: 21:45:49 on Feb 20,2024
 # vlog -reportprogress 300 -work work fft.sv 
 # -- Compiling module ReTwiddleMux
 # -- Compiling module ImTwiddleMux
@@ -45,14 +45,16 @@
 # 
 # Top level modules:
 # 	Butterfly
-# End time: 21:42:09 on Feb 20,2024, Elapsed time: 0:00:00
+# End time: 21:45:49 on Feb 20,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 1
 # vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.fft_tb -wlf fft_tb.wlf 
-# Start time: 21:42:09 on Feb 20,2024
-# ** Note: (vsim-3812) Design is being optimized...
+# Start time: 21:45:49 on Feb 20,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
 # Loading sv_std.std
 # Loading work.fft_tb(fast)
 # Loading work.TwiddleFactorIndex(fast)
 # Loading work.DFF_6Bit(fast)
 # ** Note: $finish    : fft_tb.sv(110)
 #    Time: 1085 ns  Iteration: 0  Instance: /fft_tb
+# 1
+# Break in Module fft_tb at fft_tb.sv line 110

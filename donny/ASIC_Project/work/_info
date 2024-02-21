@@ -20,7 +20,7 @@ n@_opt
 Z5 OL;O;2020.1;71
 R0
 T_opt1
-Z6 !s110 1708486929
+!s110 1708486929
 VH[5C9>bF:]>;:z9;0EEHX1
 R2
 =1-b49691574b56-65d57111-9b662-320994
@@ -28,9 +28,10 @@ R3
 R4
 n@_opt1
 R5
+R0
 vApply_Twiddle_Curr
-Z7 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-R6
+Z6 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z7 !s110 1708487149
 !i10b 1
 !s100 ;_1>iCZLYmV_eAhDE1]HA1
 Z8 !s11b Dg1SIo80bB@j0V0VzS_@n1
@@ -41,22 +42,22 @@ Z10 d/home/dcc3637/ASIC_Github/Chip-Design-2024/donny/ASIC_Project
 Z11 w1708486914
 Z12 8fft.sv
 Z13 Ffft.sv
-!i122 219
+!i122 221
 L0 124 21
 Z14 OL;L;2020.1;71
 r1
 !s85 0
 31
-Z15 !s108 1708486929.000000
-Z16 !s107 registerMux.sv|twiddle_factor_mux.sv|fft.sv|
-Z17 !s90 -reportprogress|300|-work|work|fft.sv|
+Z15 !s108 1708487149.000000
+!s107 registerMux.sv|twiddle_factor_mux.sv|fft.sv|
+Z16 !s90 -reportprogress|300|-work|work|fft.sv|
 !i113 0
-Z18 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z17 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R4
 n@apply_@twiddle_@curr
 vApply_Twiddle_Oth
-R7
 R6
+R7
 !i10b 1
 !s100 E1V[h8BFg=Ubg?CQ:V35K3
 R8
@@ -67,22 +68,22 @@ R10
 R11
 R12
 R13
-!i122 219
+!i122 221
 L0 146 21
 R14
 r1
 !s85 0
 31
 R15
+Z18 !s107 registerMux.sv|twiddle_factor_mux.sv|fft.sv|
 R16
-R17
 !i113 0
-R18
+R17
 R4
 n@apply_@twiddle_@oth
 vButterfly
-R7
 R6
+R7
 !i10b 1
 !s100 CmXNcgHeL]E3cK@abgdoL1
 R8
@@ -93,22 +94,22 @@ R10
 R11
 R12
 R13
-!i122 219
+!i122 221
 L0 40 82
 R14
 r1
 !s85 0
 31
 R15
-R16
-R17
-!i113 0
 R18
+R16
+!i113 0
+R17
 R4
 n@butterfly
 vCountTo64
-R7
 R6
+R7
 !i10b 1
 !s100 N;j[Co6=AQ0`18YD?V>;03
 R8
@@ -119,21 +120,21 @@ R10
 R11
 R12
 R13
-!i122 219
+!i122 221
 L0 168 17
 R14
 r1
 !s85 0
 31
 R15
-R16
-R17
-!i113 0
 R18
+R16
+!i113 0
+R17
 R4
 n@count@to64
 vDFF_16Bit
-R7
+R6
 R1
 !i10b 1
 !s100 WO<XN52HX4fFfQYYzo`JY0
@@ -153,14 +154,14 @@ r1
 31
 Z20 !s108 1707261696.000000
 Z21 !s107 fft.sv|
-R17
+R16
 !i113 0
-R18
+R17
 R4
 n@d@f@f_16@bit
 vDFF_6Bit
-R7
 R6
+R7
 !i10b 1
 !s100 jfPEd@U[8lhioffIFI@0J1
 R8
@@ -171,22 +172,22 @@ R10
 R11
 R12
 R13
-!i122 219
+!i122 221
 L0 250 16
 R14
 r1
 !s85 0
 31
 R15
-R16
-R17
-!i113 0
 R18
+R16
+!i113 0
+R17
 R4
 n@d@f@f_6@bit
 vDFF_Bit
-R7
 R6
+R7
 !i10b 1
 !s100 f7c9dSWZ18ag_`DG5C?l02
 R8
@@ -197,21 +198,21 @@ R10
 R11
 R12
 R13
-!i122 219
+!i122 221
 L0 232 17
 R14
 r1
 !s85 0
 31
 R15
-R16
-R17
-!i113 0
 R18
+R16
+!i113 0
+R17
 R4
 n@d@f@f_@bit
 vfft
-R7
+R6
 !s110 1707261960
 !i10b 1
 !s100 1HIMk`@VL2<^Oj2H`1;fn1
@@ -231,13 +232,13 @@ r1
 31
 !s108 1707261959.000000
 !s107 twiddle_factor_mux.sv|fft.sv|
-R17
+R16
 !i113 0
-R18
+R17
 R4
 vfft_tb
-R7
 R6
+R7
 !i10b 1
 !s100 GV1B_@T3`LY2c1lIdzYZ^1
 R8
@@ -248,7 +249,7 @@ R10
 w1707286554
 Z22 8fft_tb.sv
 Z23 Ffft_tb.sv
-!i122 218
+!i122 220
 L0 94 25
 R14
 r1
@@ -258,11 +259,11 @@ R15
 Z24 !s107 fft_tb.sv|
 Z25 !s90 -reportprogress|300|-work|work|fft_tb.sv|
 !i113 0
-R18
+R17
 R4
 vImTwiddleMux
-R7
 R6
+R7
 !i10b 1
 !s100 Wm8hc4H5DjUQ9_l:0<jD41
 R8
@@ -273,22 +274,22 @@ R10
 Z26 w1708289239
 Z27 8twiddle_factor_mux.sv
 Z28 Ftwiddle_factor_mux.sv
-!i122 219
+!i122 221
 L0 50 46
 R14
 r1
 !s85 0
 31
 R15
-R16
-R17
-!i113 0
 R18
+R16
+!i113 0
+R17
 R4
 n@im@twiddle@mux
 vregisterMux
-R7
 R6
+R7
 !i10b 1
 !s100 UKiVRGz_eTX@8HHK_F3113
 R8
@@ -299,22 +300,22 @@ R10
 w1708486648
 8registerMux.sv
 FregisterMux.sv
-!i122 219
+!i122 221
 L0 1 79
 R14
 r1
 !s85 0
 31
 R15
-R16
-R17
-!i113 0
 R18
+R16
+!i113 0
+R17
 R4
 nregister@mux
 vReTwiddleMux
-R7
 R6
+R7
 !i10b 1
 !s100 EXI>T;VRRi`4kkn<JcdRi2
 R8
@@ -325,22 +326,22 @@ R10
 R26
 R27
 R28
-!i122 219
+!i122 221
 L0 1 46
 R14
 r1
 !s85 0
 31
 R15
-R16
-R17
-!i113 0
 R18
+R16
+!i113 0
+R17
 R4
 n@re@twiddle@mux
 vStageClock
-R7
 R6
+R7
 !i10b 1
 !s100 O=3kWP]d5ARmidaFzM^]_0
 R8
@@ -351,21 +352,21 @@ R10
 R11
 R12
 R13
-!i122 219
+!i122 221
 L0 210 19
 R14
 r1
 !s85 0
 31
 R15
-R16
-R17
-!i113 0
 R18
+R16
+!i113 0
+R17
 R4
 n@stage@clock
 vStageClock_TB
-R7
+R6
 !s110 1707256160
 !i10b 1
 !s100 i9XVZ]=2K2AB@z@>_k`B_3
@@ -387,11 +388,11 @@ r1
 R24
 R25
 !i113 0
-R18
+R17
 R4
 n@stage@clock_@t@b
 vTwiddleAdder
-R7
+R6
 R1
 !i10b 1
 !s100 <ff=Y;1JFGcmNAghONn7Q1
@@ -411,14 +412,14 @@ r1
 31
 R20
 R21
-R17
+R16
 !i113 0
-R18
+R17
 R4
 n@twiddle@adder
 vTwiddleFactorIndex
-R7
 R6
+R7
 !i10b 1
 !s100 520Ga>nQ13hVgQ?Z`kXaK0
 R8
@@ -429,16 +430,16 @@ R10
 R11
 R12
 R13
-!i122 219
+!i122 221
 L0 186 13
 R14
 r1
 !s85 0
 31
 R15
-R16
-R17
-!i113 0
 R18
+R16
+!i113 0
+R17
 R4
 n@twiddle@factor@index
