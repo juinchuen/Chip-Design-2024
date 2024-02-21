@@ -1,7 +1,7 @@
 module registerMux(
-  input [5:0] index,
-  input [15:0] regs [63:0],
-  output [15:0] out
+  input logic [5:0] index,
+  input logic [15:0] regs [63:0],
+  output logic [15:0] out
 );
 reg [15:0] registerValue;
 

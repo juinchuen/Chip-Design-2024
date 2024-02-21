@@ -18,25 +18,23 @@
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 21:27:04 on Feb 20,2024
+# Start time: 21:42:09 on Feb 20,2024
 # vlog -reportprogress 300 -work work fft_tb.sv 
 # -- Compiling module fft_tb
 # 
 # Top level modules:
 # 	fft_tb
-# End time: 21:27:04 on Feb 20,2024, Elapsed time: 0:00:00
+# End time: 21:42:09 on Feb 20,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 21:27:04 on Feb 20,2024
+# Start time: 21:42:09 on Feb 20,2024
 # vlog -reportprogress 300 -work work fft.sv 
 # -- Compiling module ReTwiddleMux
 # -- Compiling module ImTwiddleMux
 # -- Compiling module registerMux
-# -- Compiling module fft
-# ** Error (suppressible): fft.sv(17): (vlog-2388) 'i' already declared in this scope (fft) at fft.sv(16).
+# ** Warning: ** while parsing file included at fft.sv(2)
+# ** at registerMux.sv(3): (vlog-13314) Defaulting port 'regs' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling module Butterfly
-# ** Error (suppressible): fft.sv(88): (vlog-2388) 'Re_reg' already declared in this scope (Butterfly) at fft.sv(75).
-# ** Error (suppressible): fft.sv(89): (vlog-2388) 'Im_reg' already declared in this scope (Butterfly) at fft.sv(77).
 # -- Compiling module Apply_Twiddle_Curr
 # -- Compiling module Apply_Twiddle_Oth
 # -- Compiling module CountTo64
@@ -44,10 +42,17 @@
 # -- Compiling module StageClock
 # -- Compiling module DFF_Bit
 # -- Compiling module DFF_6Bit
-# End time: 21:27:04 on Feb 20,2024, Elapsed time: 0:00:00
-# Errors: 3, Warnings: 0
-# ** Error: /vol/mentor/modelsim-2020.1/modeltech/linux_x86_64/vlog failed.
-# Error in macro ./fft.do line 8
-# /vol/mentor/modelsim-2020.1/modeltech/linux_x86_64/vlog failed.
-#     while executing
-# "vlog -work work "fft.sv""
+# 
+# Top level modules:
+# 	Butterfly
+# End time: 21:42:09 on Feb 20,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+# vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.fft_tb -wlf fft_tb.wlf 
+# Start time: 21:42:09 on Feb 20,2024
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading sv_std.std
+# Loading work.fft_tb(fast)
+# Loading work.TwiddleFactorIndex(fast)
+# Loading work.DFF_6Bit(fast)
+# ** Note: $finish    : fft_tb.sv(110)
+#    Time: 1085 ns  Iteration: 0  Instance: /fft_tb

@@ -1,50 +1,51 @@
 `include "twiddle_factor_mux.sv"
 `include "registerMux.sv"
-module fft #(
-    parameter D_WIDTH = 64,
-    parameter LOG_2_WIDTH = 6
-) (
-    input [15:0] input_sig_Re [((D_WIDTH) - 1):0],
-    input [15:0] input_sig_Im [((D_WIDTH) - 1):0],
-    input clk, rst,
-    output [15:0] output_sig_Re [((D_WIDTH) - 1):0],
-    output [15:0] output_sig_Im [((D_WIDTH) - 1):0]
-);
-    // Correctly route the input signal
+// module fft #(
+//     parameter D_WIDTH = 64,
+//     parameter LOG_2_WIDTH = 6
+// ) (
+//     input [15:0] input_sig_Re [((D_WIDTH) - 1):0],
+//     input [15:0] input_sig_Im [((D_WIDTH) - 1):0],
+//     input clk, rst,
+//     output [15:0] output_sig_Re [((D_WIDTH) - 1):0],
+//     output [15:0] output_sig_Im [((D_WIDTH) - 1):0]
+// );
+//     // Correctly route the input signal
 
-    //wire [15:0] fft_data [((D_WIDTH) - 1):0]
-  genvar i;
- genvar i;
+//     //wire [15:0] fft_data [((D_WIDTH) - 1):0]
+//   genvar i;
 
-generate
-  for (i = 0; i < D_WIDTH; i = i + 1) begin
-    integer x;
-    integer ii;
+// generate
+//   for (i = 0; i < D_WIDTH; i = i + 1) begin
+//     integer x;
+//     integer ii;
 
-    initial begin
-      x = i;
-      ii = 0;
+//     initial begin
+//       x = i;
+//       ii = 0;
 
-      for (int j = 0; j < LOG_2_WIDTH; j = j + 1) begin
-        ii = ii << 1;
-        ii = ii | (x & 1);
-        x = x >> 1;
-      end
-    end
+//       for (int j = 0; j < LOG_2_WIDTH; j = j + 1) begin
+//         ii = ii << 1;
+//         ii = ii | (x & 1);
+//         x = x >> 1;
+//       end
+//     end
 
-    assign output_sig_Re[ii] = input_sig_Re[i];
-    assign output_sig_Im[ii] = input_sig_Im[i];
-  end
-endgenerate
+//     assign output_sig_Re[ii] = input_sig_Re[i];
+//     assign output_sig_Im[ii] = input_sig_Im[i];
+//   end
+// endgenerate
 
-endmodule
+// endmodule
 module Butterfly#( 
     parameter D_WIDTH = 64,
     parameter LOG_2_WIDTH = 6
 ) (
-    input [15:0] input_Re, input_Im [((D_WIDTH) - 1):0],
+    input [15:0] input_Re [((D_WIDTH) - 1):0],
+    input [15:0] input_Im [((D_WIDTH) - 1):0],
     input start, clk, rst,
-    output [15:0] output_Re, output_Im [((D_WIDTH) - 1):0]
+    output [15:0] output_Re [((D_WIDTH) - 1):0],
+    output [15:0] output_Im [((D_WIDTH) - 1):0]
 );
   wire [15:0] reff_in [((D_WIDTH) - 1):0];
   wire [15:0] reff_out [((D_WIDTH) - 1):0];
@@ -55,14 +56,15 @@ module Butterfly#(
   wire twiddle_second;
   wire [8:0] re_twiddle_curr, im_twiddle_curr, re_twiddle_other, im_twiddle_other;
   wire [15:0] curr_reg_Re, other_reg_Re, curr_reg_Im, other_reg_Im, new_Re_Curr, new_Im_Curr, new_Re_Oth, new_Im_Oth;
-
+  wire [5:0] reverse_stage; 
+  assign reverse_stage = {stage[0], stage[1], stage[2], stage[3], stage[4], stage[5]};
   // Fix this to not interact with clock
   StageClock StageCount(.start(start), .shift(~(|count)), .rst(rst), .out(stage));
   // Might need to delay start for these two
 
   CountTo64 Counter(.start(start), .clk(clk), .rst(rst), .out(count));
   TwiddleFactorIndex TwiddleIndex(.stage(stage), .start(start), .clk(clk), .rst(rst), .out(twiddle_index_1));
-  assign twiddle_index_2 = twiddle_index_1 + stage[0:5]; 
+  assign twiddle_index_2 = twiddle_index_1 + reverse_stage; 
   //Get twiddle factor
   ReTwiddleMux ReTwiddleMux1(.select(twiddle_index_1), .out(re_twiddle_curr));
   ImTwiddleMux ImTwiddleMux1(.select(twiddle_index_1), .out(im_twiddle_curr));
@@ -71,7 +73,9 @@ module Butterfly#(
   ImTwiddleMux ImTwiddleMux2(.select(twiddle_index_2), .out(im_twiddle_other));
 
   //Get the correct Registers
-  assign index2 = count + stage[0:5]; 
+  assign index2 = count + reverse_stage; 
+  reg [15:0] Re_reg [((D_WIDTH) - 1):0];
+  reg [15:0] Im_reg [((D_WIDTH) - 1):0];
   registerMux Get_Re_Reg1(.index(count), .regs(Re_reg), .out(curr_reg_Re));
   registerMux Get_Re_Reg2(.index(index2), .regs(Re_reg), .out(other_reg_Re));
   registerMux Get_Im_Reg1(.index(count), .regs(Im_reg), .out(curr_reg_Im));
@@ -85,8 +89,7 @@ Apply_Twiddle_Oth Apply_Twiddle2(.curr_reg_RE(curr_reg_Re), .other_reg_RE(other_
 
 
   //Handle all of the differnet values 
-  reg [15:0] Re_reg [((D_WIDTH) - 1):0];
-  reg [15:0] Im_reg [((D_WIDTH) - 1):0];
+
   assign output_Re = Re_reg;
   assign output_Im = Im_reg;
 
