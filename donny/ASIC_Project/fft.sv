@@ -53,7 +53,6 @@ module Butterfly#(
   wire [15:0] imff_out [((D_WIDTH) - 1):0];
   wire [5:0] count, stage, index2;
   wire [15:0] twiddle_index_1, twiddle_index_2;
-  wire twiddle_second;
   wire [8:0] re_twiddle_curr, im_twiddle_curr, re_twiddle_other, im_twiddle_other;
   wire [15:0] curr_reg_Re, other_reg_Re, curr_reg_Im, other_reg_Im, new_Re_Curr, new_Im_Curr, new_Re_Oth, new_Im_Oth;
   wire [5:0] reverse_stage; 
@@ -85,7 +84,7 @@ module Butterfly#(
     .twiddle_factorRe(re_twiddle_curr), .twiddle_factorIm(im_twiddle_curr), .out_RE(new_Re_Curr), .out_IM(new_Im_Curr));
 
 Apply_Twiddle_Oth Apply_Twiddle2(.curr_reg_RE(curr_reg_Re), .other_reg_RE(other_reg_Re), .curr_reg_IM(curr_reg_Im), .other_reg_IM(other_reg_Im),
-    .twiddle_factorRe(re_twiddle_other), .twiddle_factorIm(im_twiddle_other), .twiddle_second(twiddle_second), .out_RE(new_Re_Oth), .out_IM(new_Im_Oth));
+    .twiddle_factorRe(re_twiddle_other), .twiddle_factorIm(im_twiddle_other), .out_RE(new_Re_Oth), .out_IM(new_Im_Oth));
 
 
   //Handle all of the differnet values 
