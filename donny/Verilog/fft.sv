@@ -62,7 +62,7 @@ module Butterfly#(
   StageClock StageCount(.start(start), .shift(new_stage), .rst(rst), .out(stage));
   // Might need to delay start for these two
 
-  CountTo64 Counter(.start(start), .clk(clk), .rst(rst), .new_stage(new_stage), .out(count));
+  CountTo64 Counter(.start(start), .stage(stage) .clk(clk), .rst(rst), .new_stage(new_stage), .out(count));
   TwiddleFactorIndex TwiddleIndex(.stage(stage), .start(start), .clk(clk), .rst(rst), .out(twiddle_index_1));
   assign twiddle_index_2 = twiddle_index_1 + reverse_stage; 
   //Get twiddle factor
@@ -192,7 +192,7 @@ endmodule
 
 
 module StageClock(
-  input wire start, shift, rst,
+  input wire start, shift, rst, clk,
   output wire [5:0] out
 );
   wire in;
@@ -200,12 +200,12 @@ module StageClock(
 
   assign in = start & ~(|B);
 
-  DFF_Bit FF0(.D(in), .clk(shift), .rst(rst), .Q(B[5]));
-  DFF_Bit FF1(.D(B[5]), .clk(shift), .rst(rst), .Q(B[4]));
-  DFF_Bit FF2(.D(B[4]), .clk(shift), .rst(rst), .Q(B[3]));
-  DFF_Bit FF3(.D(B[3]), .clk(shift), .rst(rst), .Q(B[2]));
-  DFF_Bit FF4(.D(B[2]), .clk(shift), .rst(rst), .Q(B[1]));
-  DFF_Bit FF5(.D(B[1]), .clk(shift), .rst(rst), .Q(B[0]));
+  DFF_Bit FF0(.D(in), .clk(clk), .rst(rst), .Q(B[5]));
+  DFF_Bit FF1(.D(shift ? B[5] : B[4]), .clk(clk), .rst(rst), .Q(B[4]));
+  DFF_Bit FF2(.D(shift ? B[4] : B[3]), .clk(clk), .rst(rst), .Q(B[3]));
+  DFF_Bit FF3(.D(shift ? B[3] : B[2]), .clk(clk), .rst(rst), .Q(B[2]));
+  DFF_Bit FF4(.D(shift ? B[2] : B[1]), .clk(clk), .rst(rst), .Q(B[1]));
+  DFF_Bit FF5(.D(shift ? B[1] : B[0]), .clk(clk), .rst(rst), .Q(B[0]));
 
   assign out = B;
 
@@ -214,7 +214,7 @@ endmodule
 module CountTo64(
   input wire [5:0] stage,
   input wire start, clk, rst,
-  output wire new_stage;
+  output wire new_stage,
   output wire [5:0] out
 );
   wire [5:0] reverse_stage; 
@@ -249,7 +249,6 @@ module DFF_Bit (
   always_ff @(negedge clk or negedge rst) begin
     if (~rst) begin
       data <= 1'b0;
-      // Qn <= 16'b1111111111111111;
     end else begin
       data <= D;
     end
