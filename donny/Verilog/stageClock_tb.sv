@@ -3,7 +3,6 @@ module stageClock_tb;
 // declare stimuli
 reg start, shift, rst, clk;
 wire [5:0] out;
-wire debugIn;
 
 // instantiate uut
 StageClock uut(
@@ -11,8 +10,7 @@ StageClock uut(
   .shift(shift),
   .clk(clk),
   .rst(rst),
-  .out(out),
-  .debugIn(debugIn)
+  .out(out)
 );
 
 // clock gen
@@ -24,12 +22,12 @@ end
 // begin simulation
 initial begin
   // begin monitoring
-  $monitor("start = %b, shift = %b, rst = %b, out = %b, clk = %b", start, shift, rst, out, clk);
+  //$monitor("start = %b, shift = %b, rst = %b, out = %b, clk = %b", start, shift, rst, out, clk);
 
   // set stimuli
-  rst = 1;
-  #5
   rst = 0;
+  #5
+  rst = 1;
 
   clk = 0;
   start = 1;

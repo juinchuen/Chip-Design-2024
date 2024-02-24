@@ -193,8 +193,7 @@ endmodule
 
 module StageClock(
   input wire start, shift, rst, clk,
-  output wire [5:0] out,
-  output wire debugIn
+  output wire [5:0] out
 );
   wire in;
   wire [5:0] B;
@@ -209,7 +208,6 @@ module StageClock(
   DFF_Bit FF5(.D(shift ? B[1] : B[0]), .clk(clk), .rst(rst), .Q(B[0]));
 
   assign out = B;
-  assign debugIn = in;
 
 endmodule 
 
