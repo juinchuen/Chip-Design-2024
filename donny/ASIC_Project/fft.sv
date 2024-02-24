@@ -56,12 +56,13 @@ module Butterfly#(
   wire [8:0] re_twiddle_curr, im_twiddle_curr, re_twiddle_other, im_twiddle_other;
   wire [15:0] curr_reg_Re, other_reg_Re, curr_reg_Im, other_reg_Im, new_Re_Curr, new_Im_Curr, new_Re_Oth, new_Im_Oth;
   wire [5:0] reverse_stage; 
+  wire new_stage;
   assign reverse_stage = {stage[0], stage[1], stage[2], stage[3], stage[4], stage[5]};
   // Fix this to not interact with clock
-  StageClock StageCount(.start(start), .shift(~(|count)), .rst(rst), .out(stage));
+  StageClock StageCount(.start(start), .shift(new_stage), .rst(rst), .out(stage));
   // Might need to delay start for these two
 
-  CountTo64 Counter(.start(start), .clk(clk), .rst(rst), .out(count));
+  CountTo64 Counter(.start(start), .clk(clk), .rst(rst), .new_stage(new_stage), .out(count));
   TwiddleFactorIndex TwiddleIndex(.stage(stage), .start(start), .clk(clk), .rst(rst), .out(twiddle_index_1));
   assign twiddle_index_2 = twiddle_index_1 + reverse_stage; 
   //Get twiddle factor
@@ -164,23 +165,7 @@ module Apply_Twiddle_Oth(
   
 endmodule
 
-module CountTo64(
-  input wire [5:0] stage,
-  input wire start, clk, rst,
-  output wire [5:0] out
-);
-  wire [5:0] reverse_stage; 
-  wire [5:0] curr, next_before, next_after, next_val;
-  assign next_before = curr + 1'b1;
-  assign sel = ((next_before[5] & stage[0]) | (next_before[4] & stage[1]) | (next_before[3] & stage[2]) 
-    | (next_before[2] & stage[3]) | (next_before[1] & stage[4]) | (next_before[0] & stage[5]));
-  assign reverse_stage = {stage[0], stage[1], stage[2], stage[3], stage[4], stage[5]};
-  assign next_after = (sel) ? reverse_stage + next_before : next_before;
-  assign next_val = start ? 6'b0 : next_after;  
-  DFF_6Bit FF(.D(next_val), .clk(clk), .rst(rst), .Q(curr));
 
-  assign out = curr;
-endmodule
 
 module TwiddleFactorIndex(
   input wire [5:0] stage,  
@@ -226,7 +211,26 @@ module StageClock(
 
 endmodule 
 
+module CountTo64(
+  input wire [5:0] stage,
+  input wire start, clk, rst,
+  output wire new_stage;
+  output wire [5:0] out
+);
+  wire [5:0] reverse_stage; 
+  wire [5:0] curr, next_before, next_val;
+  wire [6:0] next_after;
+  assign next_before = curr + 1'b1;
+  assign sel = ((next_before[5] & stage[0]) | (next_before[4] & stage[1]) | (next_before[3] & stage[2]) 
+    | (next_before[2] & stage[3]) | (next_before[1] & stage[4]) | (next_before[0] & stage[5]));
+  assign reverse_stage = {stage[0], stage[1], stage[2], stage[3], stage[4], stage[5]};
+  assign next_after = (sel) ? reverse_stage + next_before : next_before;
+  assign new_stage = next_after[6];
+  assign next_val = start ? 6'b0 : next_after[5:0];  
+  DFF_6Bit FF(.D(next_val), .clk(clk), .rst(rst), .Q(curr));
 
+  assign out = curr;
+endmodule
 
 module DFF_Bit (
   input wire D, clk, rst,
