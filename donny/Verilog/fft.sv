@@ -62,7 +62,7 @@ module Butterfly#(
   StageClock StageCount(.start(start), .shift(new_stage), .rst(rst), .out(stage));
   // Might need to delay start for these two
 
-  CountTo64 Counter(.start(start), .stage(stage) .clk(clk), .rst(rst), .new_stage(new_stage), .out(count));
+  CountTo64 Counter(.start(start), .stage(stage), .clk(clk), .rst(rst), .new_stage(new_stage), .out(count));
   TwiddleFactorIndex TwiddleIndex(.stage(stage), .start(start), .clk(clk), .rst(rst), .out(twiddle_index_1));
   assign twiddle_index_2 = twiddle_index_1 + reverse_stage; 
   //Get twiddle factor
