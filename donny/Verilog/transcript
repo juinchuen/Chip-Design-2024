@@ -11,23 +11,23 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# do countTo64.do
+# do twiddleFactorIndex.do
 # -9
 # ** Warning: (vlib-34) Library already exists at "work".
 # Model Technology ModelSim SE-64 vmap 2020.1 Lib Mapping Utility 2020.01 Jan 28 2020
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 15:44:48 on Feb 24,2024
-# vlog -reportprogress 300 -work work countTo64_tb.sv 
-# -- Compiling module countTo64_tb
+# Start time: 16:30:54 on Feb 24,2024
+# vlog -reportprogress 300 -work work twiddleFactorIndex_tb.sv 
+# -- Compiling module twiddleFactorIndex_tb
 # 
 # Top level modules:
-# 	countTo64_tb
-# End time: 15:44:50 on Feb 24,2024, Elapsed time: 0:00:02
+# 	twiddleFactorIndex_tb
+# End time: 16:30:54 on Feb 24,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 15:44:50 on Feb 24,2024
+# Start time: 16:30:54 on Feb 24,2024
 # vlog -reportprogress 300 -work work fft.sv 
 # -- Compiling module Butterfly
 # -- Compiling module Apply_Twiddle_Curr
@@ -40,17 +40,16 @@
 # 
 # Top level modules:
 # 	Butterfly
-# End time: 15:44:50 on Feb 24,2024, Elapsed time: 0:00:00
+# End time: 16:30:54 on Feb 24,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-# vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.countTo64_tb -wlf countTo64_tb.wlf 
-# Start time: 15:44:50 on Feb 24,2024
-# ** Note: (vsim-8009) Loading existing optimized design _opt
+# vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.twiddleFactorIndex_tb -wlf twiddleFactorIndex_tb.wlf 
+# Start time: 16:30:54 on Feb 24,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # Loading sv_std.std
-# Loading work.countTo64_tb(fast)
-# Loading work.CountTo64(fast)
-# ** Note: $finish    : countTo64_tb.sv(26)
-#    Time: 1010 ns  Iteration: 0  Instance: /countTo64_tb
+# Loading work.twiddleFactorIndex_tb(fast)
+# Loading work.TwiddleFactorIndex(fast)
+# Loading work.DFF_6Bit(fast)
+# ** Note: $finish    : twiddleFactorIndex_tb.sv(36)
+#    Time: 1015 ns  Iteration: 0  Instance: /twiddleFactorIndex_tb
 # 1
-# Break in Module countTo64_tb at countTo64_tb.sv line 26
-# End time: 15:45:59 on Feb 24,2024, Elapsed time: 0:01:09
-# Errors: 0, Warnings: 0
+# Break in Module twiddleFactorIndex_tb at twiddleFactorIndex_tb.sv line 36

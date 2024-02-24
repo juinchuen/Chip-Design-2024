@@ -20,15 +20,14 @@ n@_opt
 Z3 OL;O;2020.1;71
 R0
 T_opt1
-!s110 1708486929
-VH[5C9>bF:]>;:z9;0EEHX1
-04 6 4 work fft_tb fast 0
-=1-b49691574b56-65d57111-9b662-320994
+Z4 !s110 1708813854
+VmdD@IgUYY7`1J_mGCmGHA1
+04 21 4 work twiddleFactorIndex_tb fast 0
+=1-a4bb6d3feef6-65da6e1e-74f02-39d6e
 R1
 R2
 n@_opt1
 R3
-R0
 T_opt2
 !s110 1708810041
 V:FKnAIYzRcEFMLNH5=VCj2
@@ -40,8 +39,8 @@ n@_opt2
 R3
 R0
 vApply_Twiddle_Curr
-Z4 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z5 !s110 1708811090
+Z5 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+R4
 !i10b 1
 !s100 ;_1>iCZLYmV_eAhDE1]HA1
 Z6 !s11b Dg1SIo80bB@j0V0VzS_@n1
@@ -52,13 +51,13 @@ Z8 d/home/icl5712/ASIC_Project/Chip-Design-2024/donny/Verilog
 Z9 w1708809991
 Z10 8fft.sv
 Z11 Ffft.sv
-!i122 253
+!i122 261
 L0 124 21
 Z12 OL;L;2020.1;71
 r1
 !s85 0
 31
-Z13 !s108 1708811090.000000
+Z13 !s108 1708813854.000000
 Z14 !s107 fft.sv|
 Z15 !s90 -reportprogress|300|-work|work|fft.sv|
 !i113 0
@@ -66,8 +65,8 @@ Z16 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R2
 n@apply_@twiddle_@curr
 vApply_Twiddle_Oth
-R4
 R5
+R4
 !i10b 1
 !s100 E1V[h8BFg=Ubg?CQ:V35K3
 R6
@@ -78,7 +77,7 @@ R8
 R9
 R10
 R11
-!i122 253
+!i122 261
 L0 146 21
 R12
 r1
@@ -92,8 +91,8 @@ R16
 R2
 n@apply_@twiddle_@oth
 vButterfly
-R4
 R5
+R4
 !i10b 1
 !s100 KMo]L?RkK7JU8Nb[Ik1NK0
 R6
@@ -104,7 +103,7 @@ R8
 R9
 R10
 R11
-!i122 253
+!i122 261
 L0 40 82
 R12
 r1
@@ -118,8 +117,8 @@ R16
 R2
 n@butterfly
 vCountTo64
-R4
 R5
+R4
 !i10b 1
 !s100 [@k60]^J9`J^KfWg]TaRO0
 R6
@@ -130,7 +129,7 @@ R8
 R9
 R10
 R11
-!i122 253
+!i122 261
 L0 214 28
 R12
 r1
@@ -144,8 +143,8 @@ R16
 R2
 n@count@to64
 vcountTo64_tb
-R4
 R5
+!s110 1708811090
 !i10b 1
 !s100 Oe97A72jRgCPa?3X2l8bO1
 R6
@@ -170,7 +169,7 @@ R16
 R2
 ncount@to64_tb
 vDFF_16Bit
-R4
+R5
 Z17 !s110 1707261696
 !i10b 1
 !s100 WO<XN52HX4fFfQYYzo`JY0
@@ -196,8 +195,8 @@ R16
 R2
 n@d@f@f_16@bit
 vDFF_6Bit
-R4
 R5
+R4
 !i10b 1
 !s100 BkkP0zb2[]BC_4hAmA>ge1
 R6
@@ -208,7 +207,7 @@ R8
 R9
 R10
 R11
-!i122 253
+!i122 261
 L0 260 16
 R12
 r1
@@ -222,8 +221,8 @@ R16
 R2
 n@d@f@f_6@bit
 vDFF_Bit
-R4
 R5
+R4
 !i10b 1
 !s100 hPMGS__Lhjc2EXn:XPQZQ1
 R6
@@ -234,7 +233,7 @@ R8
 R9
 R10
 R11
-!i122 253
+!i122 261
 L0 243 16
 R12
 r1
@@ -248,7 +247,7 @@ R16
 R2
 n@d@f@f_@bit
 vfft
-R4
+R5
 !s110 1707261960
 !i10b 1
 !s100 1HIMk`@VL2<^Oj2H`1;fn1
@@ -273,7 +272,7 @@ R15
 R16
 R2
 vfft_tb
-R4
+R5
 Z20 !s110 1708487149
 !i10b 1
 !s100 GV1B_@T3`LY2c1lIdzYZ^1
@@ -298,7 +297,7 @@ Z26 !s90 -reportprogress|300|-work|work|fft_tb.sv|
 R16
 R2
 vImTwiddleMux
-R4
+R5
 R20
 !i10b 1
 !s100 Wm8hc4H5DjUQ9_l:0<jD41
@@ -324,7 +323,7 @@ R16
 R2
 n@im@twiddle@mux
 vregisterMux
-R4
+R5
 R20
 !i10b 1
 !s100 UKiVRGz_eTX@8HHK_F3113
@@ -350,7 +349,7 @@ R16
 R2
 nregister@mux
 vReTwiddleMux
-R4
+R5
 R20
 !i10b 1
 !s100 EXI>T;VRRi`4kkn<JcdRi2
@@ -376,8 +375,8 @@ R16
 R2
 n@re@twiddle@mux
 vStageClock
-R4
 R5
+R4
 !i10b 1
 !s100 Q`;zViL:hEX@1?H^Qe4WW2
 R6
@@ -388,7 +387,7 @@ R8
 R9
 R10
 R11
-!i122 253
+!i122 261
 L0 194 19
 R12
 r1
@@ -402,7 +401,7 @@ R16
 R2
 n@stage@clock
 vStageClock_TB
-R4
+R5
 !s110 1707256160
 !i10b 1
 !s100 i9XVZ]=2K2AB@z@>_k`B_3
@@ -428,7 +427,7 @@ R16
 R2
 n@stage@clock_@t@b
 vstageClock_tb
-R4
+R5
 !s110 1708810040
 !i10b 1
 !s100 nKm6?DmXa2D46A]k_C]I20
@@ -441,7 +440,7 @@ w1708810033
 8stageClock_tb.sv
 FstageClock_tb.sv
 !i122 238
-L0 1 39
+Z31 L0 1 39
 R12
 r1
 !s85 0
@@ -454,7 +453,7 @@ R16
 R2
 nstage@clock_tb
 vTwiddleAdder
-R4
+R5
 R17
 !i10b 1
 !s100 <ff=Y;1JFGcmNAghONn7Q1
@@ -480,8 +479,8 @@ R16
 R2
 n@twiddle@adder
 vTwiddleFactorIndex
-R4
 R5
+R4
 !i10b 1
 !s100 >S9PRfmRMZfTY`7BiknMK3
 R6
@@ -492,7 +491,7 @@ R8
 R9
 R10
 R11
-!i122 253
+!i122 261
 L0 170 13
 R12
 r1
@@ -505,3 +504,29 @@ R15
 R16
 R2
 n@twiddle@factor@index
+vtwiddleFactorIndex_tb
+R5
+R4
+!i10b 1
+!s100 YnY=hdiRj7PgNCmXg_KIe2
+R6
+I=X>EBQmazG@iX:PVAC_[23
+R7
+S1
+R8
+w1708813847
+8twiddleFactorIndex_tb.sv
+FtwiddleFactorIndex_tb.sv
+!i122 260
+R31
+R12
+r1
+!s85 0
+31
+R13
+!s107 twiddleFactorIndex_tb.sv|
+!s90 -reportprogress|300|-work|work|twiddleFactorIndex_tb.sv|
+!i113 0
+R16
+R2
+ntwiddle@factor@index_tb
