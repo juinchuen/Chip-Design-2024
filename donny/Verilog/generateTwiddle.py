@@ -8,7 +8,7 @@ def calculate_twiddle_factors(N, precision= 1/(2**(12-1))):
     twiddle_factors = [
         (
             int(round_to_nearest(cmath.exp(-2j * cmath.pi * k / N).real, precision)* 2**(NUM_BITS-1)),
-            int(round_to_nearest(cmath.exp(-2j * cmath.pi * k / N).imag, precision)* 2**(NUM_BITS-1)),
+            int(round_to_nearest(cmath.exp(-2j * cmath.pi * (k + N/2) / N).imag, precision)* 2**(NUM_BITS-1)),
         )
         for k in range(N)
     ]

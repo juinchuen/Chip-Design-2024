@@ -52,7 +52,7 @@ module Butterfly#(
   wire [15:0] imff_in [((D_WIDTH) - 1):0];
   wire [15:0] imff_out [((D_WIDTH) - 1):0];
   wire [5:0] count, stage, index2;
-  wire [15:0] twiddle_index_1, twiddle_index_2;
+  wire [5:0] twiddle_index_1_Re, twiddle_index_2_Re, twiddle_index_1_Im, twiddle_index_2_Im;
   wire [8:0] re_twiddle_curr, im_twiddle_curr, re_twiddle_other, im_twiddle_other;
   wire [15:0] curr_reg_Re, other_reg_Re, curr_reg_Im, other_reg_Im, new_Re_Curr, new_Im_Curr, new_Re_Oth, new_Im_Oth;
   wire [5:0] reverse_stage; 
@@ -64,13 +64,16 @@ module Butterfly#(
 
   CountTo64 Counter(.start(start), .stage(stage), .clk(clk), .rst(rst), .new_stage(new_stage), .out(count));
   TwiddleFactorIndex TwiddleIndex(.stage(stage), .start(start), .clk(clk), .rst(rst), .out(twiddle_index_1));
-  assign twiddle_index_2 = twiddle_index_1 + reverse_stage; 
-  //Get twiddle factor
-  ReTwiddleMux ReTwiddleMux1(.select(twiddle_index_1), .out(re_twiddle_curr));
-  ImTwiddleMux ImTwiddleMux1(.select(twiddle_index_1), .out(im_twiddle_curr));
+  assign twiddle_index_2_Im = twiddle_index_1_Im + reverse_stage; 
   
-  ReTwiddleMux ReTwiddleMux2(.select(twiddle_index_2), .out(re_twiddle_other));
-  ImTwiddleMux ImTwiddleMux2(.select(twiddle_index_2), .out(im_twiddle_other));
+  assign twiddle_index_1_Re = twiddle_index_1_Im + 'b10000; 
+  assign twiddle_index_2_Re = twiddle_index_2_Im + 'b10000;
+  //Get twiddle factor
+  ReTwiddleMux TwiddleMux(.select(twiddle_index_1_Re), .out(re_twiddle_curr));
+  ImTwiddleMux TwiddleMux(.select(twiddle_index_1_Im), .out(im_twiddle_curr));
+  
+  ReTwiddleMux TwiddleMux(.select(twiddle_index_2_Re), .out(re_twiddle_other));
+  ImTwiddleMux TwiddleMux(.select(twiddle_index_2_Im), .out(im_twiddle_other));
 
   //Get the correct Registers
   assign index2 = count + reverse_stage; 
