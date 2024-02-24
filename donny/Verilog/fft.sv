@@ -200,7 +200,7 @@ module StageClock(
 
   assign in = start & ~(|B);
 
-  DFF_Bit FF0(.D(in), .clk(clk), .rst(rst), .Q(B[5]));
+  DFF_Bit FF0(.D(shift ? in : B[5]), .clk(clk), .rst(rst), .Q(B[5]));
   DFF_Bit FF1(.D(shift ? B[5] : B[4]), .clk(clk), .rst(rst), .Q(B[4]));
   DFF_Bit FF2(.D(shift ? B[4] : B[3]), .clk(clk), .rst(rst), .Q(B[3]));
   DFF_Bit FF3(.D(shift ? B[3] : B[2]), .clk(clk), .rst(rst), .Q(B[2]));
