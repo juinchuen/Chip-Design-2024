@@ -218,7 +218,8 @@ module CountTo64(
   output wire [5:0] out
 );
   wire [5:0] reverse_stage; 
-  wire [5:0] curr, next_before, next_val;
+  wire [5:0] next_before, next_val;
+  reg [5:0] curr;
   wire [6:0] next_after;
   assign next_before = curr + 1'b1;
   assign sel = ((next_before[5] & stage[0]) | (next_before[4] & stage[1]) | (next_before[3] & stage[2]) 
@@ -227,7 +228,14 @@ module CountTo64(
   assign next_after = (sel) ? reverse_stage + next_before : next_before;
   assign new_stage = next_after[6];
   assign next_val = start ? 6'b0 : next_after[5:0];  
-  DFF_6Bit FF(.D(next_val), .clk(clk), .rst(rst), .Q(curr));
+  
+  always_ff @(negedge clk or negedge rst) begin
+    if (~rst) begin
+      curr <= 6'b0;
+    end else begin
+      curr <= next_val;
+    end
+  end
 
   assign out = curr;
 endmodule
@@ -255,14 +263,6 @@ module DFF_6Bit (
   input wire clk, rst,
   output wire [5:0] Q
 );
-  logic [5:0] data;
   
-  always_ff @(negedge clk or negedge rst) begin
-    if (~rst) begin
-      data <= 6'b0;
-    end else begin
-      data <= D;
-    end
-  end
   assign Q = data;
 endmodule
