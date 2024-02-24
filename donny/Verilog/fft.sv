@@ -262,6 +262,14 @@ module DFF_6Bit (
   input wire clk, rst,
   output wire [5:0] Q
 );
+  logic [5:0] data;
   
+  always_ff @(negedge clk or negedge rst) begin
+    if (~rst) begin
+      data <= 6'b0;
+    end else begin
+      data <= D;
+    end
+  end
   assign Q = data;
 endmodule
