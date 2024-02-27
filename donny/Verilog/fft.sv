@@ -1,27 +1,32 @@
 `include "twiddle_factor_mux.sv"
 `include "registerMux.sv"
 
-module fft ( 
-  input logic [15:0] input_sig_Re [((D_WIDTH) - 1):0],
-  input logic [15:0] input_sig_Im [((D_WIDTH) - 1):0],
-  input start, clk, rst,
-  output logic [15:0] output_sig_Re [((D_WIDTH) - 1):0],
-  output logic [15:0] output_sig_Im [((D_WIDTH) - 1):0]
+module FFT #(
+    parameter D_WIDTH = 64,
+    parameter LOG_2_WIDTH = 6
+)( 
+  input logic [15:0] input_Re [((D_WIDTH) - 1):0],
+  input logic [15:0] input_Im [((D_WIDTH) - 1):0],
+  input logic start, clk, rst,
+  output logic [15:0] output_Re [((D_WIDTH) - 1):0],
+  output logic [15:0] output_Im [((D_WIDTH) - 1):0]
   );
   wire [15:0] Re_into_butterfly [((D_WIDTH) - 1):0];
   wire [15:0] Im_into_butterfly [((D_WIDTH) - 1):0];
-  InputSignalRouter MovSignals( .input_sig_Re(input_sig_Re),
-                                .input_sig_Im(input_sig_Im), 
+  InputSignalRouter MovSignals( .input_sig_Re(input_Re),
+                                .input_sig_Im(input_Im), 
                                 .output_sig_Re(Re_into_butterfly),
                                 .output_sig_Im(Im_into_butterfly));
 
   Butterfly Butterfly(.input_Re(Re_into_butterfly),
                       .input_Im(Im_into_butterfly),
-                      .start(start) 
-                      .clk(clk)
-                      .rst(rst)
-                      .output_Re(output_sig_Re),
-                      .output_Im(output_sig_Im));
+                      .start(start), 
+                      .clk(clk),
+                      .rst(rst),
+                      .output_Re(output_Re),
+                      .output_Im(output_Im));
+
+  
 
 endmodule
 
@@ -36,8 +41,8 @@ module InputSignalRouter #(
 );
     // Correctly route the input signal
 
-    wire [15:0] fft_Re [((D_WIDTH) - 1):0];
-    wire [15:0] fft_Im [((D_WIDTH) - 1):0];
+    logic [15:0] fft_Re [((D_WIDTH) - 1):0];
+    logic [15:0] fft_Im [((D_WIDTH) - 1):0];
  generate
     for (genvar i = 0; i < D_WIDTH; i++) begin 
         int ii;
@@ -83,11 +88,11 @@ module Butterfly#(
   wire new_stage;
   assign reverse_stage = {stage[0], stage[1], stage[2], stage[3], stage[4], stage[5]};
   // Fix this to not interact with clock
-  StageClock StageCount(.start(start), .shift(new_stage), .rst(rst), .out(stage));
+  StageClock StageCount(.start(start), .shift(new_stage), .clk(clk), .rst(rst), .out(stage));
   // Might need to delay start for these two
 
   CountTo64 Counter(.start(start), .stage(stage), .clk(clk), .rst(rst), .new_stage(new_stage), .out(count));
-  TwiddleFactorIndex TwiddleIndex(.stage(stage), .start(start), .clk(clk), .rst(rst), .out(twiddle_index_1));
+  TwiddleFactorIndex TwiddleIndex(.stage(stage), .start(start), .clk(clk), .rst(rst), .out(twiddle_index_1_Re));
   assign twiddle_index_2_Im = twiddle_index_1_Im + reverse_stage; 
 
   assign twiddle_index_1_Re = twiddle_index_1_Im + 'b10000; 
@@ -150,7 +155,7 @@ endmodule
 
 module Apply_Twiddle_Curr(
     input logic [15:0] curr_reg_RE, other_reg_RE, curr_reg_IM, other_reg_IM,
-    input logic [9:0] twiddle_factorRe, twiddle_factorIm,
+    input logic [8:0] twiddle_factorRe, twiddle_factorIm,
    
     output logic [15:0] out_RE, out_IM
 );
@@ -172,7 +177,7 @@ endmodule
 
 module Apply_Twiddle_Oth(
     input logic [15:0] curr_reg_RE, other_reg_RE, curr_reg_IM, other_reg_IM,
-    input logic [9:0] twiddle_factorRe, twiddle_factorIm,
+    input logic [8:0] twiddle_factorRe, twiddle_factorIm,
    
     output logic [15:0] out_RE, out_IM
 );

@@ -117,16 +117,16 @@
 
 // endmodule
 
-module fft_tb;
+module fft_tb();
     // declare stimuli
-    reg [15:0] input_Re [63:0];
-    reg [15:0] input_Im [63:0];
-    reg start, clk, rst;
-    wire [15:0] output_Re [63:0];
-    wire [15:0] output_Im [63:0];
+    logic [15:0] input_Re [63:0];
+    logic [15:0] input_Im [63:0];
+    logic start, clk, rst;
+    logic [15:0] output_Re [63:0];
+    logic [15:0] output_Im [63:0];
 
     // instantiate uut
-    Butterfly uut(
+     FFT fft(
         .input_Re(input_Re),
         .input_Im(input_Im),
         .start(start),
@@ -147,13 +147,13 @@ module fft_tb;
         rst = 1;
 
         for (int i = 0; i < 64; i = i + 1) begin
-            input_Re[i] = 16'b0000000000000000;
-            input_Im[i] = 16'b0000000000000000;
+            input_Re[i] = 16'b0000000000000001;
+            input_Im[i] = 16'b0000000000000001;
         end
 
         #1
         start = 0;
-        #10
+        #15
         start = 1;
 
         // end simulation
