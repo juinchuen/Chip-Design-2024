@@ -1,8 +1,10 @@
 module fft_tb();
 
     logic clk, rst;
-    logic [((16 * 64) - 1) : 0] input_sig;
-    logic [((16 * 64) - 1) : 0] output_sig;
+    logic [15:0] input_sig_Re [63:0];
+    logic [15:0] input_sig_Im [63:0];
+    logic [15:0] output_sig_Re [63:0];
+    logic [15:0] output_sig_Im [63:0];
     
     
     initial begin
@@ -14,10 +16,11 @@ module fft_tb();
 
     
     for(i = 0; i < 64; i++) begin
-       input_sig[(16*i + 15) -: 16] = i;
+        input_sig_Re[i] = i;
+        input_sig_Im[i] = i;
     end
 
-    #1000
+    #100
     $finish;
     end
 
@@ -26,14 +29,16 @@ module fft_tb();
         clk = ~clk;
     end
 
-    InputSignalSorter #(
+    InputSignalRouter #(
         .D_WIDTH(64),
         .LOG_2_WIDTH(6)
     ) fft_test(
-    .input_sig(input_sig),
+    .input_sig_Re(input_sig_Re),
+    .input_sig_Im(input_sig_Im),
     .clk(clk),
     .rst(rst),
-    .output_sig(output_sig)
+    .output_sig_Re(output_sig_Re),
+    .output_sig_Im(output_sig_Im)
     );
 
 

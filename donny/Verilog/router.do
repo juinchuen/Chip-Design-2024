@@ -4,7 +4,7 @@ vmap work work
 
 
 # compile
-vlog -work work "fft_tb.sv"
+vlog -work work "router_tb.sv"
 vlog -work work "fft.sv"
 
 

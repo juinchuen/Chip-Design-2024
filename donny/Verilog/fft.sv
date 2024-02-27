@@ -4,39 +4,31 @@ module InputSignalRouter #(
     parameter D_WIDTH = 64,
     parameter LOG_2_WIDTH = 6
 ) (
-    input [15:0] input_sig_Re [((D_WIDTH) - 1):0],
-    input [15:0] input_sig_Im [((D_WIDTH) - 1):0],
+    input logic [15:0] input_sig_Re [((D_WIDTH) - 1):0],
+    input logic [15:0] input_sig_Im [((D_WIDTH) - 1):0],
     input clk, rst,
-    output [15:0] output_sig_Re [((D_WIDTH) - 1):0],
-    output [15:0] output_sig_Im [((D_WIDTH) - 1):0]
+    output logic [15:0] output_sig_Re [((D_WIDTH) - 1):0],
+    output logic [15:0] output_sig_Im [((D_WIDTH) - 1):0]
 );
     // Correctly route the input signal
 
     //wire [15:0] fft_data [((D_WIDTH) - 1):0]
+  var int ii, x;
   genvar i;
-
-generate
-  for (i = 0; i < D_WIDTH; i = i + 1) begin
-    integer x;
-    integer ii;
-
-    initial begin
-      x = i;
+  for (i = 0; i < D_WIDTH; i++) begin
       ii = 0;
-
-      for (int j = 0; j < LOG_2_WIDTH; j = j + 1) begin
-        ii = ii << 1;
-        ii = ii | (x & 1);
-        x = x >> 1;
+      x = i;
+      for (int j = 0; j < LOG_2_WIDTH; j++) begin
+          ii <<= 1;
+          ii |= (x & 1);
+          x >>= 1;
       end
-    end
-
-    assign output_sig_Re[ii] = input_sig_Re[i];
-    assign output_sig_Im[ii] = input_sig_Im[i];
+      input_sig_Re[ii] = input_sig_Re[i];
+      input_sig_Im[ii] = input_sig_Im[i];
   end
-endgenerate
 
 endmodule
+
 module Butterfly#( 
     parameter D_WIDTH = 64,
     parameter LOG_2_WIDTH = 6
@@ -69,11 +61,11 @@ module Butterfly#(
   assign twiddle_index_1_Re = twiddle_index_1_Im + 'b10000; 
   assign twiddle_index_2_Re = twiddle_index_2_Im + 'b10000;
   //Get twiddle factor
-  ReTwiddleMux TwiddleMux(.select(twiddle_index_1_Re), .out(re_twiddle_curr));
-  ImTwiddleMux TwiddleMux(.select(twiddle_index_1_Im), .out(im_twiddle_curr));
+  TwiddleMux ReTwiddleMux1(.select(twiddle_index_1_Re), .out(re_twiddle_curr));
+  TwiddleMux ImTwiddleMux1(.select(twiddle_index_1_Im), .out(im_twiddle_curr));
   
-  ReTwiddleMux TwiddleMux(.select(twiddle_index_2_Re), .out(re_twiddle_other));
-  ImTwiddleMux TwiddleMux(.select(twiddle_index_2_Im), .out(im_twiddle_other));
+  TwiddleMux ReTwiddleMux2(.select(twiddle_index_2_Re), .out(re_twiddle_other));
+  TwiddleMux ImTwiddleMux2(.select(twiddle_index_2_Im), .out(im_twiddle_other));
 
   //Get the correct Registers
   assign index2 = count + reverse_stage; 
