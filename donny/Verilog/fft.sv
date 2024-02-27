@@ -1,42 +1,66 @@
 `include "twiddle_factor_mux.sv"
 `include "registerMux.sv"
+
+module fft ( 
+  input logic [15:0] input_sig_Re [((D_WIDTH) - 1):0],
+  input logic [15:0] input_sig_Im [((D_WIDTH) - 1):0],
+  input start, clk, rst,
+  output logic [15:0] output_sig_Re [((D_WIDTH) - 1):0],
+  output logic [15:0] output_sig_Im [((D_WIDTH) - 1):0]
+  );
+  wire [15:0] Re_into_butterfly [((D_WIDTH) - 1):0];
+  wire [15:0] Im_into_butterfly [((D_WIDTH) - 1):0];
+  InputSignalRouter MovSignals( .input_sig_Re(input_sig_Re),
+                                .input_sig_Im(input_sig_Im), 
+                                .output_sig_Re(Re_into_butterfly),
+                                .output_sig_Im(Im_into_butterfly));
+
+  Butterfly Butterfly(.input_Re(Re_into_butterfly),
+                      .input_Im(Im_into_butterfly),
+                      .start(start) 
+                      .clk(clk)
+                      .rst(rst)
+                      .output_Re(output_sig_Re),
+                      .output_Im(output_sig_Im));
+
+endmodule
+
 module InputSignalRouter #(
     parameter D_WIDTH = 64,
     parameter LOG_2_WIDTH = 6
 ) (
-    input [15:0] input_sig_Re [((D_WIDTH) - 1):0],
-    input [15:0] input_sig_Im [((D_WIDTH) - 1):0],
-    input clk, rst,
-    output [15:0] output_sig_Re [((D_WIDTH) - 1):0],
-    output [15:0] output_sig_Im [((D_WIDTH) - 1):0]
+    input logic [15:0] input_sig_Re [((D_WIDTH) - 1):0],
+    input logic [15:0] input_sig_Im [((D_WIDTH) - 1):0],
+    output logic [15:0] output_sig_Re [((D_WIDTH) - 1):0],
+    output logic [15:0] output_sig_Im [((D_WIDTH) - 1):0]
 );
     // Correctly route the input signal
 
-    //wire [15:0] fft_data [((D_WIDTH) - 1):0]
-  genvar i;
+    wire [15:0] fft_Re [((D_WIDTH) - 1):0];
+    wire [15:0] fft_Im [((D_WIDTH) - 1):0];
+ generate
+    for (genvar i = 0; i < D_WIDTH; i++) begin 
+        int ii;
+        int  x;
 
-generate
-  for (i = 0; i < D_WIDTH; i = i + 1) begin
-    integer x;
-    integer ii;
-
-    initial begin
-      x = i;
-      ii = 0;
-
-      for (int j = 0; j < LOG_2_WIDTH; j = j + 1) begin
-        ii = ii << 1;
-        ii = ii | (x & 1);
-        x = x >> 1;
-      end
+        initial begin
+            x = i;
+            ii = 0;
+            for (int j = 0; j < LOG_2_WIDTH; j++) begin
+                ii <<= 1;
+                ii |= (x & 1);
+                x >>= 1;
+            end
+        end
+        assign fft_Re[i] = input_sig_Re[ii];
+        assign fft_Im[i] = input_sig_Im[ii];
     end
-
-    assign output_sig_Re[ii] = input_sig_Re[i];
-    assign output_sig_Im[ii] = input_sig_Im[i];
-  end
+    assign output_sig_Re = fft_Re;
+    assign output_sig_Im = fft_Im;
 endgenerate
 
 endmodule
+
 module Butterfly#( 
     parameter D_WIDTH = 64,
     parameter LOG_2_WIDTH = 6
@@ -69,11 +93,11 @@ module Butterfly#(
   assign twiddle_index_1_Re = twiddle_index_1_Im + 'b10000; 
   assign twiddle_index_2_Re = twiddle_index_2_Im + 'b10000;
   //Get twiddle factor
-  ReTwiddleMux TwiddleMux(.select(twiddle_index_1_Re), .out(re_twiddle_curr));
-  ImTwiddleMux TwiddleMux(.select(twiddle_index_1_Im), .out(im_twiddle_curr));
+  TwiddleMux ReTwiddleMux1(.select(twiddle_index_1_Re), .out(re_twiddle_curr));
+  TwiddleMux ImTwiddleMux1(.select(twiddle_index_1_Im), .out(im_twiddle_curr));
   
-  ReTwiddleMux TwiddleMux(.select(twiddle_index_2_Re), .out(re_twiddle_other));
-  ImTwiddleMux TwiddleMux(.select(twiddle_index_2_Im), .out(im_twiddle_other));
+  TwiddleMux ReTwiddleMux2(.select(twiddle_index_2_Re), .out(re_twiddle_other));
+  TwiddleMux ImTwiddleMux2(.select(twiddle_index_2_Im), .out(im_twiddle_other));
 
   //Get the correct Registers
   assign index2 = count + reverse_stage; 

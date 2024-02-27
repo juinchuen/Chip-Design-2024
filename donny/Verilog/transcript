@@ -11,24 +11,31 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# do twiddleFactorIndex.do
+# do router.do
 # -9
 # ** Warning: (vlib-34) Library already exists at "work".
 # Model Technology ModelSim SE-64 vmap 2020.1 Lib Mapping Utility 2020.01 Jan 28 2020
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 16:30:54 on Feb 24,2024
-# vlog -reportprogress 300 -work work twiddleFactorIndex_tb.sv 
-# -- Compiling module twiddleFactorIndex_tb
+# Start time: 19:23:53 on Feb 26,2024
+# vlog -reportprogress 300 -work work router_tb.sv 
+# -- Compiling module router_tb
 # 
 # Top level modules:
-# 	twiddleFactorIndex_tb
-# End time: 16:30:54 on Feb 24,2024, Elapsed time: 0:00:00
+# 	router_tb
+# End time: 19:23:53 on Feb 26,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 16:30:54 on Feb 24,2024
+# Start time: 19:23:53 on Feb 26,2024
 # vlog -reportprogress 300 -work work fft.sv 
+# -- Compiling module TwiddleMux
+# -- Compiling module registerMux
+# ** Warning: ** while parsing file included at fft.sv(2)
+# ** at registerMux.sv(3): (vlog-13314) Defaulting port 'regs' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# -- Compiling module InputSignalRouter
+# ** Warning: fft.sv(7): (vlog-13314) Defaulting port 'input_sig_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: fft.sv(8): (vlog-13314) Defaulting port 'input_sig_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling module Butterfly
 # -- Compiling module Apply_Twiddle_Curr
 # -- Compiling module Apply_Twiddle_Oth
@@ -39,17 +46,17 @@
 # -- Compiling module DFF_6Bit
 # 
 # Top level modules:
+# 	InputSignalRouter
 # 	Butterfly
-# End time: 16:30:54 on Feb 24,2024, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.twiddleFactorIndex_tb -wlf twiddleFactorIndex_tb.wlf 
-# Start time: 16:30:54 on Feb 24,2024
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# End time: 19:23:53 on Feb 26,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 3
+# vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.router_tb -wlf router_tb.wlf 
+# Start time: 19:23:54 on Feb 26,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt
 # Loading sv_std.std
-# Loading work.twiddleFactorIndex_tb(fast)
-# Loading work.TwiddleFactorIndex(fast)
-# Loading work.DFF_6Bit(fast)
-# ** Note: $finish    : twiddleFactorIndex_tb.sv(36)
-#    Time: 1015 ns  Iteration: 0  Instance: /twiddleFactorIndex_tb
+# Loading work.router_tb(fast)
+# Loading work.InputSignalRouter(fast)
+# ** Note: $finish    : router_tb.sv(25)
+#    Time: 110 ns  Iteration: 0  Instance: /router_tb
 # 1
-# Break in Module twiddleFactorIndex_tb at twiddleFactorIndex_tb.sv line 36
+# Break in Module router_tb at router_tb.sv line 25

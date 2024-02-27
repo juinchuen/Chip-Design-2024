@@ -147,7 +147,7 @@ module fft_tb;
         rst = 1;
 
         for (int i = 0; i < 64; i = i + 1) begin
-            input_Re[i] = 16'b0000000000000001;
+            input_Re[i] = 16'b0000000000000000;
             input_Im[i] = 16'b0000000000000000;
         end
 
