@@ -18,16 +18,16 @@
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 17:54:18 on Feb 24,2024
+# Start time: 19:23:53 on Feb 26,2024
 # vlog -reportprogress 300 -work work router_tb.sv 
-# -- Compiling module fft_tb
+# -- Compiling module router_tb
 # 
 # Top level modules:
-# 	fft_tb
-# End time: 17:54:18 on Feb 24,2024, Elapsed time: 0:00:00
+# 	router_tb
+# End time: 19:23:53 on Feb 26,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 17:54:18 on Feb 24,2024
+# Start time: 19:23:53 on Feb 26,2024
 # vlog -reportprogress 300 -work work fft.sv 
 # -- Compiling module TwiddleMux
 # -- Compiling module registerMux
@@ -36,12 +36,27 @@
 # -- Compiling module InputSignalRouter
 # ** Warning: fft.sv(7): (vlog-13314) Defaulting port 'input_sig_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: fft.sv(8): (vlog-13314) Defaulting port 'input_sig_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
-# ** Error: (vlog-13069) fft.sv(19): near "=": syntax error, unexpected '='.
-# ** Error: fft.sv(19): (vlog-13205) Syntax error found in the scope following 'ii'. Is there a missing '::'?
-# End time: 17:54:18 on Feb 24,2024, Elapsed time: 0:00:00
-# Errors: 2, Warnings: 3
-# ** Error: /vol/mentor/modelsim-2020.1/modeltech/linux_x86_64/vlog failed.
-# Error in macro ./router.do line 8
-# /vol/mentor/modelsim-2020.1/modeltech/linux_x86_64/vlog failed.
-#     while executing
-# "vlog -work work "fft.sv""
+# -- Compiling module Butterfly
+# -- Compiling module Apply_Twiddle_Curr
+# -- Compiling module Apply_Twiddle_Oth
+# -- Compiling module TwiddleFactorIndex
+# -- Compiling module StageClock
+# -- Compiling module CountTo64
+# -- Compiling module DFF_Bit
+# -- Compiling module DFF_6Bit
+# 
+# Top level modules:
+# 	InputSignalRouter
+# 	Butterfly
+# End time: 19:23:53 on Feb 26,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 3
+# vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.router_tb -wlf router_tb.wlf 
+# Start time: 19:23:54 on Feb 26,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Loading sv_std.std
+# Loading work.router_tb(fast)
+# Loading work.InputSignalRouter(fast)
+# ** Note: $finish    : router_tb.sv(25)
+#    Time: 110 ns  Iteration: 0  Instance: /router_tb
+# 1
+# Break in Module router_tb at router_tb.sv line 25

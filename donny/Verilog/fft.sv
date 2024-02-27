@@ -1,31 +1,63 @@
 `include "twiddle_factor_mux.sv"
 `include "registerMux.sv"
+
+module fft ( 
+  input logic [15:0] input_sig_Re [((D_WIDTH) - 1):0],
+  input logic [15:0] input_sig_Im [((D_WIDTH) - 1):0],
+  input start, clk, rst,
+  output logic [15:0] output_sig_Re [((D_WIDTH) - 1):0],
+  output logic [15:0] output_sig_Im [((D_WIDTH) - 1):0]
+  );
+  wire [15:0] Re_into_butterfly [((D_WIDTH) - 1):0];
+  wire [15:0] Im_into_butterfly [((D_WIDTH) - 1):0];
+  InputSignalRouter MovSignals( .input_sig_Re(input_sig_Re),
+                                .input_sig_Im(input_sig_Im), 
+                                .output_sig_Re(Re_into_butterfly),
+                                .output_sig_Im(Im_into_butterfly));
+
+  Butterfly Butterfly(.input_Re(Re_into_butterfly),
+                      .input_Im(Im_into_butterfly),
+                      .start(start) 
+                      .clk(clk)
+                      .rst(rst)
+                      .output_Re(output_sig_Re),
+                      .output_Im(output_sig_Im));
+
+endmodule
+
 module InputSignalRouter #(
     parameter D_WIDTH = 64,
     parameter LOG_2_WIDTH = 6
 ) (
     input logic [15:0] input_sig_Re [((D_WIDTH) - 1):0],
     input logic [15:0] input_sig_Im [((D_WIDTH) - 1):0],
-    input clk, rst,
     output logic [15:0] output_sig_Re [((D_WIDTH) - 1):0],
     output logic [15:0] output_sig_Im [((D_WIDTH) - 1):0]
 );
     // Correctly route the input signal
 
-    //wire [15:0] fft_data [((D_WIDTH) - 1):0]
-  var int ii, x;
-  genvar i;
-  for (i = 0; i < D_WIDTH; i++) begin
-      ii = 0;
-      x = i;
-      for (int j = 0; j < LOG_2_WIDTH; j++) begin
-          ii <<= 1;
-          ii |= (x & 1);
-          x >>= 1;
-      end
-      input_sig_Re[ii] = input_sig_Re[i];
-      input_sig_Im[ii] = input_sig_Im[i];
-  end
+    wire [15:0] fft_Re [((D_WIDTH) - 1):0];
+    wire [15:0] fft_Im [((D_WIDTH) - 1):0];
+ generate
+    for (genvar i = 0; i < D_WIDTH; i++) begin 
+        int ii;
+        int  x;
+
+        initial begin
+            x = i;
+            ii = 0;
+            for (int j = 0; j < LOG_2_WIDTH; j++) begin
+                ii <<= 1;
+                ii |= (x & 1);
+                x >>= 1;
+            end
+        end
+        assign fft_Re[i] = input_sig_Re[ii];
+        assign fft_Im[i] = input_sig_Im[ii];
+    end
+    assign output_sig_Re = fft_Re;
+    assign output_sig_Im = fft_Im;
+endgenerate
 
 endmodule
 
