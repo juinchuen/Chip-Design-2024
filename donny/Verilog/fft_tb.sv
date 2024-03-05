@@ -147,16 +147,24 @@ module fft_tb();
         rst = 1;
 
         for (int i = 0; i < 64; i = i + 1) begin
-            input_Re[i] = 16'b0000000000000001;
-            input_Im[i] = 16'b0000000000000001;
+            if ((i % 2) == 0) begin
+                input_Re[i] = 16'b0000000000100000;
+            end else begin
+                input_Re[i] = 16'b0000000000000000;
+            end
+            input_Im[i] = 16'b0000000000000000;
         end
-
         #1
-        start = 0;
-        #15
         start = 1;
+        #12
+        start = 0;
 
         // end simulation
-        #1000 $finish;
+
+        #2000 
+        for (int i = 0; i < 64; i = i + 1) begin
+            $display("output_Re[%0d] = %0d", i, output_Re[i]);
+        end
+        $finish;
     end
 endmodule
