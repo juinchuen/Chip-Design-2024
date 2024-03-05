@@ -1,122 +1,3 @@
-// module fft_tb();
-
-//     logic clk, rst;
-//     logic [((16 * 64) - 1) : 0] input_sig;
-//     logic [((16 * 64) - 1) : 0] output_sig;
-    
-    
-//     initial begin
-//     integer i;
-//     clk = 0;
-//     rst = 1;
-//     #5 rst  = 0;
-//     #5 rst  = 1;
-
-    
-//     for(i = 0; i < 64; i++) begin
-//        input_sig[(16*i + 15) -: 16] = i;
-//     end
-
-//     #1000
-//     $finish;
-//     end
-
-//     always begin
-//         #5
-//         clk = ~clk;
-//     end
-
-//     InputSignalSorter #(
-//         .D_WIDTH(64),
-//         .LOG_2_WIDTH(6)
-//     ) fft_test(
-//     .input_sig(input_sig),
-//     .clk(clk),
-//     .rst(rst),
-//     .output_sig(output_sig)
-//     );
-
-
-   
-// endmodule
-
-// module fft_tb();
-//     logic start, clk, rst;
-//     wire out;
-//     CountTo64 CountTo64TB(.start(start), .clk(clk), .rst(rst), .out(out));
-
-//     initial begin
-//         clk = 0;
-//         start = 0;
-//         rst  = 0;
-//         #5 rst  = 1;
-//         #15 start = 1;
-//         #10 start = 0;
-//         #1000
-//         $finish;
-//     end
-
-//     always begin
-//         #5
-//         clk = ~clk;
-//     end
-
-// endmodule
-
-
-
-//     logic start, clk, rst;
-//     wire [4:0] out;
-
-//     StageClock StageClockTest(.start(start), .shift(clk), .rst(rst), .out(out));
-
-//     initial begin
-//         clk = 0;
-//         rst  = 0;
-//         start = 0;
-//         #5 rst  = 1;
-//         #10 start = 1;
-//         #10 start = 0;
-//         #100 start = 1;
-//         #30 start = 0;
-//         #100
-//         $finish;
-//     end
-
-//     always begin
-//         #5
-//         clk = ~clk;
-//     end
-
-// endmodule
-
-
-// module fft_tb();
-//     logic [5:0] twiddle;
-//     logic start, clk, rst;
-//     wire [5:0] out;
-//     TwiddleFactorIndex TwiddleFactorIndexTB(.stage(twiddle), .start(start), .clk(clk), .rst(rst), .out(out));
-
-//     initial begin
-//         twiddle = 32;
-//         clk = 0;
-//         start = 0;
-//         rst  = 0;
-//         #5 rst  = 1; start = 1;
-//         #10 start = 0;
-//         #60 twiddle = 4; start = 1;
-//         #10 start = 0;
-//         #1000
-//         $finish;
-//     end
-
-//     always begin
-//         #5
-//         clk = ~clk;
-//     end
-
-// endmodule
-
 module fft_tb();
     // declare stimuli
     logic [15:0] input_Re [63:0];
@@ -139,6 +20,12 @@ module fft_tb();
     // clock gen
     always #5 clk = ~clk;
 
+    int file;
+    bit [15:0] value_Re, value_Im;
+    string filename = "data.csv";
+    bit [15:0] input_Re[64];
+    bit [15:0] input_Im[64];
+
     // begin simulation
     initial begin
         clk = 0;
@@ -146,17 +33,76 @@ module fft_tb();
         #5
         rst = 1;
 
-        for (int i = 0; i < 64; i = i + 1) begin
-            input_Re[i] = 16'b0000000000000001;
-            input_Im[i] = 16'b0000000000000001;
+        file = $fopen(filename, "r");
+        if (file == 0) begin
+            $display("Failed to open %s", filename);
+            $finish;
         end
+
+        for (int i = 0; i < 64; i = i + 1) begin
+            if ($feof(file)) begin
+                $display("End of file reached before reading 64 entries");
+                $finish;
+            end
+
+            if ($fscanf(file, "%b,%b\n", value_Re, value_Im) != 2) begin
+                $display("Error reading line %d from the file.", i+1);
+                $finish;
+            end
+
+            input_Re[i] = value_Re;
+            input_Im[i] = value_Im;
+        end
+
+        $fclose(file);
 
         #1
         start = 0;
         #15
         start = 1;
+        #15
+        start = 0;
 
-        // end simulation
-        #1000 $finish;
+        // wait 1000 time units
+        #1000
+
+        file = $fopen("fft_output.csv", "r");
+        if (file == 0) begin
+            $display("Failed to open fft_output.csv");
+            $finish;
+        end
+
+        // Read and compare each line of the expected output
+        for (i = 0; i < 64; i = i + 1) begin
+            if ($feof(file)) begin
+                $display("End of file reached before 64 comparisons");
+                break;
+            end
+
+            // Read a line from the CSV and parse the expected values
+            if ($fscanf(file, "%b,%b\n", expected_Re, expected_Im) != 2) begin
+                $display("Error reading line %d from fft_output.csv", i+1);
+                break;
+            end
+
+            // Compare the module output with the expected values
+            if (output_Re[i] !== expected_Re || output_Im[i] !== expected_Im) begin
+                $display("Mismatch at index %d: Expected (%b, %b), Got (%b, %b)",
+                         i, expected_Re, expected_Im, output_Re[i], output_Im[i]);
+                errors = errors + 1;
+            end
+        end
+
+        // Report the comparison result
+        if (errors == 0) begin
+            $display("All FFT outputs matched the expected values.");
+        end else begin
+            $display("%d mismatches found between FFT outputs and expected values.", errors);
+        end
+
+        // Close the file
+        $fclose(file);
+
+        $finish;
     end
 endmodule
