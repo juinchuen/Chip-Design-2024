@@ -2,7 +2,7 @@ module fft_tb();
     // declare stimuli
     logic [15:0] input_Re [63:0];
     logic [15:0] input_Im [63:0];
-    logic start, clk, rst;
+    logic start, clk, rst, ifft;
     logic [15:0] output_Re [63:0];
     logic [15:0] output_Im [63:0];
 
@@ -13,6 +13,7 @@ module fft_tb();
         .start(start),
         .clk(clk),
         .rst(rst),
+        .ifft(ifft),
         .output_Re(output_Re),
         .output_Im(output_Im)
     );
@@ -30,6 +31,7 @@ module fft_tb();
         rst = 0;
         #5
         rst = 1;
+        ifft = 0;
 
         // open data.csv and load into the fft module
         file = $fopen(filename, "r");
