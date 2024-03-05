@@ -33,6 +33,7 @@ module fft_tb();
         #5
         rst = 1;
 
+        // open data.csv and load into the fft module
         file = $fopen(filename, "r");
         if (file == 0) begin
             $display("Failed to open %s", filename);
@@ -66,6 +67,7 @@ module fft_tb();
         // wait 1000 time units
         #1000
 
+        // open the python-generated output and compare
         file = $fopen("fft_output.csv", "r");
         if (file == 0) begin
             $display("Failed to open fft_output.csv");
