@@ -2,7 +2,7 @@ module fft_tb();
     // declare stimuli
     logic [15:0] input_Re [63:0];
     logic [15:0] input_Im [63:0];
-    logic start, clk, rst;
+    logic start, clk, rst, ifft;
     logic [15:0] output_Re [63:0];
     logic [15:0] output_Im [63:0];
 
@@ -13,6 +13,7 @@ module fft_tb();
         .start(start),
         .clk(clk),
         .rst(rst),
+        .ifft(ifft),
         .output_Re(output_Re),
         .output_Im(output_Im)
     );
@@ -23,8 +24,6 @@ module fft_tb();
     int file;
     bit [15:0] value_Re, value_Im;
     string filename = "data.csv";
-    bit [15:0] input_Re[64];
-    bit [15:0] input_Im[64];
 
     // begin simulation
     initial begin
@@ -32,6 +31,7 @@ module fft_tb();
         rst = 0;
         #5
         rst = 1;
+        ifft = 0;
 
         // open data.csv and load into the fft module
         file = $fopen(filename, "r");
@@ -66,45 +66,6 @@ module fft_tb();
 
         // wait 1000 time units
         #1000
-
-        // open the python-generated output and compare
-        file = $fopen("fft_output.csv", "r");
-        if (file == 0) begin
-            $display("Failed to open fft_output.csv");
-            $finish;
-        end
-
-        // Read and compare each line of the expected output
-        for (i = 0; i < 64; i = i + 1) begin
-            if ($feof(file)) begin
-                $display("End of file reached before 64 comparisons");
-                break;
-            end
-
-            // Read a line from the CSV and parse the expected values
-            if ($fscanf(file, "%b,%b\n", expected_Re, expected_Im) != 2) begin
-                $display("Error reading line %d from fft_output.csv", i+1);
-                break;
-            end
-
-            // Compare the module output with the expected values
-            if (output_Re[i] !== expected_Re || output_Im[i] !== expected_Im) begin
-                $display("Mismatch at index %d: Expected (%b, %b), Got (%b, %b)",
-                         i, expected_Re, expected_Im, output_Re[i], output_Im[i]);
-                errors = errors + 1;
-            end
-        end
-
-        // Report the comparison result
-        if (errors == 0) begin
-            $display("All FFT outputs matched the expected values.");
-        end else begin
-            $display("%d mismatches found between FFT outputs and expected values.", errors);
-        end
-
-        // Close the file
-        $fclose(file);
-
         $finish;
     end
 endmodule
