@@ -3,7 +3,7 @@ vlib work
 vmap work work
 
 # compile
-vlog -work work "tb/fir_tb.sv"
+vlog -work work "tb/fir_tb_1.sv"
 vlog -work work "fir.sv"
 
 vsim -classdebug -voptargs=+acc +notimingchecks -L work work.fir_tb -wlf fir_tb.wlf
