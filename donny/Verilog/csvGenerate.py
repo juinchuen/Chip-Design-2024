@@ -10,7 +10,7 @@ with open(filename, 'w', newline='') as csvfile:
     csvwriter = csv.writer(csvfile)
 
     # Data to be written: 64 lines of random 16-bit binary values and zeros
-    data = [(format(random.randint(0, 0xFF), '016b'), '0000000000000000') for _ in range(64)]
+    data = [(format(random.randint(0, 0xF), '016b'), '0000000000000000') for _ in range(64)]
 
     # Write data to the CSV file
     csvwriter.writerows(data)
