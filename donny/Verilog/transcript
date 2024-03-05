@@ -18,16 +18,16 @@
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 20:34:04 on Feb 26,2024
+# Start time: 19:17:22 on Mar 04,2024
 # vlog -reportprogress 300 -work work fft_tb.sv 
 # -- Compiling module fft_tb
 # 
 # Top level modules:
 # 	fft_tb
-# End time: 20:34:04 on Feb 26,2024, Elapsed time: 0:00:00
+# End time: 19:17:22 on Mar 04,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 20:34:04 on Feb 26,2024
+# Start time: 19:17:22 on Mar 04,2024
 # vlog -reportprogress 300 -work work fft.sv 
 # -- Compiling module TwiddleMux
 # -- Compiling module registerMux
@@ -37,11 +37,10 @@
 # ** Warning: fft.sv(8): (vlog-13314) Defaulting port 'input_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: fft.sv(9): (vlog-13314) Defaulting port 'input_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling module InputSignalRouter
-# ** Warning: fft.sv(37): (vlog-13314) Defaulting port 'input_sig_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
-# ** Warning: fft.sv(38): (vlog-13314) Defaulting port 'input_sig_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: fft.sv(35): (vlog-13314) Defaulting port 'input_sig_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: fft.sv(36): (vlog-13314) Defaulting port 'input_sig_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling module Butterfly
-# -- Compiling module Apply_Twiddle_Curr
-# -- Compiling module Apply_Twiddle_Oth
+# -- Compiling module Apply_Twiddle
 # -- Compiling module TwiddleFactorIndex
 # -- Compiling module StageClock
 # -- Compiling module CountTo64
@@ -50,11 +49,11 @@
 # 
 # Top level modules:
 # 	FFT
-# End time: 20:34:04 on Feb 26,2024, Elapsed time: 0:00:00
+# End time: 19:17:22 on Mar 04,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 5
 # vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.fft_tb -wlf fft_tb.wlf 
-# Start time: 20:34:05 on Feb 26,2024
-# ** Note: (vsim-8009) Loading existing optimized design _opt2
+# Start time: 19:17:22 on Mar 04,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # Loading sv_std.std
 # Loading work.fft_tb(fast)
 # Loading work.FFT(fast)
@@ -67,12 +66,72 @@
 # Loading work.DFF_6Bit(fast)
 # Loading work.TwiddleMux(fast)
 # Loading work.registerMux(fast)
-# Loading work.Apply_Twiddle_Curr(fast)
-# Loading work.Apply_Twiddle_Oth(fast)
-# ** UI-Msg: (vish-4014) No objects found matching 'fft_tb/fft/Butterfly'.
-# Error in macro ./fft_tb.do line 16
-# ** UI-Msg: (vish-4014) No objects found matching 'fft_tb/fft/Butterfly'.
-#     while executing
-# "add wave -noupdate -group TOP -radix binary fft_tb/fft/Butterfly"
-# End time: 20:34:15 on Feb 26,2024, Elapsed time: 0:00:10
-# Errors: 0, Warnings: 0
+# Loading work.Apply_Twiddle(fast)
+# output_Re[0] = 988
+# output_Re[1] = 0
+# output_Re[2] = 0
+# output_Re[3] = 0
+# output_Re[4] = 0
+# output_Re[5] = 0
+# output_Re[6] = 0
+# output_Re[7] = 0
+# output_Re[8] = 0
+# output_Re[9] = 0
+# output_Re[10] = 0
+# output_Re[11] = 0
+# output_Re[12] = 0
+# output_Re[13] = 0
+# output_Re[14] = 0
+# output_Re[15] = 0
+# output_Re[16] = 65535
+# output_Re[17] = 0
+# output_Re[18] = 0
+# output_Re[19] = 0
+# output_Re[20] = 0
+# output_Re[21] = 0
+# output_Re[22] = 0
+# output_Re[23] = 0
+# output_Re[24] = 0
+# output_Re[25] = 0
+# output_Re[26] = 0
+# output_Re[27] = 0
+# output_Re[28] = 0
+# output_Re[29] = 0
+# output_Re[30] = 0
+# output_Re[31] = 0
+# output_Re[32] = 64547
+# output_Re[33] = 0
+# output_Re[34] = 0
+# output_Re[35] = 0
+# output_Re[36] = 0
+# output_Re[37] = 0
+# output_Re[38] = 0
+# output_Re[39] = 0
+# output_Re[40] = 0
+# output_Re[41] = 0
+# output_Re[42] = 0
+# output_Re[43] = 0
+# output_Re[44] = 0
+# output_Re[45] = 0
+# output_Re[46] = 0
+# output_Re[47] = 0
+# output_Re[48] = 0
+# output_Re[49] = 0
+# output_Re[50] = 0
+# output_Re[51] = 0
+# output_Re[52] = 0
+# output_Re[53] = 0
+# output_Re[54] = 0
+# output_Re[55] = 0
+# output_Re[56] = 0
+# output_Re[57] = 0
+# output_Re[58] = 0
+# output_Re[59] = 0
+# output_Re[60] = 0
+# output_Re[61] = 0
+# output_Re[62] = 0
+# output_Re[63] = 0
+# ** Note: $finish    : fft_tb.sv(168)
+#    Time: 2018 ns  Iteration: 0  Instance: /fft_tb
+# 1
+# Break in Module fft_tb at fft_tb.sv line 168
