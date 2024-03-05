@@ -23,8 +23,6 @@ module fft_tb();
     int file;
     bit [15:0] value_Re, value_Im;
     string filename = "data.csv";
-    bit [15:0] input_Re[64];
-    bit [15:0] input_Im[64];
 
     // begin simulation
     initial begin
@@ -75,6 +73,7 @@ module fft_tb();
         end
 
         // Read and compare each line of the expected output
+        int i;
         for (i = 0; i < 64; i = i + 1) begin
             if ($feof(file)) begin
                 $display("End of file reached before 64 comparisons");
