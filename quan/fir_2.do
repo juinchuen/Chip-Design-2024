@@ -11,5 +11,6 @@ vsim -classdebug -voptargs=+acc +notimingchecks -L work work.fir_tb -wlf fir_tb.
 # wave
 add wave -noupdate -group TOP -radix binary fir_tb/*
 add wave -noupdate -group UUT -radix decimal fir_tb/UUT/*
+add wave -noupdate -group UUT -radix decimal fir_tb/UUT/sd/*
 
 run -all
