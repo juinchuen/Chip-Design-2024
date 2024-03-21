@@ -1,9 +1,6 @@
 /*
 	- Push 1-16 to d0-d15
 	- Push 1-16 to w0-w15
-	- Input in_valid is set 1 cycle after the last data is pushed
-	- Input in_valid should be clear 6 cycles after being set
-	- Output out_valid is set 8 cycles after in_valid is set
 */
 
 module fir_tb ();

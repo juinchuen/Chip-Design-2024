@@ -1,7 +1,6 @@
 /*
 	- Push 1-16 for d0-d15
 	- Push all 1 to w0-w15
-	- The out signal should be 136 8 cycles after in_valid is set to 1 
 */
 
 module fir_tb ();
