@@ -1,3 +1,11 @@
+/*
+	- The data shift registers (d0 - d15) is shifted with value of "data" if "load" is set high. 
+	- The weight shift registers (w0 - w15) is shifted with value of "data" if "wind" is set high.
+  - The input "in_valid" should be set high 1 cycle after the last data is shifted.
+  - After "in_valid" is set high, the pipeline is started.
+  - Output "out_valid" is set 8 cycles after "in_valid" is set
+*/
+
 module fir (
   input logic clk,
   input logic rst,
