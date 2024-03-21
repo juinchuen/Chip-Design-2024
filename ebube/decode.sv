@@ -1,103 +1,49 @@
-`timescale 1ns/10ps
+module decode #(
+    parameter data_width = 16,
+    parameter encoding_width = 21
+) (
+    input logic                         clk,
+    input logic                         rstb,
 
-module parity(
-    input logic clk, 
-    input logic rstb, 
-    input logic [31:0] n, 
-    input logic [31:0] arr[],
-    output logic [31:0] parity
+    input logic [encoding_width-1:0]    encoded_data,
+
+    output logic [data_width-1:0]       decoded_data,
+    output logic                        valid
 );
-    logic [31:0] p = 0;
-	logic [31:0] iter = 0;
-	logic [31:0] iter2 = 0;
 
-	always_ff @(negedge clk or negedge rstb) begin
-		// reset vars
-		if (!rstb) begin
-			p <= 0;
-			iter <= 0;
-			iter2 <= 0;
-			parity <= 0;
-		end else if (negedge clk) begin
-			if (iter < n) begin
-				if (iter != ((1 << p) - 1)) begin
-					p <= p + 1;
-				end else begin
-					p <= p + 1;
-					iter <= iter + (1 << p) - 2;
-				end
-			end
+    reg [encoding_width-1:0]    corrected;
+    reg [data_width-1:0]        decoded_comb;
+    reg [4:0]                   syndrome;
+    reg                         flipped;
 
-			if (iter2 < n) begin
-				if ((iter & ((1 << p) - 1)) == 0) begin
-					parity = parity ^ arr[iter];
-				end
-				iter2 <= iter2 + 1;
-			end
-		end
-	end
-endmodule
+    always_comb begin
+        // calculate the syndrome
+        syndrome[0] = encoded_data[0] ^ encoded_data[2] ^ encoded_data[4] ^ encoded_data[6] ^ encoded_data[8] ^ encoded_data[10] ^ encoded_data[12] ^ encoded_data[14] ^ encoded_data[16] ^ encoded_data[18] ^ encoded_data[20];
+        syndrome[1] = encoded_data[1] ^ encoded_data[2] ^ encoded_data[5] ^ encoded_data[6] ^ encoded_data[9] ^ encoded_data[10] ^ encoded_data[13] ^ encoded_data[14] ^ encoded_data[17] ^ encoded_data[18];
+        syndrome[2] = encoded_data[3] ^ encoded_data[4] ^ encoded_data[5] ^ encoded_data[6] ^ encoded_data[11] ^ encoded_data[12] ^ encoded_data[13] ^ encoded_data[14] ^ encoded_data[19] ^ encoded_data[20];
+        syndrome[3] = encoded_data[7] ^ encoded_data[8] ^ encoded_data[9] ^ encoded_data[10] ^ encoded_data[11] ^ encoded_data[12] ^ encoded_data[13] ^ encoded_data[14];
+        syndrome[4] = encoded_data[15] ^ encoded_data[16] ^ encoded_data[17] ^ encoded_data[18] ^ encoded_data[19] ^ encoded_data[20];
 
-module decode (
-	input logic clk, 
-    input logic rstb, 
-	input logic [31:0] n,
-	input logic [31:0] received[],
-	output logic no_error,
-	output logic [31:0] data[],
-);
-	logic [31:0] r = 0;
-	logic [31:0] iter = 0;
-	logic [31:0] d_iter = 0;
-	logic [31:0] tmp_e = 0;
-	logic [31:0] parity_bits;
+        // check if any of the syndrome values is not null
+        flipped = |syndrome == 0 ? encoded_data[syndrome-1] : ~encoded_data[syndrome-1];
+        corrected = encoded_data;
+        corrected[syndrome-1] = flipped;
 
-	always_ff @(negedge clk or negedge rstb) begin
-		if (!rstb) begin
-			r <= 0;
-			tmp_e <= 0;
-			d_iter <= 0;
-			
-		end else if (negedge clk) begin
-			// find R
-			if ((1 << r) < (n + r + 1)) begin
-				r <= r + 1;
-			end
+        // get the decoded data
+        decoded_comb = {corrected[20:16], corrected[14:8], corrected[6:4], corrected[2]};
 
-			// checking for errors
-			for (iter = 0; iter < r; iter = iter + 1) begin
-				// get parity bits
-				parity p_inst(
-					.clk(clk), 
-					.rstb(rstb), 
-					.n(n+r), 
-					.arr(received),
-					.parity(parity_bits)
-				);
+    end
+    
+    always_ff @ (negedge clk or negedge rstb) begin
+        if (!rstb) begin
+            decoded_data <= 0;
+            valid <= 0;
+        end else begin
+            // clock the results
+            decoded_data <= decoded_comb;
+            valid <= 1;
+        end
+    end
 
-				// compare received data to expected data -> return error index
-				if (parity_bits != received[(1 << iter) - 1]) begin
-					tmp_e = tmp_e + (1 << iter) - 1
-				end
-			end
-
-			// error correction: flip offending bit
-			corr_received = received;
-			if (tmp_e != 0) begin
-				corr_received[tmp_e - 1] <= corr_received[tmp_e - 1] ^ 1;
-			end
-
-			// remove the parity values
-			d_iter = 0;
-			for (iter = 0; iter < (n + r); iter = iter + 1) begin
-				if ((iter & (iter + 1)) != 0) begin
-					data[d_iter] <= corr_received[iter];
-					d_iter <= d_iter + 1;
-				end
-			end
-		end
-	end
-
-	// Confirm there were no errors
-	assign no_error = (tmp_e == 0);
+    
 endmodule
