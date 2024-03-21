@@ -1,9 +1,7 @@
 /*
 	- Push 1-16 for d0-d15
 	- Push all 1 to w0-w15
-	- Input in_valid is set 1 cycle after the last data is pushed
-	- Input in_valid should be clear 6 cycles after being set
-	- Output out_valid is set 8 cycles after in_valid is set
+	- The out signal should be 136 8 cycles after in_valid is set to 1 
 */
 
 module fir_tb ();
@@ -109,7 +107,7 @@ always begin
 end
 
 initial begin
-	#(CLK_PERIOD * 1000)
+	#(CLK_PERIOD * 60)
 	$finish;
 end
 

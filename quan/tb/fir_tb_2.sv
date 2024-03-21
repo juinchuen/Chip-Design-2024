@@ -155,7 +155,7 @@ always begin
 end
 
 initial begin
-	#(CLK_PERIOD * 1000)
+	#(CLK_PERIOD * 60)
 	$finish;
 end
 
