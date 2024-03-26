@@ -10,10 +10,10 @@ z2
 cModel Technology
 Z0 d/home/dcc3637/ASIC_Project
 T_opt1
-Z1 !s110 1711474068
-V>Z>CPB[oBPmo1gXPYjA^z0
+Z1 !s110 1711486309
+VoPeP7oCVn2iNJSHQ^NBmf2
 Z2 04 6 4 work fft_tb fast 0
-=1-b49691574b56-66030594-70501-40dd6
+=1-b49691574b56-66033565-6d528-790e0
 Z3 o-quiet -auto_acc_if_foreign -work work -L work +acc
 Z4 tCvgOpt 0
 n@_opt1
@@ -32,22 +32,22 @@ vApply_Twiddle
 Z6 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
 R1
 !i10b 1
-!s100 BdaZTOc9YnXCWE6KkN2`j0
+!s100 W>_3UOE^LAe0AIQjD:`UK1
 Z7 !s11b Dg1SIo80bB@j0V0VzS_@n1
-INKBiODo]]]F6VjHhb48`o2
+I[ah29Ueo1^Pg1do1Eg[3Z1
 Z8 VDg1SIo80bB@j0V0VzS_@n1
 S1
 Z9 d/home/dcc3637/ASIC_Github/Chip-Design-2024/donny/Verilog
-Z10 w1711474014
+Z10 w1711485964
 Z11 8fft.sv
 Z12 Ffft.sv
-!i122 633
+!i122 657
 L0 159 30
 Z13 OL;L;2020.1;71
 r1
 !s85 0
 31
-Z14 !s108 1711474068.000000
+Z14 !s108 1711486309.000000
 Z15 !s107 registerMux.sv|twiddle_factor_mux.sv|fft.sv|
 Z16 !s90 -reportprogress|300|-work|work|fft.sv|
 !i113 0
@@ -110,16 +110,16 @@ vButterfly
 R6
 R1
 !i10b 1
-!s100 HN@ZO57InkJBWQ@PELhY;2
+!s100 ^30kV:KY`zjElmgUSmh@i2
 R7
-IENZ<Kd;Gcci5GFiZYL0?f2
+IcFGeDYWn`BShi[V[WIbn12
 R8
 S1
 R9
 R10
 R11
 R12
-!i122 633
+!i122 657
 L0 68 89
 R13
 r1
@@ -145,7 +145,7 @@ R9
 R10
 R11
 R12
-!i122 633
+!i122 657
 L0 266 28
 R13
 r1
@@ -223,7 +223,7 @@ R9
 R10
 R11
 R12
-!i122 633
+!i122 657
 L0 312 16
 R13
 r1
@@ -249,7 +249,7 @@ R9
 R10
 R11
 R12
-!i122 633
+!i122 657
 L0 295 16
 R13
 r1
@@ -275,7 +275,7 @@ R9
 R10
 R11
 R12
-!i122 633
+!i122 657
 L0 4 27
 R13
 r1
@@ -326,13 +326,13 @@ R9
 w1711470041
 Z22 8fft_tb.sv
 Z23 Ffft_tb.sv
-!i122 632
+!i122 656
 L0 73 53
 R13
 r1
 !s85 0
 31
-!s108 1711474067.000000
+!s108 1711486308.000000
 Z24 !s107 fft_tb.sv|
 Z25 !s90 -reportprogress|300|-work|work|fft_tb.sv|
 !i113 0
@@ -377,7 +377,7 @@ R9
 R10
 R11
 R12
-!i122 633
+!i122 657
 L0 32 35
 R13
 r1
@@ -403,7 +403,7 @@ R9
 w1711424139
 8registerMux.sv
 FregisterMux.sv
-!i122 633
+!i122 657
 Z32 L0 1 79
 R13
 r1
@@ -480,7 +480,7 @@ R9
 R10
 R11
 R12
-!i122 633
+!i122 657
 L0 246 19
 R13
 r1
@@ -584,7 +584,7 @@ R9
 R10
 R11
 R12
-!i122 633
+!i122 657
 L0 221 14
 R13
 r1
@@ -627,16 +627,16 @@ vTwiddleMux
 R6
 R1
 !i10b 1
-!s100 O2jb84ToeEg[YJ]Pbi1kQ1
+!s100 B;5VCBljUJFz@]k]BZCbg3
 R7
-Im`]dUdjBk>_V0EjSc97Ae3
+I@533[C45R7je93CBjaQge0
 R8
 S1
 R9
-w1711471201
+w1711486297
 R29
 R30
-!i122 633
+!i122 657
 R32
 R13
 r1

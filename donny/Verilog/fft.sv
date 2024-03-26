@@ -77,7 +77,7 @@ module Butterfly#(
 );
   wire [5:0] count, stage, index2;
   wire [5:0] twiddle_index_1_Re, twiddle_index_2_Re, twiddle_index_1_Im, twiddle_index_2_Im;
-  wire [8:0] re_twiddle_curr, im_twiddle_curr, re_twiddle_other, im_twiddle_other;
+  wire [9:0] re_twiddle_curr, im_twiddle_curr, re_twiddle_other, im_twiddle_other;
   wire [15:0] curr_reg_Re, other_reg_Re, curr_reg_Im, other_reg_Im, new_Re_Curr, new_Im_Curr, new_Re_Oth, new_Im_Oth;
   wire [5:0] reverse_stage; 
   wire new_stage;
@@ -158,7 +158,7 @@ endmodule
 // Change this to do both + and - so we can do it in the same spot
 module Apply_Twiddle(
     input logic [15:0] curr_reg_RE, other_reg_RE, curr_reg_IM, other_reg_IM,
-    input logic [8:0] twiddle_factorRe, twiddle_factorIm,
+    input logic [9:0] twiddle_factorRe, twiddle_factorIm,
     input wire ifft,
     output logic [15:0] curr_RE, curr_IM, oth_RE, oth_IM
 );
@@ -171,8 +171,8 @@ module Apply_Twiddle(
   assign add_inRe =  curr_reg_RE; 
   assign add_inIm =  curr_reg_IM;
 
-  assign ReOutMulti =  (multi_inRe * $signed({{7{twiddle_factorRe[8]}}, twiddle_factorRe})) - (multi_inIm * $signed({{7{twiddle_factorIm[8]}}, twiddle_factorIm}));
-  assign ImOutMulti = (multi_inRe * $signed({{7{twiddle_factorIm[8]}}, twiddle_factorIm})) + (multi_inIm * $signed({{7{twiddle_factorRe[8]}}, twiddle_factorRe}));
+  assign ReOutMulti =  (multi_inRe * $signed({{6{twiddle_factorRe[9]}}, twiddle_factorRe})) - (multi_inIm * $signed({{6{twiddle_factorIm[9]}}, twiddle_factorIm}));
+  assign ImOutMulti = (multi_inRe * $signed({{6{twiddle_factorIm[9]}}, twiddle_factorIm})) + (multi_inIm * $signed({{6{twiddle_factorRe[9]}}, twiddle_factorRe}));
   assign ReTemp = {ReOutMulti[32], ReOutMulti[22:8]};
   assign curr_RE =  ReTemp + add_inRe;
   assign curr_IM =  add_inIm + {ImOutMulti[32], ImOutMulti[22:8]};
