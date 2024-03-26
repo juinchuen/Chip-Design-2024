@@ -5,8 +5,8 @@ N = 64
 
 def format_negative(num):
     if num < 0:
-        return f"-{NUM_BITS}'d{abs(num)}"
-    return f"{NUM_BITS}'d{num}"
+        return f"{NUM_BITS}'d{abs(num)}"
+    return f"-{NUM_BITS}'d{abs(num)}"
 
 def round_to_nearest(value, precision):
     return round(value / precision) * precision
