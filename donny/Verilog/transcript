@@ -18,16 +18,16 @@
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 15:51:48 on Mar 26,2024
+# Start time: 16:28:43 on Apr 02,2024
 # vlog -reportprogress 300 -work work fft_tb.sv 
 # -- Compiling module fft_tb
 # 
 # Top level modules:
 # 	fft_tb
-# End time: 15:51:49 on Mar 26,2024, Elapsed time: 0:00:01
+# End time: 16:28:43 on Apr 02,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 15:51:49 on Mar 26,2024
+# Start time: 16:28:43 on Apr 02,2024
 # vlog -reportprogress 300 -work work fft.sv 
 # -- Compiling module TwiddleMux
 # -- Compiling module registerMux
@@ -49,11 +49,11 @@
 # 
 # Top level modules:
 # 	FFT
-# End time: 15:51:49 on Mar 26,2024, Elapsed time: 0:00:00
+# End time: 16:28:43 on Apr 02,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 5
 # vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.fft_tb -wlf fft_tb.wlf 
-# Start time: 15:51:49 on Mar 26,2024
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Start time: 16:28:43 on Apr 02,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt1
 # Loading sv_std.std
 # Loading work.fft_tb(fast)
 # Loading work.FFT(fast)
@@ -68,21 +68,21 @@
 # Loading work.registerMux(fast)
 # Loading work.Apply_Twiddle(fast)
 # output_Re[0] = 1024
-# output_Re[1] = 25
+# output_Re[1] = 32
 # output_Re[2] = 0
-# output_Re[3] = 25
+# output_Re[3] = 32
 # output_Re[4] = 0
-# output_Re[5] = 31
+# output_Re[5] = 30
 # output_Re[6] = 0
-# output_Re[7] = 29
+# output_Re[7] = 30
 # output_Re[8] = 0
-# output_Re[9] = 33
+# output_Re[9] = 34
 # output_Re[10] = 0
-# output_Re[11] = 30
+# output_Re[11] = 34
 # output_Re[12] = 0
-# output_Re[13] = 31
+# output_Re[13] = 32
 # output_Re[14] = 0
-# output_Re[15] = 31
+# output_Re[15] = 32
 # output_Re[16] = 0
 # output_Re[17] = 32
 # output_Re[18] = 0
@@ -92,7 +92,7 @@
 # output_Re[22] = 0
 # output_Re[23] = 32
 # output_Re[24] = 0
-# output_Re[25] = 33
+# output_Re[25] = 32
 # output_Re[26] = 0
 # output_Re[27] = 32
 # output_Re[28] = 0
@@ -100,33 +100,33 @@
 # output_Re[30] = 0
 # output_Re[31] = 32
 # output_Re[32] = 0
-# output_Re[33] = 33
+# output_Re[33] = 32
 # output_Re[34] = 0
-# output_Re[35] = 33
+# output_Re[35] = 32
 # output_Re[36] = 0
-# output_Re[37] = 33
+# output_Re[37] = 32
 # output_Re[38] = 0
-# output_Re[39] = 33
+# output_Re[39] = 32
 # output_Re[40] = 0
-# output_Re[41] = 33
+# output_Re[41] = 32
 # output_Re[42] = 0
-# output_Re[43] = 34
+# output_Re[43] = 32
 # output_Re[44] = 0
-# output_Re[45] = 33
+# output_Re[45] = 32
 # output_Re[46] = 0
-# output_Re[47] = 33
+# output_Re[47] = 32
 # output_Re[48] = 0
-# output_Re[49] = 34
+# output_Re[49] = 32
 # output_Re[50] = 0
-# output_Re[51] = 34
+# output_Re[51] = 32
 # output_Re[52] = 0
-# output_Re[53] = 32
+# output_Re[53] = 34
 # output_Re[54] = 0
 # output_Re[55] = 34
 # output_Re[56] = 0
-# output_Re[57] = 33
+# output_Re[57] = 30
 # output_Re[58] = 0
-# output_Re[59] = 36
+# output_Re[59] = 30
 # output_Re[60] = 0
 # output_Re[61] = 32
 # output_Re[62] = 0
@@ -135,5 +135,3 @@
 #    Time: 2018 ns  Iteration: 0  Instance: /fft_tb
 # 1
 # Break in Module fft_tb at fft_tb.sv line 123
-# End time: 15:52:08 on Mar 26,2024, Elapsed time: 0:00:19
-# Errors: 0, Warnings: 0

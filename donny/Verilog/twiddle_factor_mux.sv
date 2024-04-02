@@ -6,7 +6,7 @@ reg [9:0] twiddle;
 always_comb begin
     case(select)
 
-			6'b0: twiddle <= -10'd0;
+			6'b0: twiddle <= 10'd0;
 			6'b1: twiddle <= -10'd25;
 			6'b10: twiddle <= -10'd50;
 			6'b11: twiddle <= -10'd74;
@@ -38,7 +38,7 @@ always_comb begin
 			6'b11101: twiddle <= -10'd74;
 			6'b11110: twiddle <= -10'd50;
 			6'b11111: twiddle <= -10'd25;
-			6'b100000: twiddle <= -10'd0;
+			6'b100000: twiddle <= 10'd0;
 			6'b100001: twiddle <= 10'd25;
 			6'b100010: twiddle <= 10'd50;
 			6'b100011: twiddle <= 10'd74;

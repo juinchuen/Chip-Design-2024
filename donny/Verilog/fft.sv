@@ -77,7 +77,7 @@ module Butterfly#(
 );
   wire [5:0] count, stage, index2;
   wire [5:0] twiddle_index_1_Re, twiddle_index_2_Re, twiddle_index_1_Im, twiddle_index_2_Im;
-  wire [9:0] re_twiddle_curr, im_twiddle_curr, re_twiddle_other, im_twiddle_other;
+  wire [9:0] re_twiddle_curr, im_twiddle_curr;
   wire [15:0] curr_reg_Re, other_reg_Re, curr_reg_Im, other_reg_Im, new_Re_Curr, new_Im_Curr, new_Re_Oth, new_Im_Oth;
   wire [5:0] reverse_stage; 
   wire new_stage;
@@ -164,7 +164,7 @@ module Apply_Twiddle(
 );
   // wire [33:0] multi_inRe, multi_inIm, add_inRe, add_inIm, RE_out_PreChop, IM_out_PreChop;
   wire signed [32:0] ReOutMulti, ImOutMulti;
-  wire signed [15:0] ReTemp, ImTemp, multi_inRe, multi_inIm, add_inRe, add_inIm, temp1, temp2;
+  wire signed [15:0] ReTemp, ImTemp, multi_inRe, multi_inIm, add_inRe, add_inIm, temp1, temp2, roundedRe, roundedIm;
 
   assign multi_inRe =  other_reg_RE;
   assign multi_inIm = other_reg_IM;
@@ -173,12 +173,14 @@ module Apply_Twiddle(
 
   assign ReOutMulti =  (multi_inRe * $signed({{6{twiddle_factorRe[9]}}, twiddle_factorRe})) - (multi_inIm * $signed({{6{twiddle_factorIm[9]}}, twiddle_factorIm}));
   assign ImOutMulti = (multi_inRe * $signed({{6{twiddle_factorIm[9]}}, twiddle_factorIm})) + (multi_inIm * $signed({{6{twiddle_factorRe[9]}}, twiddle_factorRe}));
-  assign ReTemp = {ReOutMulti[32], ReOutMulti[22:8]};
-  assign curr_RE =  ReTemp + add_inRe;
-  assign curr_IM =  add_inIm + {ImOutMulti[32], ImOutMulti[22:8]};
+  
+  assign roundedRe = {ReOutMulti[32], ReOutMulti[22:8]} + ReOutMulti[7];
+  assign roundedIm = {ImOutMulti[32], ImOutMulti[22:8]} + ImOutMulti[7];
+  assign curr_RE =  add_inRe + roundedRe;
+  assign curr_IM =  add_inIm + roundedIm;
 
-  assign oth_RE = add_inRe - {ReOutMulti[32], ReOutMulti[22:8]};
-  assign oth_IM = add_inIm - {ImOutMulti[32], ImOutMulti[22:8]};
+  assign oth_RE = add_inRe - roundedRe;
+  assign oth_IM = add_inIm - roundedIm;
   // assign out_RE = ifft ? {ReTemp[15], ReTemp[15:1]}: ReTemp;
   // assign out_IM = ifft ? {ImTemp[15], ImTemp[15:1]}: ImTemp;
   // assign out_RE = ReTemp;

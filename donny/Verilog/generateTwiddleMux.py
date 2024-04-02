@@ -1,10 +1,10 @@
 import cmath
 import math
-NUM_BITS =9
+NUM_BITS = 9
 N = 64
 
 def format_negative(num):
-    if num < 0:
+    if num <= 0:
         return f"{NUM_BITS + 1}'d{abs(num)}"
     return f"-{NUM_BITS + 1}'d{abs(num)}"
 
@@ -36,9 +36,9 @@ twiddle_factors = calculate_twiddle_factors(N, precision)
 
 moduleRe = f'''module TwiddleMux (
     input [{int((math.log2(N))-1)}:0] select,
-    output [{NUM_BITS-1}:0] out
+    output [{NUM_BITS}:0] out
 );
-reg [{NUM_BITS}:0] twiddle;
+reg [{NUM_BITS }:0] twiddle;
 always_comb begin
     case(select)
 '''
