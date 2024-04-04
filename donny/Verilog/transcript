@@ -135,3 +135,5 @@
 #    Time: 2018 ns  Iteration: 0  Instance: /fft_tb
 # 1
 # Break in Module fft_tb at fft_tb.sv line 123
+# End time: 16:37:24 on Apr 02,2024, Elapsed time: 0:08:41
+# Errors: 0, Warnings: 0
