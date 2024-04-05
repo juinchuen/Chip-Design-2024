@@ -94,20 +94,43 @@ module fft_tb();
 
     // begin simulation
     initial begin
+        // input value declarations
+        integer file;
+        bit [15:0] value_Re, value_Im;
+        string filename = "data.csv";
+
+        // output value declarations
+        integer outputFile;
+        outputFile = $fopen("actual_fft_output.csv", "w");
+
         clk = 0;
         rst = 0;
         #5
         rst = 1;
 
-        for (int i = 0; i < 64; i = i + 1) begin
-            if (i < 32) begin
-                input_Re[i] = 16'b0000000000100000;
-                input_Im[i] = 16'b0000000000000000;
-            end else begin
-                input_Re[i] = 16'b0000000000000000;
-                input_Im[i] = 16'b0000000000000000;
-            end
+        //open data.csv and load into the fft module
+        file = $fopen(filename, "r");
+        if (file == 0) begin
+            $display("Failed to open %s", filename);
+            $finish;
         end
+
+        for (int i = 0; i < 64; i = i + 1) begin
+            if ($feof(file)) begin
+                $display("End of file reached before reading 64 entries");
+                $finish;
+            end
+
+            if ($fscanf(file, "%b,%b\n", value_Re, value_Im) != 2) begin
+                $display("Error reading line %d from the file.", i+1);
+                $finish;
+            end
+
+            input_Re[i] = value_Re;
+            input_Im[i] = value_Im;
+        end
+
+        $fclose(file);
 
         #1
         start = 1;
@@ -116,10 +139,12 @@ module fft_tb();
 
         // end simulation
 
-        #2000 
+        #50000 
         for (int i = 0; i < 64; i = i + 1) begin
-            $display("output_Re[%0d] = %0d", i, output_Re[i]);
+            $fdisplay(outputFile, "%016b,%016b", output_Re[i], output_Im[i]);        
         end
+        $fclose(outputFile);
+
         $finish;
     end
 endmodule

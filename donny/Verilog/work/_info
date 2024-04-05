@@ -9,15 +9,25 @@ z2
 !i10f 100
 cModel Technology
 Z0 d/home/dcc3637/ASIC_Project
+T_opt
+!s110 1712275427
+V=Xk0gPVmD;dk2Nh=H7Fhk0
+Z1 04 6 4 work fft_tb fast 0
+=1-a4bb6d3feef6-660f3fe2-dd36a-17cd0
+Z2 o-quiet -auto_acc_if_foreign -work work -L work +acc
+Z3 tCvgOpt 0
+n@_opt
+Z4 OL;O;2020.1;71
+R0
 T_opt1
 !s110 1712092443
 V[6KW6VV0^@oQ2B=gRmdBU3
-Z1 04 6 4 work fft_tb fast 0
+R1
 =1-b49691574b56-660c751b-a9c2a-29e502
-Z2 o-quiet -auto_acc_if_foreign -work work -L work +acc
-Z3 tCvgOpt 0
+R2
+R3
 n@_opt1
-Z4 OL;O;2020.1;71
+R4
 R0
 T_opt2
 !s110 1709588544
@@ -31,24 +41,24 @@ R4
 R0
 vApply_Twiddle
 Z5 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z6 !s110 1712093323
+Z6 !s110 1712276673
 !i10b 1
 !s100 Ud^2=bfiTDgo=aEhJU5:e0
 Z7 !s11b Dg1SIo80bB@j0V0VzS_@n1
 I2QR[<`fPS@?_GjS39^6eo1
 Z8 VDg1SIo80bB@j0V0VzS_@n1
 S1
-Z9 d/home/dcc3637/ASIC_Github/Chip-Design-2024/donny/Verilog
-Z10 w1712092432
+Z9 d/home/icl5712/ASIC_Project/Chip-Design-2024/donny/Verilog
+Z10 w1712268316
 Z11 8fft.sv
 Z12 Ffft.sv
-!i122 803
+!i122 837
 L0 159 32
 Z13 OL;L;2020.1;71
 r1
 !s85 0
 31
-Z14 !s108 1712093323.000000
+Z14 !s108 1712276673.000000
 Z15 !s107 registerMux.sv|twiddle_factor_mux.sv|fft.sv|
 Z16 !s90 -reportprogress|300|-work|work|fft.sv|
 !i113 0
@@ -64,7 +74,7 @@ R7
 I75h<oG5cQ``l1UKPLADlJ2
 R8
 S1
-R9
+Z18 d/home/dcc3637/ASIC_Github/Chip-Design-2024/donny/Verilog
 w1709586865
 R11
 R12
@@ -90,7 +100,7 @@ R7
 IW8HBU6>g2Uaa:zT@=oQWM0
 R8
 S1
-R9
+R18
 w1711419269
 R11
 R12
@@ -120,7 +130,7 @@ R9
 R10
 R11
 R12
-!i122 803
+!i122 837
 L0 68 89
 R13
 r1
@@ -146,7 +156,7 @@ R9
 R10
 R11
 R12
-!i122 803
+!i122 837
 L0 268 28
 R13
 r1
@@ -168,7 +178,7 @@ R7
 IMkE7e]L`oVY7J1;YJO@]^1
 R8
 S1
-R9
+R18
 w1708814512
 8countTo64_tb.sv
 FcountTo64_tb.sv
@@ -187,7 +197,7 @@ R3
 ncount@to64_tb
 vDFF_16Bit
 R5
-Z18 !s110 1707261696
+Z19 !s110 1707261696
 !i10b 1
 !s100 WO<XN52HX4fFfQYYzo`JY0
 R7
@@ -195,7 +205,7 @@ InhzYLoO;92:@YRNm2WTf:0
 R8
 S1
 R0
-Z19 w1707261654
+Z20 w1707261654
 R11
 R12
 !i122 157
@@ -204,8 +214,8 @@ R13
 r1
 !s85 0
 31
-Z20 !s108 1707261696.000000
-Z21 !s107 fft.sv|
+Z21 !s108 1707261696.000000
+Z22 !s107 fft.sv|
 R16
 !i113 0
 R17
@@ -224,7 +234,7 @@ R9
 R10
 R11
 R12
-!i122 803
+!i122 837
 L0 314 16
 R13
 r1
@@ -250,7 +260,7 @@ R9
 R10
 R11
 R12
-!i122 803
+!i122 837
 L0 297 16
 R13
 r1
@@ -276,7 +286,7 @@ R9
 R10
 R11
 R12
-!i122 803
+!i122 837
 L0 4 27
 R13
 r1
@@ -318,47 +328,47 @@ vfft_tb
 R5
 R6
 !i10b 1
-!s100 4_[J?2LEFLZ4bkCDG89M43
+!s100 MD5<aLIH:@;@:;9;E0A]=3
 R7
-IQ[AFlLG4KYnOCL45:^UbU2
+IJBdMnz9]PY9`1e=UeHFjO2
 R8
 S1
 R9
-w1711470041
-Z22 8fft_tb.sv
-Z23 Ffft_tb.sv
-!i122 802
-L0 73 53
+w1712275360
+Z23 8fft_tb.sv
+Z24 Ffft_tb.sv
+!i122 836
+L0 73 78
 R13
 r1
 !s85 0
 31
 R14
-Z24 !s107 fft_tb.sv|
-Z25 !s90 -reportprogress|300|-work|work|fft_tb.sv|
+Z25 !s107 fft_tb.sv|
+Z26 !s90 -reportprogress|300|-work|work|fft_tb.sv|
 !i113 0
 R17
 R3
 vImTwiddleMux
 R5
-Z26 !s110 1708487149
+Z27 !s110 1708487149
 !i10b 1
 !s100 Wm8hc4H5DjUQ9_l:0<jD41
 R7
 IPF47YnSg91[F915``_e;@0
 R8
 S1
-Z27 d/home/dcc3637/ASIC_Github/Chip-Design-2024/donny/ASIC_Project
-Z28 w1708289239
-Z29 8twiddle_factor_mux.sv
-Z30 Ftwiddle_factor_mux.sv
+Z28 d/home/dcc3637/ASIC_Github/Chip-Design-2024/donny/ASIC_Project
+Z29 w1708289239
+Z30 8twiddle_factor_mux.sv
+Z31 Ftwiddle_factor_mux.sv
 !i122 221
 L0 50 46
 R13
 r1
 !s85 0
 31
-Z31 !s108 1708487149.000000
+Z32 !s108 1708487149.000000
 R15
 R16
 !i113 0
@@ -378,7 +388,7 @@ R9
 R10
 R11
 R12
-!i122 803
+!i122 837
 L0 32 35
 R13
 r1
@@ -401,11 +411,11 @@ I>a3GD5DaL2daEHN9CLMj:1
 R8
 S1
 R9
-w1711424139
+w1708805614
 8registerMux.sv
 FregisterMux.sv
-!i122 803
-Z32 L0 1 79
+!i122 837
+Z33 L0 1 79
 R13
 r1
 !s85 0
@@ -419,24 +429,24 @@ R3
 nregister@mux
 vReTwiddleMux
 R5
-R26
+R27
 !i10b 1
 !s100 EXI>T;VRRi`4kkn<JcdRi2
 R7
 IF@b3a1Z9]1_GaSOzbg_5R3
 R8
 S1
-R27
 R28
 R29
 R30
+R31
 !i122 221
 L0 1 46
 R13
 r1
 !s85 0
 31
-R31
+R32
 R15
 R16
 !i113 0
@@ -452,7 +462,7 @@ R7
 IXlZT08TM:NO@[1aZNnf8`2
 R8
 S1
-R9
+R18
 w1708996947
 8router_tb.sv
 Frouter_tb.sv
@@ -481,7 +491,7 @@ R9
 R10
 R11
 R12
-!i122 803
+!i122 837
 L0 248 19
 R13
 r1
@@ -505,8 +515,8 @@ R8
 S1
 R0
 w1707256111
-R22
 R23
+R24
 !i122 78
 L0 43 25
 R13
@@ -514,8 +524,8 @@ r1
 !s85 0
 31
 !s108 1707256160.000000
-R24
 R25
+R26
 !i113 0
 R17
 R3
@@ -529,12 +539,12 @@ R7
 I=L<U:EK2PRfch>l:YVl4=0
 R8
 S1
-d/home/icl5712/ASIC_Project/Chip-Design-2024/donny/Verilog
+R9
 w1708810033
 8stageClock_tb.sv
 FstageClock_tb.sv
 !i122 238
-Z33 L0 1 39
+Z34 L0 1 39
 R13
 r1
 !s85 0
@@ -548,7 +558,7 @@ R3
 nstage@clock_tb
 vTwiddleAdder
 R5
-R18
+R19
 !i10b 1
 !s100 <ff=Y;1JFGcmNAghONn7Q1
 R7
@@ -556,7 +566,7 @@ I@Lg?A[`eiPClG?UcSJW`f0
 R8
 S1
 R0
-R19
+R20
 R11
 R12
 !i122 157
@@ -565,8 +575,8 @@ R13
 r1
 !s85 0
 31
-R20
 R21
+R22
 R16
 !i113 0
 R17
@@ -585,7 +595,7 @@ R9
 R10
 R11
 R12
-!i122 803
+!i122 837
 L0 223 14
 R13
 r1
@@ -607,12 +617,12 @@ R7
 I=X>EBQmazG@iX:PVAC_[23
 R8
 S1
-R9
+R18
 w1709002248
 8twiddleFactorIndex_tb.sv
 FtwiddleFactorIndex_tb.sv
 !i122 420
-R33
+R34
 R13
 r1
 !s85 0
@@ -634,11 +644,11 @@ IGQ:O>]29lD:G1MizAW7R22
 R8
 S1
 R9
-w1712092374
-R29
+R10
 R30
-!i122 803
-R32
+R31
+!i122 837
+R33
 R13
 r1
 !s85 0
