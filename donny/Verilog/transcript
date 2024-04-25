@@ -1,4 +1,4 @@
-# //  ModelSim SE-64 2020.1 Jan 28 2020 Linux 4.18.0-513.18.1.el8_9.x86_64
+# //  ModelSim SE-64 2020.1 Jan 28 2020 Linux 4.18.0-513.24.1.el8_9.x86_64
 # //
 # //  Copyright 1991-2020 Mentor Graphics Corporation
 # //  All Rights Reserved.
@@ -18,16 +18,18 @@
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 19:17:22 on Mar 04,2024
+# Start time: 19:24:33 on Apr 04,2024
 # vlog -reportprogress 300 -work work fft_tb.sv 
 # -- Compiling module fft_tb
+# ** Warning: fft_tb.sv(100): (vlog-2244) Variable 'filename' is implicitly static. You must either explicitly declare it as static or automatic
+# or remove the initialization in the declaration of variable.
 # 
 # Top level modules:
 # 	fft_tb
-# End time: 19:17:22 on Mar 04,2024, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
+# End time: 19:24:33 on Apr 04,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 19:17:22 on Mar 04,2024
+# Start time: 19:24:33 on Apr 04,2024
 # vlog -reportprogress 300 -work work fft.sv 
 # -- Compiling module TwiddleMux
 # -- Compiling module registerMux
@@ -37,8 +39,8 @@
 # ** Warning: fft.sv(8): (vlog-13314) Defaulting port 'input_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # ** Warning: fft.sv(9): (vlog-13314) Defaulting port 'input_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling module InputSignalRouter
-# ** Warning: fft.sv(35): (vlog-13314) Defaulting port 'input_sig_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
-# ** Warning: fft.sv(36): (vlog-13314) Defaulting port 'input_sig_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: fft.sv(36): (vlog-13314) Defaulting port 'input_sig_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: fft.sv(37): (vlog-13314) Defaulting port 'input_sig_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling module Butterfly
 # -- Compiling module Apply_Twiddle
 # -- Compiling module TwiddleFactorIndex
@@ -49,11 +51,11 @@
 # 
 # Top level modules:
 # 	FFT
-# End time: 19:17:22 on Mar 04,2024, Elapsed time: 0:00:00
+# End time: 19:24:33 on Apr 04,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 5
 # vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.fft_tb -wlf fft_tb.wlf 
-# Start time: 19:17:22 on Mar 04,2024
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Start time: 19:24:33 on Apr 04,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt
 # Loading sv_std.std
 # Loading work.fft_tb(fast)
 # Loading work.FFT(fast)
@@ -67,71 +69,9 @@
 # Loading work.TwiddleMux(fast)
 # Loading work.registerMux(fast)
 # Loading work.Apply_Twiddle(fast)
-# output_Re[0] = 988
-# output_Re[1] = 0
-# output_Re[2] = 0
-# output_Re[3] = 0
-# output_Re[4] = 0
-# output_Re[5] = 0
-# output_Re[6] = 0
-# output_Re[7] = 0
-# output_Re[8] = 0
-# output_Re[9] = 0
-# output_Re[10] = 0
-# output_Re[11] = 0
-# output_Re[12] = 0
-# output_Re[13] = 0
-# output_Re[14] = 0
-# output_Re[15] = 0
-# output_Re[16] = 65535
-# output_Re[17] = 0
-# output_Re[18] = 0
-# output_Re[19] = 0
-# output_Re[20] = 0
-# output_Re[21] = 0
-# output_Re[22] = 0
-# output_Re[23] = 0
-# output_Re[24] = 0
-# output_Re[25] = 0
-# output_Re[26] = 0
-# output_Re[27] = 0
-# output_Re[28] = 0
-# output_Re[29] = 0
-# output_Re[30] = 0
-# output_Re[31] = 0
-# output_Re[32] = 64547
-# output_Re[33] = 0
-# output_Re[34] = 0
-# output_Re[35] = 0
-# output_Re[36] = 0
-# output_Re[37] = 0
-# output_Re[38] = 0
-# output_Re[39] = 0
-# output_Re[40] = 0
-# output_Re[41] = 0
-# output_Re[42] = 0
-# output_Re[43] = 0
-# output_Re[44] = 0
-# output_Re[45] = 0
-# output_Re[46] = 0
-# output_Re[47] = 0
-# output_Re[48] = 0
-# output_Re[49] = 0
-# output_Re[50] = 0
-# output_Re[51] = 0
-# output_Re[52] = 0
-# output_Re[53] = 0
-# output_Re[54] = 0
-# output_Re[55] = 0
-# output_Re[56] = 0
-# output_Re[57] = 0
-# output_Re[58] = 0
-# output_Re[59] = 0
-# output_Re[60] = 0
-# output_Re[61] = 0
-# output_Re[62] = 0
-# output_Re[63] = 0
-# ** Note: $finish    : fft_tb.sv(168)
-#    Time: 2018 ns  Iteration: 0  Instance: /fft_tb
+# ** Note: $finish    : fft_tb.sv(148)
+#    Time: 50018 ns  Iteration: 0  Instance: /fft_tb
 # 1
-# Break in Module fft_tb at fft_tb.sv line 168
+# Break in Module fft_tb at fft_tb.sv line 148
+# End time: 19:26:26 on Apr 04,2024, Elapsed time: 0:01:53
+# Errors: 0, Warnings: 0

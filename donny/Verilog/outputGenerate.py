@@ -17,6 +17,9 @@ def read_input_csv(filename):
 def perform_fft(input_data):
     return np.fft.fft(input_data)
 
+import csv
+import numpy as np
+
 # Function to write FFT output to CSV in the same format as the input
 def write_output_csv(data, filename):
     with open(filename, 'w', newline='') as csvfile:
@@ -33,7 +36,7 @@ def write_output_csv(data, filename):
 # Main function
 def main():
     input_filename = 'data.csv'
-    output_filename = 'fft_output.csv'
+    output_filename = 'expected_fft_output.csv'
 
     # Read the input data
     input_data = read_input_csv(input_filename)

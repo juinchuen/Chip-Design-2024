@@ -4,9 +4,9 @@ NUM_BITS = 9
 N = 64
 
 def format_negative(num):
-    if num < 0:
-        return f"-{NUM_BITS}'d{abs(num)}"
-    return f"{NUM_BITS}'d{num}"
+    if num <= 0:
+        return f"{NUM_BITS + 1}'d{abs(num)}"
+    return f"-{NUM_BITS + 1}'d{abs(num)}"
 
 def round_to_nearest(value, precision):
     return round(value / precision) * precision
@@ -16,15 +16,15 @@ def calculate_output(k, N, precision, NUM_BITS):
     rounded_result = round_to_nearest(result, precision)
     scaled_result = int(rounded_result * 2**(NUM_BITS - 1))
     if scaled_result > 0:
-        return min(255, max(0, scaled_result))
+        return min(256, max(0, scaled_result))
     else: 
-        return max(-255, min(0, scaled_result))
+        return max(-256, min(0, scaled_result))
 
 def calculate_twiddle_factors(N, precision= 1/(2**(12-1))):
     twiddle_factors = [
         (
             calculate_output(k, N, precision, NUM_BITS),
-            int(round_to_nearest(cmath.exp(2j * cmath.pi * (k - cmath.pi/2)/ N).imag, precision)* 2**(NUM_BITS-1) - 1),
+            int(round_to_nearest(cmath.exp(2j * cmath.pi * (k - cmath.pi/2)/ N).imag, precision)* 2**(NUM_BITS-1)),
         )
         for k in range(N)
     ]
@@ -36,18 +36,18 @@ twiddle_factors = calculate_twiddle_factors(N, precision)
 
 moduleRe = f'''module TwiddleMux (
     input [{int((math.log2(N))-1)}:0] select,
-    output [{NUM_BITS-1}:0] out
+    output [{NUM_BITS}:0] out
 );
-reg [{NUM_BITS-1}:0] twiddle;
+reg [{NUM_BITS }:0] twiddle;
 always_comb begin
     case(select)
 '''
 
 moduleIm = f'''module ImTwiddleMux (
     input [{int((math.log2(N))-1)}:0] select,
-    output [{NUM_BITS-1}:0] out
+    output [{NUM_BITS}:0] out
 );
-reg [{NUM_BITS-1}:0] twiddle;
+reg [{NUM_BITS}:0] twiddle;
 always_comb begin
     case(select)'''
 
@@ -80,7 +80,7 @@ with open("twiddle_factor_mux.sv", "w") as file:
     #         num = format_negative(imag_part)
     #         print(f"\t\t\t6'b{bin(i)[2:]}: twiddle <= {num};", file=file)
     #     i = i + 1
-    print(moduleEnd, file=file)
+    # print(moduleEnd, file=file)
 
 
 # Confirmation message

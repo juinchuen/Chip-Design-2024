@@ -77,42 +77,47 @@ module Butterfly#(
 );
   wire [5:0] count, stage, index2;
   wire [5:0] twiddle_index_1_Re, twiddle_index_2_Re, twiddle_index_1_Im, twiddle_index_2_Im;
-  wire [8:0] re_twiddle_curr, im_twiddle_curr, re_twiddle_other, im_twiddle_other;
+  wire [9:0] re_twiddle_curr, im_twiddle_curr;
   wire [15:0] curr_reg_Re, other_reg_Re, curr_reg_Im, other_reg_Im, new_Re_Curr, new_Im_Curr, new_Re_Oth, new_Im_Oth;
   wire [5:0] reverse_stage; 
   wire new_stage;
+  wire skip;
   assign reverse_stage = {stage[0], stage[1], stage[2], stage[3], stage[4], stage[5]};
   // Fix this to not interact with clock
   StageClock StageCount(.start(start), .shift(new_stage | start), .clk(clk), .rst(rst), .out(stage));
   // Might need to delay start for these two
 
-  CountTo64 Counter(.start(start), .stage(stage), .clk(clk), .rst(rst), .new_stage(new_stage), .out(count));
-  TwiddleFactorIndex TwiddleIndex(.stage(stage), .start(start | new_stage), .clk(clk), .rst(rst), .out(twiddle_index_1_Im));
-  assign twiddle_index_2_Im = twiddle_index_1_Im + 'b100000; 
+  CountTo64 Counter(.start(start), .stage(stage), .clk(clk), .rst(rst), .new_stage(new_stage), .out(count), .skip(skip));
+  TwiddleFactorIndex TwiddleIndex(.stage(stage), .start(start | new_stage), .skip(skip), .clk(clk), .rst(rst), .out(twiddle_index_1_Im));
+  //assign twiddle_index_2_Im = twiddle_index_1_Im + 'b100000; 
 
-  assign twiddle_index_1_Re = twiddle_index_1_Im + 'b10000;
-  assign twiddle_index_2_Re = twiddle_index_2_Im + 'b10000;
+  assign twiddle_index_1_Re = twiddle_index_1_Im + 'b110000;
+  //assign twiddle_index_2_Re = twiddle_index_2_Im + 'b10000;
   //Get twiddle factor
   TwiddleMux ReTwiddleMux1(.select(twiddle_index_1_Re), .out(re_twiddle_curr));
   TwiddleMux ImTwiddleMux1(.select(twiddle_index_1_Im), .out(im_twiddle_curr));
   
-  TwiddleMux ReTwiddleMux2(.select(twiddle_index_2_Re), .out(re_twiddle_other));
-  TwiddleMux ImTwiddleMux2(.select(twiddle_index_2_Im), .out(im_twiddle_other));
+  //TwiddleMux ReTwiddleMux2(.select(twiddle_index_2_Re), .out(re_twiddle_other));
+  //TwiddleMux ImTwiddleMux2(.select(twiddle_index_2_Im), .out(im_twiddle_other));
 
   //Get the correct Registers
   assign index2 = count + reverse_stage; 
   reg [15:0] Re_reg [((D_WIDTH) - 1):0];
   reg [15:0] Im_reg [((D_WIDTH) - 1):0];
+
+
+
   registerMux Get_Re_Reg1(.index(count), .regs(Re_reg), .out(curr_reg_Re));
   registerMux Get_Re_Reg2(.index(index2), .regs(Re_reg), .out(other_reg_Re));
   registerMux Get_Im_Reg1(.index(count), .regs(Im_reg), .out(curr_reg_Im));
   registerMux Get_Im_Reg2(.index(index2), .regs(Im_reg), .out(other_reg_Im));
   //Get the output from the Twiddle factors
   Apply_Twiddle Apply_Twiddle1(.curr_reg_RE(curr_reg_Re), .other_reg_RE(other_reg_Re), .curr_reg_IM(curr_reg_Im), .other_reg_IM(other_reg_Im),
-    .twiddle_factorRe(re_twiddle_curr), .twiddle_factorIm(im_twiddle_curr), .out_RE(new_Re_Curr), .out_IM(new_Im_Curr), .ifft(ifft));
+    .twiddle_factorRe(re_twiddle_curr), .twiddle_factorIm(im_twiddle_curr), .curr_RE(new_Re_Curr), .curr_IM(new_Im_Curr), 
+    .oth_RE(new_Re_Oth), .oth_IM(new_Im_Oth), .ifft(ifft));
 
-  Apply_Twiddle Apply_Twiddle2(.curr_reg_RE(curr_reg_Re), .other_reg_RE(other_reg_Re), .curr_reg_IM(curr_reg_Im), .other_reg_IM(other_reg_Im),
-    .twiddle_factorRe(re_twiddle_other), .twiddle_factorIm(im_twiddle_other), .out_RE(new_Re_Oth), .out_IM(new_Im_Oth), .ifft(ifft));
+  // Apply_Twiddle Apply_Twiddle2(.curr_reg_RE(curr_reg_Re), .other_reg_RE(other_reg_Re), .curr_reg_IM(curr_reg_Im), .other_reg_IM(other_reg_Im),
+  //   .twiddle_factorRe(re_twiddle_other), .twiddle_factorIm(im_twiddle_other), .out_RE(new_Re_Oth), .out_IM(new_Im_Oth), .ifft(ifft));
 
   // Apply_Twiddle_Oth Apply_Twiddle2(.curr_reg_RE(curr_reg_Re), .other_reg_RE(other_reg_Re), .curr_reg_IM(curr_reg_Im), .other_reg_IM(other_reg_Im),
   //   .twiddle_factorRe(re_twiddle_other), .twiddle_factorIm(im_twiddle_other), .out_RE(new_Re_Oth), .out_IM(new_Im_Oth));
@@ -150,32 +155,36 @@ module Butterfly#(
   endgenerate
 endmodule
 
-
+// Change this to do both + and - so we can do it in the same spot
 module Apply_Twiddle(
     input logic [15:0] curr_reg_RE, other_reg_RE, curr_reg_IM, other_reg_IM,
-    input logic [8:0] twiddle_factorRe, twiddle_factorIm,
-    input ifft,
-    output logic [15:0] out_RE, out_IM
+    input logic [9:0] twiddle_factorRe, twiddle_factorIm,
+    input wire ifft,
+    output logic [15:0] curr_RE, curr_IM, oth_RE, oth_IM
 );
   // wire [33:0] multi_inRe, multi_inIm, add_inRe, add_inIm, RE_out_PreChop, IM_out_PreChop;
-  wire signed [32:0] ReOutMulti, ImOutMulti, multi_inRe, multi_inIm, add_inRe, add_inIm, temp1, temp2;
-  wire signed [15:0] ReTemp, ImTemp;
+  wire signed [32:0] ReOutMulti, ImOutMulti;
+  wire signed [15:0] ReTemp, ImTemp, multi_inRe, multi_inIm, add_inRe, add_inIm, temp1, temp2, roundedRe, roundedIm;
 
-  assign multi_inRe = curr_reg_RE;
-  assign multi_inIm = curr_reg_IM;
-  assign add_inRe = other_reg_RE; 
-  assign add_inIm = other_reg_IM;
+  assign multi_inRe =  other_reg_RE;
+  assign multi_inIm = other_reg_IM;
+  assign add_inRe =  curr_reg_RE; 
+  assign add_inIm =  curr_reg_IM;
 
-  assign ReOutMulti =  (multi_inRe * $signed({{7{twiddle_factorRe[8]}}, twiddle_factorRe})) - (multi_inIm * $signed({{7{twiddle_factorIm[8]}}, twiddle_factorIm}));
-  assign ImOutMulti = (multi_inRe * $signed({{7{twiddle_factorIm[8]}}, twiddle_factorIm})) + (multi_inIm * $signed({{7{twiddle_factorRe[8]}}, twiddle_factorRe}));
+  assign ReOutMulti =  (multi_inRe * $signed({{6{twiddle_factorRe[9]}}, twiddle_factorRe})) - (multi_inIm * $signed({{6{twiddle_factorIm[9]}}, twiddle_factorIm}));
+  assign ImOutMulti = (multi_inRe * $signed({{6{twiddle_factorIm[9]}}, twiddle_factorIm})) + (multi_inIm * $signed({{6{twiddle_factorRe[9]}}, twiddle_factorRe}));
+  
+  assign roundedRe = {ReOutMulti[32], ReOutMulti[22:8]} + ReOutMulti[7];
+  assign roundedIm = {ImOutMulti[32], ImOutMulti[22:8]} + ImOutMulti[7];
+  assign curr_RE =  add_inRe + roundedRe;
+  assign curr_IM =  add_inIm + roundedIm;
 
-  assign ReTemp = {ReOutMulti[32], ReOutMulti[23:8]} + add_inRe;
-  assign ImTemp = {ImOutMulti[32], ImOutMulti[23:8]} + add_inIm;
-
+  assign oth_RE = add_inRe - roundedRe;
+  assign oth_IM = add_inIm - roundedIm;
   // assign out_RE = ifft ? {ReTemp[15], ReTemp[15:1]}: ReTemp;
   // assign out_IM = ifft ? {ImTemp[15], ImTemp[15:1]}: ImTemp;
-  assign out_RE = ReTemp;
-  assign out_IM = ImTemp;
+  // assign out_RE = ReTemp;
+  // assign out_IM = ImTemp;
   // This should really just be an adder where u invert the input and change carryout to 1
   
 endmodule
@@ -213,13 +222,14 @@ endmodule
 
 module TwiddleFactorIndex(
   input wire [5:0] stage,  
-  input wire start, clk, rst,
+  input wire skip, start, clk, rst, 
   output wire [5:0] out
 );
-  wire [6:0] B;
+  wire [5:0] B;
   wire [5:0] A, C;
-  assign B = {{stage}, 1'b0} + A;
-  assign C = start ? 6'b0 : B[5:0];  
+  assign B = stage + A;
+  assign B1 = skip ? B + {{stage}, 1'b0} : B; 
+  assign C = start | skip ? 6'b0 : B[5:0];  
   DFF_6Bit FF(.D(C), .clk(clk), .rst(rst), .Q(A));
 
   assign out = A;
@@ -258,18 +268,18 @@ endmodule
 module CountTo64(
   input wire [5:0] stage,
   input wire start, clk, rst,
-  output wire new_stage,
-  output wire [5:0] out
+  output wire new_stage, skip,
+  output wire [5:0] out 
 );
   wire [5:0] reverse_stage; 
   wire [5:0] next_before, next_val;
   reg [5:0] curr;
   wire [6:0] next_after;
   assign next_before = curr + 1'b1;
-  assign sel = ((next_before[5] & stage[0]) | (next_before[4] & stage[1]) | (next_before[3] & stage[2]) 
+  assign skip = ((next_before[5] & stage[0]) | (next_before[4] & stage[1]) | (next_before[3] & stage[2]) 
     | (next_before[2] & stage[3]) | (next_before[1] & stage[4]) | (next_before[0] & stage[5]));
   assign reverse_stage = {stage[0], stage[1], stage[2], stage[3], stage[4], stage[5]};
-  assign next_after = (sel) ? reverse_stage + next_before : next_before;
+  assign next_after = (skip) ? reverse_stage + next_before : next_before;
   assign new_stage = next_after[6];
   assign next_val = start ? 6'b0 : next_after[5:0];  
   
