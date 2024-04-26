@@ -1,6 +1,6 @@
 // module fft_tb();
 //     // declare stimuli
-//     logic [15:0] input_Re [63:0];
+//     logic [15:0] inputRe [63:0];
 //     logic [15:0] input_Im [63:0];
 //     logic start, clk, rst, ifft;
 //     logic [15:0] output_Re [63:0];
@@ -8,7 +8,7 @@
 
 //     // instantiate uut
 //      FFT fft(
-//         .input_Re(input_Re),
+//         .inputRe(inputRe),
 //         .input_Im(input_Im),
 //         .start(start),
 //         .clk(clk),
@@ -51,7 +51,7 @@
 //                 $finish;
 //             end
 
-//             input_Re[i] = value_Re;
+//             inputRe[i] = value_Re;
 //             input_Im[i] = value_Im;
 //         end
 
@@ -72,7 +72,7 @@
 
 // // module fft_tb();
 // //     // declare stimuli
-// //     logic [15:0] input_Re [63:0];
+// //     logic [15:0] inputRe [63:0];
 // //     logic [15:0] input_Im [63:0];
 // //     logic start, clk, rst;
 // //     logic [15:0] output_Re [63:0];
@@ -80,7 +80,7 @@
 
 // //     // instantiate uut
 // //      FFT fft(
-// //         .input_Re(input_Re),
+// //         .inputRe(inputRe),
 // //         .input_Im(input_Im),
 // //         .start(start),
 // //         .clk(clk),
@@ -126,7 +126,7 @@
 // //                 $finish;
 // //             end
 
-// //             input_Re[i] = value_Re;
+// //             inputRe[i] = value_Re;
 // //             input_Im[i] = value_Im;
 // //         end
 
@@ -151,21 +151,21 @@
 
 module fft_tb();
     // declare stimuli
-    logic [15:0] input_Re [63:0];
-    logic [15:0] input_Im [63:0];
+    logic [15:0] inputRe [63:0];
+    logic [15:0] inputIm [63:0];
     logic start, clk, rst;
-    logic [15:0] output_Re [63:0];
-    logic [15:0] output_Im [63:0];
+    logic [15:0] outputRe [63:0];
+    logic [15:0] outputIm [63:0];
 
     // instantiate uut
      FFT fft(
-        .input_Re(input_Re),
-        .input_Im(input_Im),
+        .inputRe(inputRe),
+        .inputIm(inputIm),
         .start(start),
         .clk(clk),
         .rst(rst),
-        .output_Re(output_Re),
-        .output_Im(output_Im)
+        .outputRe(outputRe),
+        .outputIm(outputIm)
     );
 
     // clock gen
@@ -180,11 +180,11 @@ module fft_tb();
 
         for (int i = 0; i < 64; i = i + 1) begin
             if (i < 32) begin
-                input_Re[i] = 16'b0000000000000100;
-                input_Im[i] = 16'b0000000000000000;
+                inputRe[i] = 16'b0000000000000100;
+                inputIm[i] = 16'b0000000000000000;
             end else begin
-                input_Re[i] = 16'b0000000000000000;
-                input_Im[i] = 16'b0000000000000000;
+                inputRe[i] = 16'b0000000000000000;
+                inputIm[i] = 16'b0000000000000000;
             end
         end
 
@@ -197,7 +197,7 @@ module fft_tb();
 
         #2000 
         for (int i = 0; i < 64; i = i + 1) begin
-            $display("output_Re[%0d] = %0d", i, output_Re[i]);
+            $display("outputRe[%0d] = %0d", i, outputRe[i]);
         end
         $finish;
     end

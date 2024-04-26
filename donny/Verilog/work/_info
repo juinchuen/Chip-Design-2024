@@ -19,45 +19,35 @@ Z3 tCvgOpt 0
 n@_opt
 Z4 OL;O;2020.1;71
 R0
-T_opt1
-!s110 1714167096
-VK3_l9[2Mko0]bh:;L]RE]1
-R1
-=1-b49691574b56-662c1d37-d66da-ade50
-R2
-R3
-n@_opt1
-R4
 T_opt2
-!s110 1709588544
-Vc5W`O<U9`Tg@SUJ5anHM31
+!s110 1714173376
+VO]BNKLV56:oN0zfaXI:6l3
 R1
-=1-b49691574b56-65e64040-99d6a-22bb33
+=1-b49691574b56-662c35c0-25d5f-eb19b
 R2
 R3
 n@_opt2
 R4
-R0
 vApply_Twiddle
 Z5 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z6 !s110 1714167095
+Z6 !s110 1714173375
 !i10b 1
-!s100 AMR;MR`h4AR5REfb_5KQY3
+!s100 GU61Ceike9[o^3>;H`8AM2
 Z7 !s11b Dg1SIo80bB@j0V0VzS_@n1
-I::]YDY9A5;?BNOjoSCOfo0
+InM_kR[1=hDFECEZ<aU<MX1
 Z8 VDg1SIo80bB@j0V0VzS_@n1
 S1
 Z9 d/home/dcc3637/ASIC_Github/Chip-Design-2024/donny/Verilog
-Z10 w1714166863
+Z10 w1714173365
 Z11 8fft.sv
 Z12 Ffft.sv
-!i122 863
-L0 162 32
+!i122 889
+L0 107 27
 Z13 OL;L;2020.1;71
 r1
 !s85 0
 31
-Z14 !s108 1714167095.000000
+Z14 !s108 1714173375.000000
 Z15 !s107 signal_router.sv|registerMux.sv|twiddle_factor_mux.sv|fft.sv|
 Z16 !s90 -reportprogress|300|-work|work|fft.sv|
 !i113 0
@@ -120,17 +110,17 @@ vButterfly
 R5
 R6
 !i10b 1
-!s100 zC=iSW[P@`HM64`Qk_J7<0
+!s100 5U5;O:`Jj:C4V]b=doReU0
 R7
-If=YBJ`?02ZbOU3=bSmm>J0
+I>23VoAzNafYifFgQA@d;o3
 R8
 S1
 R9
 R10
 R11
 R12
-!i122 863
-L0 69 91
+!i122 889
+L0 32 74
 R13
 r1
 !s85 0
@@ -146,17 +136,17 @@ vCountTo64
 R5
 R6
 !i10b 1
-!s100 Gz[4kSTP=eWjWfj0IK1BW3
+!s100 5chF]SE]1GX33iJK<f?4Z2
 R7
-IjK3?8J[:6dIBYI2TGY]m;0
+I0X_[;kK9:nQ:9IFmOU@``0
 R8
 S1
 R9
 R10
 R11
 R12
-!i122 863
-L0 271 28
+!i122 889
+L0 177 28
 R13
 r1
 !s85 0
@@ -222,24 +212,24 @@ R3
 n@d@f@f_16@bit
 vDFF_6Bit
 R5
-R6
+Z23 !s110 1714171586
 !i10b 1
-!s100 =B2:k@AWJ`7Q5oi9lz48B3
+!s100 :A::mf_2:QP1CTj6dV2bD1
 R7
-IV=8ZPDL<^2k5dYGa];;2J0
+IICh:^fH996o0@?`z3I4c;3
 R8
 S1
 R9
-R10
+Z24 w1714171577
 R11
 R12
-!i122 863
-L0 317 16
+!i122 881
+L0 282 16
 R13
 r1
 !s85 0
 31
-R14
+Z25 !s108 1714171586.000000
 R15
 R16
 !i113 0
@@ -248,56 +238,30 @@ R3
 n@d@f@f_6@bit
 vDFF_Bit
 R5
-R6
+R23
 !i10b 1
-!s100 CZOhFiZASEVRQ[Xb@YV0a2
+!s100 L>BCQME@B0f]3?YY?SQTV0
 R7
-IQlW77MUb9RdeX;anf^2K72
+I`9QinDzYaBC<hPWmHD`^:0
 R8
 S1
 R9
-R10
+R24
 R11
 R12
-!i122 863
-L0 300 16
+!i122 881
+L0 265 16
 R13
 r1
 !s85 0
 31
-R14
+R25
 R15
 R16
 !i113 0
 R17
 R3
 n@d@f@f_@bit
-vFFT
-R5
-R6
-!i10b 1
-!s100 m[O7YG2;K771>4VY]ce@62
-R7
-I:l4ObB>iZ`JF<3JdojU:f3
-R8
-S1
-R9
-R10
-R11
-R12
-!i122 863
-L0 5 27
-R13
-r1
-!s85 0
-31
-R14
-R15
-R16
-!i113 0
-R17
-R3
-n@f@f@t
 vfft
 R5
 !s110 1707261960
@@ -323,51 +287,77 @@ R16
 !i113 0
 R17
 R3
+vFFT
+R5
+R6
+!i10b 1
+!s100 7kFZSgQdGMT4DgOLQiIOE0
+R7
+IE1EiBM^odc5UKbN<kl6n50
+R8
+S1
+R9
+R10
+R11
+R12
+!i122 889
+L0 5 26
+R13
+r1
+!s85 0
+31
+R14
+R15
+R16
+!i113 0
+R17
+R3
+n@f@f@t
 vfft_tb
 R5
 R6
 !i10b 1
-!s100 @21bM6LKed0PCi[VkW4eE3
+!s100 kHn@zjlX2jJB365QUi_kG3
 R7
-IWHFW;2RYiOW6j9KW;TmgB1
+IAFi_mb50a4DZI>Mnc0nJ_0
 R8
 S1
 R9
-w1714150366
-Z23 8fft_tb.sv
-Z24 Ffft_tb.sv
-!i122 862
+w1714172120
+Z26 8fft_tb.sv
+Z27 Ffft_tb.sv
+!i122 888
 L0 152 53
 R13
 r1
 !s85 0
 31
 R14
-Z25 !s107 fft_tb.sv|
-Z26 !s90 -reportprogress|300|-work|work|fft_tb.sv|
+Z28 !s107 fft_tb.sv|
+Z29 !s90 -reportprogress|300|-work|work|fft_tb.sv|
 !i113 0
 R17
 R3
 vImTwiddleMux
 R5
-Z27 !s110 1708487149
+Z30 !s110 1708487149
 !i10b 1
 !s100 Wm8hc4H5DjUQ9_l:0<jD41
 R7
 IPF47YnSg91[F915``_e;@0
 R8
 S1
-Z28 d/home/dcc3637/ASIC_Github/Chip-Design-2024/donny/ASIC_Project
-Z29 w1708289239
-Z30 8twiddle_factor_mux.sv
-Z31 Ftwiddle_factor_mux.sv
+Z31 d/home/dcc3637/ASIC_Github/Chip-Design-2024/donny/ASIC_Project
+Z32 w1708289239
+Z33 8twiddle_factor_mux.sv
+Z34 Ftwiddle_factor_mux.sv
 !i122 221
 L0 50 46
 R13
 r1
 !s85 0
 31
-Z32 !s108 1708487149.000000
+Z35 !s108 1708487149.000000
 R18
 R16
 !i113 0
@@ -378,16 +368,16 @@ vInputSignalRouter
 R5
 R6
 !i10b 1
-!s100 21;EDRUI<5`eZboj3^CH22
+!s100 `;[WBZ1QE[DNWdIAAoj3f0
 R7
-I@mnz:O2`83O2FadWkKCXm3
+I6Wioh<;dShBkRKdhWZS?S2
 R8
 S1
 R9
-w1714167083
+w1714171993
 8signal_router.sv
 Fsignal_router.sv
-!i122 863
+!i122 889
 L0 1 144
 R13
 r1
@@ -413,8 +403,8 @@ R9
 w1711424139
 8registerMux.sv
 FregisterMux.sv
-!i122 863
-Z33 L0 1 79
+!i122 889
+Z36 L0 1 79
 R13
 r1
 !s85 0
@@ -428,24 +418,24 @@ R3
 nregister@mux
 vReTwiddleMux
 R5
-R27
+R30
 !i10b 1
 !s100 EXI>T;VRRi`4kkn<JcdRi2
 R7
 IF@b3a1Z9]1_GaSOzbg_5R3
 R8
 S1
-R28
-R29
-R30
 R31
+R32
+R33
+R34
 !i122 221
 L0 1 46
 R13
 r1
 !s85 0
 31
-R32
+R35
 R18
 R16
 !i113 0
@@ -481,17 +471,17 @@ vStageClock
 R5
 R6
 !i10b 1
-!s100 ]zSc2I6k8g[1dcZo[j:oV0
+!s100 bIn`TRl=kgH@Bh>_njI;h3
 R7
-I9EW47oTH^e?WK[jVS6fBU2
+IDT3<]j>K4g6F]?kMOzkTk1
 R8
 S1
 R9
 R10
 R11
 R12
-!i122 863
-L0 251 19
+!i122 889
+L0 158 18
 R13
 r1
 !s85 0
@@ -503,32 +493,6 @@ R16
 R17
 R3
 n@stage@clock
-vStageClock_TB
-R5
-!s110 1707256160
-!i10b 1
-!s100 i9XVZ]=2K2AB@z@>_k`B_3
-R7
-IEaH_R^aXCn4QT:[ehVdU@1
-R8
-S1
-R0
-w1707256111
-R23
-R24
-!i122 78
-L0 43 25
-R13
-r1
-!s85 0
-31
-!s108 1707256160.000000
-R25
-R26
-!i113 0
-R17
-R3
-n@stage@clock_@t@b
 vstageClock_tb
 R5
 !s110 1708810040
@@ -543,7 +507,7 @@ w1708810033
 8stageClock_tb.sv
 FstageClock_tb.sv
 !i122 238
-Z34 L0 1 39
+Z37 L0 1 39
 R13
 r1
 !s85 0
@@ -555,6 +519,32 @@ r1
 R17
 R3
 nstage@clock_tb
+vStageClock_TB
+R5
+!s110 1707256160
+!i10b 1
+!s100 i9XVZ]=2K2AB@z@>_k`B_3
+R7
+IEaH_R^aXCn4QT:[ehVdU@1
+R8
+S1
+R0
+w1707256111
+R26
+R27
+!i122 78
+L0 43 25
+R13
+r1
+!s85 0
+31
+!s108 1707256160.000000
+R28
+R29
+!i113 0
+R17
+R3
+n@stage@clock_@t@b
 vTwiddleAdder
 R5
 R19
@@ -585,17 +575,17 @@ vTwiddleFactorIndex
 R5
 R6
 !i10b 1
-!s100 [L=o?MHeOBMM6aFK?_1mH1
+!s100 c4N6bJDXFRQ7O`E==MfWT1
 R7
-IdK0gNR<@EBo`abZ=nzB7G3
+ICB3:XETWeQO<?oQ4CchcA0
 R8
 S1
 R9
 R10
 R11
 R12
-!i122 863
-L0 226 14
+!i122 889
+L0 135 22
 R13
 r1
 !s85 0
@@ -621,7 +611,7 @@ w1709002248
 8twiddleFactorIndex_tb.sv
 FtwiddleFactorIndex_tb.sv
 !i122 420
-R34
+R37
 R13
 r1
 !s85 0
@@ -644,10 +634,10 @@ R8
 S1
 R9
 w1712092374
-R30
-R31
-!i122 863
 R33
+R34
+!i122 889
+R36
 R13
 r1
 !s85 0
