@@ -18,29 +18,29 @@
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 19:24:33 on Apr 04,2024
+# Start time: 16:31:35 on Apr 26,2024
 # vlog -reportprogress 300 -work work fft_tb.sv 
 # -- Compiling module fft_tb
-# ** Warning: fft_tb.sv(100): (vlog-2244) Variable 'filename' is implicitly static. You must either explicitly declare it as static or automatic
-# or remove the initialization in the declaration of variable.
 # 
 # Top level modules:
 # 	fft_tb
-# End time: 19:24:33 on Apr 04,2024, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 1
+# End time: 16:31:35 on Apr 26,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 19:24:33 on Apr 04,2024
+# Start time: 16:31:35 on Apr 26,2024
 # vlog -reportprogress 300 -work work fft.sv 
 # -- Compiling module TwiddleMux
 # -- Compiling module registerMux
 # ** Warning: ** while parsing file included at fft.sv(2)
 # ** at registerMux.sv(3): (vlog-13314) Defaulting port 'regs' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
-# -- Compiling module FFT
-# ** Warning: fft.sv(8): (vlog-13314) Defaulting port 'input_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
-# ** Warning: fft.sv(9): (vlog-13314) Defaulting port 'input_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling module InputSignalRouter
-# ** Warning: fft.sv(36): (vlog-13314) Defaulting port 'input_sig_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
-# ** Warning: fft.sv(37): (vlog-13314) Defaulting port 'input_sig_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: ** while parsing file included at fft.sv(3)
+# ** at signal_router.sv(5): (vlog-13314) Defaulting port 'input_sig_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: ** while parsing file included at fft.sv(3)
+# ** at signal_router.sv(6): (vlog-13314) Defaulting port 'input_sig_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# -- Compiling module FFT
+# ** Warning: fft.sv(9): (vlog-13314) Defaulting port 'input_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: fft.sv(10): (vlog-13314) Defaulting port 'input_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 # -- Compiling module Butterfly
 # -- Compiling module Apply_Twiddle
 # -- Compiling module TwiddleFactorIndex
@@ -51,11 +51,16 @@
 # 
 # Top level modules:
 # 	FFT
-# End time: 19:24:33 on Apr 04,2024, Elapsed time: 0:00:00
+# End time: 16:31:35 on Apr 26,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 5
 # vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.fft_tb -wlf fft_tb.wlf 
-# Start time: 19:24:33 on Apr 04,2024
-# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Start time: 16:31:35 on Apr 26,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: signal_router.sv(5): (vopt-13314) Defaulting port 'input_sig_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: signal_router.sv(6): (vopt-13314) Defaulting port 'input_sig_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: fft.sv(9): (vopt-13314) Defaulting port 'input_Re' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: fft.sv(10): (vopt-13314) Defaulting port 'input_Im' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=4.
 # Loading sv_std.std
 # Loading work.fft_tb(fast)
 # Loading work.FFT(fast)
@@ -69,9 +74,71 @@
 # Loading work.TwiddleMux(fast)
 # Loading work.registerMux(fast)
 # Loading work.Apply_Twiddle(fast)
-# ** Note: $finish    : fft_tb.sv(148)
-#    Time: 50018 ns  Iteration: 0  Instance: /fft_tb
+# output_Re[0] = 128
+# output_Re[1] = 4
+# output_Re[2] = 0
+# output_Re[3] = 4
+# output_Re[4] = 0
+# output_Re[5] = 7
+# output_Re[6] = 0
+# output_Re[7] = 4
+# output_Re[8] = 0
+# output_Re[9] = 4
+# output_Re[10] = 0
+# output_Re[11] = 3
+# output_Re[12] = 0
+# output_Re[13] = 4
+# output_Re[14] = 0
+# output_Re[15] = 4
+# output_Re[16] = 0
+# output_Re[17] = 4
+# output_Re[18] = 0
+# output_Re[19] = 4
+# output_Re[20] = 0
+# output_Re[21] = 3
+# output_Re[22] = 0
+# output_Re[23] = 4
+# output_Re[24] = 0
+# output_Re[25] = 4
+# output_Re[26] = 0
+# output_Re[27] = 3
+# output_Re[28] = 0
+# output_Re[29] = 4
+# output_Re[30] = 0
+# output_Re[31] = 4
+# output_Re[32] = 0
+# output_Re[33] = 4
+# output_Re[34] = 0
+# output_Re[35] = 4
+# output_Re[36] = 0
+# output_Re[37] = 3
+# output_Re[38] = 0
+# output_Re[39] = 4
+# output_Re[40] = 0
+# output_Re[41] = 4
+# output_Re[42] = 0
+# output_Re[43] = 3
+# output_Re[44] = 0
+# output_Re[45] = 4
+# output_Re[46] = 0
+# output_Re[47] = 4
+# output_Re[48] = 0
+# output_Re[49] = 4
+# output_Re[50] = 0
+# output_Re[51] = 4
+# output_Re[52] = 0
+# output_Re[53] = 3
+# output_Re[54] = 0
+# output_Re[55] = 4
+# output_Re[56] = 0
+# output_Re[57] = 4
+# output_Re[58] = 0
+# output_Re[59] = 7
+# output_Re[60] = 0
+# output_Re[61] = 4
+# output_Re[62] = 0
+# output_Re[63] = 4
+# ** Note: $finish    : fft_tb.sv(202)
+#    Time: 2018 ns  Iteration: 0  Instance: /fft_tb
 # 1
-# Break in Module fft_tb at fft_tb.sv line 148
-# End time: 19:26:26 on Apr 04,2024, Elapsed time: 0:01:53
-# Errors: 0, Warnings: 0
+# Break in Module fft_tb at fft_tb.sv line 202

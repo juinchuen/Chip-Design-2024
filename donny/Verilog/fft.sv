@@ -1,5 +1,6 @@
 `include "twiddle_factor_mux.sv"
 `include "registerMux.sv"
+`include "signal_router.sv"
 
 module FFT #(
     parameter D_WIDTH = 64,
@@ -29,41 +30,41 @@ module FFT #(
 
 endmodule
 
-module InputSignalRouter #(
-    parameter D_WIDTH = 64,
-    parameter LOG_2_WIDTH = 6
-) (
-    input logic [15:0] input_sig_Re [((D_WIDTH) - 1):0],
-    input logic [15:0] input_sig_Im [((D_WIDTH) - 1):0],
-    output logic [15:0] output_sig_Re [((D_WIDTH) - 1):0],
-    output logic [15:0] output_sig_Im [((D_WIDTH) - 1):0]
-);
-    // Correctly route the input signal
+// module InputSignalRouter #(
+//     parameter D_WIDTH = 64,
+//     parameter LOG_2_WIDTH = 6
+// ) (
+//     input logic [15:0] input_sig_Re [((D_WIDTH) - 1):0],
+//     input logic [15:0] input_sig_Im [((D_WIDTH) - 1):0],
+//     output logic [15:0] output_sig_Re [((D_WIDTH) - 1):0],
+//     output logic [15:0] output_sig_Im [((D_WIDTH) - 1):0]
+// );
+//     // Correctly route the input signal
 
-    logic [15:0] fft_Re [((D_WIDTH) - 1):0];
-    logic [15:0] fft_Im [((D_WIDTH) - 1):0];
- generate
-    for (genvar i = 0; i < D_WIDTH; i++) begin 
-        int ii;
-        int  x;
+//     logic [15:0] fft_Re [((D_WIDTH) - 1):0];
+//     logic [15:0] fft_Im [((D_WIDTH) - 1):0];
+//  generate
+//     for (genvar i = 0; i < D_WIDTH; i++) begin 
+//         int ii;
+//         int  x;
 
-        initial begin
-            x = i;
-            ii = 0;
-            for (int j = 0; j < LOG_2_WIDTH; j++) begin
-                ii <<= 1;
-                ii |= (x & 1);
-                x >>= 1;
-            end
-        end
-        assign fft_Re[i] = input_sig_Re[ii];
-        assign fft_Im[i] = input_sig_Im[ii];
-    end
-    assign output_sig_Re = fft_Re;
-    assign output_sig_Im = fft_Im;
-endgenerate
+//         initial begin
+//             x = i;
+//             ii = 0;
+//             for (int j = 0; j < LOG_2_WIDTH; j++) begin
+//                 ii <<= 1;
+//                 ii |= (x & 1);
+//                 x >>= 1;
+//             end
+//         end
+//         assign fft_Re[i] = input_sig_Re[ii];
+//         assign fft_Im[i] = input_sig_Im[ii];
+//     end
+//     assign output_sig_Re = fft_Re;
+//     assign output_sig_Im = fft_Im;
+// endgenerate
 
-endmodule
+// endmodule
 
 module Butterfly#( 
     parameter D_WIDTH = 64,
@@ -129,30 +130,32 @@ module Butterfly#(
   assign output_Im = Im_reg;
 
   // Might need to use a normal for loop
-  generate 
-    for (genvar i = 0; i < D_WIDTH; i++) begin 
-      // assign output_Re[i] = Re_reg[i];
-      // assign output_Im[i] = Im_reg[i];
-      always_ff @(negedge clk or negedge rst) begin
-        if (~rst) begin
-          Re_reg[i] <= 16'b0;
-          Im_reg[i] <= 16'b0;
-        end else if(start) begin
-          Re_reg[i] <= input_Re[i];
-          Im_reg[i] <= input_Im[i];
-        end else  if((count == i) & wrEnable) begin
+  always_ff @(negedge clk or negedge rst) begin
+  if (~rst) begin
+    for(int i = 0; i < 64; i++) begin
+      Re_reg[i] <= 16'b0;
+      Im_reg[i] <= 16'b0;
+    end
+  end else if(start) begin
+    for(int i = 0; i < 64; i++) begin
+      Re_reg[i] <= input_Re[i];
+      Im_reg[i] <= input_Im[i];
+    end
+  end else begin
+    if(wrEnable) begin
+      for(int i = 0; i < 64; i++) begin
+        if(count == i) begin
           Re_reg[i] <= new_Re_Curr;
           Im_reg[i] <= new_Im_Curr;
-        end else if((index2 == i) & wrEnable) begin
+        end
+        if(index2 == i) begin
           Re_reg[i] <= new_Re_Oth;
           Im_reg[i] <= new_Im_Oth;
-        end else begin
-          Re_reg[i] <= Re_reg[i];
-          Im_reg[i] <= Im_reg[i];
         end
       end
     end
-  endgenerate
+  end
+end
 endmodule
 
 // Change this to do both + and - so we can do it in the same spot
