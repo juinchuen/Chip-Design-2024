@@ -18,16 +18,16 @@
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 18:16:15 on Apr 26,2024
+# Start time: 18:28:05 on Apr 26,2024
 # vlog -reportprogress 300 -work work fft_tb.sv 
 # -- Compiling module fft_tb
 # 
 # Top level modules:
 # 	fft_tb
-# End time: 18:16:15 on Apr 26,2024, Elapsed time: 0:00:00
+# End time: 18:28:05 on Apr 26,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 18:16:15 on Apr 26,2024
+# Start time: 18:28:05 on Apr 26,2024
 # vlog -reportprogress 300 -work work fft.sv 
 # -- Compiling module TwiddleMux
 # -- Compiling module registerMux
@@ -49,11 +49,11 @@
 # 
 # Top level modules:
 # 	FFT
-# End time: 18:16:15 on Apr 26,2024, Elapsed time: 0:00:00
+# End time: 18:28:06 on Apr 26,2024, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 5
 # vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.fft_tb -wlf fft_tb.wlf 
-# Start time: 18:16:16 on Apr 26,2024
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Start time: 18:28:06 on Apr 26,2024
+# ** Note: (vsim-8009) Loading existing optimized design _opt2
 # Loading sv_std.std
 # Loading work.fft_tb(fast)
 # Loading work.FFT(fast)
@@ -133,5 +133,5 @@
 #    Time: 2018 ns  Iteration: 0  Instance: /fft_tb
 # 1
 # Break in Module fft_tb at fft_tb.sv line 202
-# End time: 18:16:27 on Apr 26,2024, Elapsed time: 0:00:11
+# End time: 18:28:19 on Apr 26,2024, Elapsed time: 0:00:13
 # Errors: 0, Warnings: 0

@@ -20,34 +20,35 @@ n@_opt
 Z4 OL;O;2020.1;71
 R0
 T_opt2
-!s110 1714173376
-VO]BNKLV56:oN0zfaXI:6l3
+!s110 1714173465
+V=oIj26DPUX6zViSdR?N0d1
 R1
-=1-b49691574b56-662c35c0-25d5f-eb19b
+=1-b49691574b56-662c3619-9b238-ebc9c
 R2
 R3
 n@_opt2
 R4
+R0
 vApply_Twiddle
 Z5 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z6 !s110 1714173375
+Z6 !s110 1714174086
 !i10b 1
-!s100 GU61Ceike9[o^3>;H`8AM2
+!s100 SfQbMga?T^bn_DKADb8hM3
 Z7 !s11b Dg1SIo80bB@j0V0VzS_@n1
-InM_kR[1=hDFECEZ<aU<MX1
+I?G>bA?n>BQa59]YfX5]?g2
 Z8 VDg1SIo80bB@j0V0VzS_@n1
 S1
 Z9 d/home/dcc3637/ASIC_Github/Chip-Design-2024/donny/Verilog
-Z10 w1714173365
+Z10 w1714174033
 Z11 8fft.sv
 Z12 Ffft.sv
-!i122 889
-L0 107 27
+!i122 893
+L0 107 26
 Z13 OL;L;2020.1;71
 r1
 !s85 0
 31
-Z14 !s108 1714173375.000000
+Z14 !s108 1714174085.000000
 Z15 !s107 signal_router.sv|registerMux.sv|twiddle_factor_mux.sv|fft.sv|
 Z16 !s90 -reportprogress|300|-work|work|fft.sv|
 !i113 0
@@ -110,16 +111,16 @@ vButterfly
 R5
 R6
 !i10b 1
-!s100 5U5;O:`Jj:C4V]b=doReU0
+!s100 `l87VM3EF`:]H5:GK9Xm]0
 R7
-I>23VoAzNafYifFgQA@d;o3
+I8Y43VSbd^FQV9Q2@Jz3?j1
 R8
 S1
 R9
 R10
 R11
 R12
-!i122 889
+!i122 893
 L0 32 74
 R13
 r1
@@ -136,17 +137,17 @@ vCountTo64
 R5
 R6
 !i10b 1
-!s100 5chF]SE]1GX33iJK<f?4Z2
+!s100 mo:<oL9AUdK@dIBZU`l2:0
 R7
-I0X_[;kK9:nQ:9IFmOU@``0
+I4FOoDBXMP`ZW?9]1=;2851
 R8
 S1
 R9
 R10
 R11
 R12
-!i122 889
-L0 177 28
+!i122 893
+L0 176 28
 R13
 r1
 !s85 0
@@ -291,16 +292,16 @@ vFFT
 R5
 R6
 !i10b 1
-!s100 7kFZSgQdGMT4DgOLQiIOE0
+!s100 97N8ADOI7:2i^D[T57VGm3
 R7
-IE1EiBM^odc5UKbN<kl6n50
+IIA5lHCLFf;;EP^YKAPnRA2
 R8
 S1
 R9
 R10
 R11
 R12
-!i122 889
+!i122 893
 L0 5 26
 R13
 r1
@@ -315,7 +316,7 @@ R3
 n@f@f@t
 vfft_tb
 R5
-R6
+!s110 1714174085
 !i10b 1
 !s100 kHn@zjlX2jJB365QUi_kG3
 R7
@@ -323,10 +324,10 @@ IAFi_mb50a4DZI>Mnc0nJ_0
 R8
 S1
 R9
-w1714172120
+w1714174067
 Z26 8fft_tb.sv
 Z27 Ffft_tb.sv
-!i122 888
+!i122 892
 L0 152 53
 R13
 r1
@@ -377,7 +378,7 @@ R9
 w1714171993
 8signal_router.sv
 Fsignal_router.sv
-!i122 889
+!i122 893
 L0 1 144
 R13
 r1
@@ -403,7 +404,7 @@ R9
 w1711424139
 8registerMux.sv
 FregisterMux.sv
-!i122 889
+!i122 893
 Z36 L0 1 79
 R13
 r1
@@ -471,17 +472,17 @@ vStageClock
 R5
 R6
 !i10b 1
-!s100 bIn`TRl=kgH@Bh>_njI;h3
+!s100 KU2ITEYzC27QjYNY0;37B1
 R7
-IDT3<]j>K4g6F]?kMOzkTk1
+IiK9]f`>=Cd<Xe077NgP]a3
 R8
 S1
 R9
 R10
 R11
 R12
-!i122 889
-L0 158 18
+!i122 893
+L0 157 18
 R13
 r1
 !s85 0
@@ -575,17 +576,17 @@ vTwiddleFactorIndex
 R5
 R6
 !i10b 1
-!s100 c4N6bJDXFRQ7O`E==MfWT1
+!s100 mElXhA2Zj;:0FBnoLTAE31
 R7
-ICB3:XETWeQO<?oQ4CchcA0
+IklhizUJ_@CWFzoZP3iSQL1
 R8
 S1
 R9
 R10
 R11
 R12
-!i122 889
-L0 135 22
+!i122 893
+L0 134 22
 R13
 r1
 !s85 0
@@ -636,7 +637,7 @@ R9
 w1712092374
 R33
 R34
-!i122 889
+!i122 893
 R36
 R13
 r1
