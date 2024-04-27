@@ -10,7 +10,8 @@ module FFT #(
   input logic [15:0] inputIm [((D_WIDTH) - 1):0],
   input logic start, clk, rst,
   output wire [15:0] outputRe [((D_WIDTH) - 1):0],
-  output wire [15:0] outputIm [((D_WIDTH) - 1):0]
+  output wire [15:0] outputIm [((D_WIDTH) - 1):0],
+  output wire done
   );
   wire [15:0] reButterflyIn [((D_WIDTH) - 1):0];
   wire [15:0] imButterflyIn [((D_WIDTH) - 1):0];
@@ -25,7 +26,9 @@ module FFT #(
                       .clk(clk),
                       .rst(rst),
                       .outputRe(outputRe),
-                      .outputIm(outputIm));
+                      .outputIm(outputIm),
+                      .done(done));
+                      
 
 endmodule
 
@@ -35,9 +38,10 @@ module Butterfly#(
 ) (
     input [15:0] inputRe [((D_WIDTH) - 1):0],
     input [15:0] inputIm [((D_WIDTH) - 1):0],
-    input start, clk, rst,
+    input  wire start, clk, rst,
     output wire [15:0] outputRe [((D_WIDTH) - 1):0],
-    output wire [15:0] outputIm [((D_WIDTH) - 1):0]
+    output wire [15:0] outputIm [((D_WIDTH) - 1):0],
+    output wire done
 );
   wire [5:0] count, stage, pairIndex;
   wire [5:0] twiddleIndexRe, twiddleIndexIm;
@@ -46,6 +50,19 @@ module Butterfly#(
   wire [5:0] reverseStage; 
   wire newStage;
   wire skip;
+
+  logic doneData;
+
+  always_ff @(negedge clk or negedge rst) begin
+    if (~rst) begin
+      doneData <= 1'b0;
+    end else begin
+      doneData <= stage[0] & newStage;
+    end
+  end
+
+  assign done = doneData;
+
   assign reverseStage = {stage[0], stage[1], stage[2], stage[3], stage[4], stage[5]};
 
   StageClock StageCount(.start(start), .shift(newStage | start), .clk(clk), .rst(rst), .out(stage));
@@ -111,7 +128,7 @@ module Apply_Twiddle(
 );
 
   wire signed [32:0] ReOutMulti, ImOutMulti;
-  wire signed [15:0] ReTemp, ImTemp, multiReIn, multiImIn, addReIn, addImIn, roundedRe, roundedIm;
+  wire signed [15:0] multiReIn, multiImIn, addReIn, addImIn, roundedRe, roundedIm;
 
   assign multiReIn =  pairRegRe;
   assign multiImIn = pairRegIm;
@@ -155,7 +172,7 @@ module TwiddleFactorIndex(
 endmodule
 
 module StageClock(
-  input wire start, shift, rst, clk,
+  input wire start, shift, rst, clk, done,
   output wire [5:0] out
 );
   reg [5:0] shiftReg;
@@ -169,6 +186,7 @@ module StageClock(
       shiftReg <= {in, shiftReg[5:1]};
     end
   end
+
   assign out = shiftReg;
 
 endmodule 

@@ -18,16 +18,16 @@
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 18:28:05 on Apr 26,2024
+# Start time: 19:14:20 on Apr 26,2024
 # vlog -reportprogress 300 -work work fft_tb.sv 
 # -- Compiling module fft_tb
 # 
 # Top level modules:
 # 	fft_tb
-# End time: 18:28:05 on Apr 26,2024, Elapsed time: 0:00:00
+# End time: 19:14:21 on Apr 26,2024, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 18:28:05 on Apr 26,2024
+# Start time: 19:14:21 on Apr 26,2024
 # vlog -reportprogress 300 -work work fft.sv 
 # -- Compiling module TwiddleMux
 # -- Compiling module registerMux
@@ -49,11 +49,18 @@
 # 
 # Top level modules:
 # 	FFT
-# End time: 18:28:06 on Apr 26,2024, Elapsed time: 0:00:01
+# End time: 19:14:21 on Apr 26,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 5
 # vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.fft_tb -wlf fft_tb.wlf 
-# Start time: 18:28:06 on Apr 26,2024
-# ** Note: (vsim-8009) Loading existing optimized design _opt2
+# Start time: 19:14:21 on Apr 26,2024
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: fft.sv(68): (vopt-2685) [TFMPC] - Too few port connections for 'StageCount'.  Expected 6, found 5.
+# ** Warning: fft.sv(68): (vopt-2718) [TFMPC] - Missing connection for port 'done'.
+# ** Warning: fft_tb.sv(161): (vopt-2685) [TFMPC] - Too few port connections for 'fft'.  Expected 8, found 7.
+# ** Warning: fft_tb.sv(161): (vopt-2718) [TFMPC] - Missing connection for port 'done'.
+# ** Warning: fft.sv(9): (vopt-13314) Defaulting port 'inputRe' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Warning: fft.sv(10): (vopt-13314) Defaulting port 'inputIm' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=6.
 # Loading sv_std.std
 # Loading work.fft_tb(fast)
 # Loading work.FFT(fast)
@@ -133,5 +140,5 @@
 #    Time: 2018 ns  Iteration: 0  Instance: /fft_tb
 # 1
 # Break in Module fft_tb at fft_tb.sv line 202
-# End time: 18:28:19 on Apr 26,2024, Elapsed time: 0:00:13
-# Errors: 0, Warnings: 0
+# End time: 19:15:51 on Apr 26,2024, Elapsed time: 0:01:30
+# Errors: 0, Warnings: 6
