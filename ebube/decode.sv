@@ -6,9 +6,10 @@ module decode #(
     input logic                         rstb,
 
     input logic [encoding_width-1:0]    encoded_data,
+    input logic                         valid_in,
 
     output logic [data_width-1:0]       decoded_data,
-    output logic                        valid
+    output logic                        valid_out
 );
 
     reg [encoding_width-1:0]    corrected;
@@ -36,12 +37,19 @@ module decode #(
     
     always_ff @ (negedge clk or negedge rstb) begin
         if (!rstb) begin
-            decoded_data <= 0;
-            valid <= 0;
+
+            valid_out <= 0;
+
         end else begin
+
             // clock the results
-            decoded_data <= decoded_comb;
-            valid <= 1;
+            if (valid_in) begin
+                decoded_data <= decoded_comb;
+                valid_out <= 1;
+            end else begin
+                valid_out <= 0;
+            end
+
         end
     end
 
