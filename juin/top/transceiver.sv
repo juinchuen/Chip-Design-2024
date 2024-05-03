@@ -45,7 +45,7 @@ module transceiver (
 
         end else begin
 		  
-				dec_start <= 0;
+			dec_start <= 0;
 
             if (rx_data_valid) begin
 
