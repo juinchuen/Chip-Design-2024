@@ -1,53 +1,49 @@
-module decode_tb ();
+module decode_tb (
 
-    // parameters
-    logic           clk, rstb, valid;
-    logic [20:0]    encoded;
-    logic [15:0]    decoded;
+    input logic clk,
+    input logic rst,
 
-    // set values for testing
-    initial begin
-        clk = 0;
-        rstb = 1;
-        encoded = 82;
-        // should return 10
+    output logic [7:0] led
+);
+    // init: wires, registers
+    reg [2:0]       test_index;
+    wire [37:0]     test_full;
 
-        #10 rstb = 0;
-        #10 rstb = 1;
+    wire [20:0]     encoded;
+    wire [15:0]     decoded_test, decoded_true;
+    wire            valid_test, valid_true;
 
-        #10 encoded = 599040;
-        // should return 19008
+    // index test_mem module
+    assign encoded          = test_full[20:0];
+    assign decoded_true     = test_full[36:21];
+    assign valid_true       = test_full[37];
 
-        #10 encoded = 599168;
-        // single bit error @ encoded[7] -> returns 19008
-
-        #10 encoded = 599104;
-        // single bit error @ encoded[6] -> returns 19008
-
-        #10 encoded = 74752;
-        // single bit error @ encoded[19] -> returns 19008
-
-        #30 $finish;
+    // led logic: text vs truth
+    always @ (negedge clk or negedge rst) begin
+        if (rst) begin
+            test_index <= 0;
+            led <= 0;
+        end else begin
+            test_index <= test_index + 1;
+            led <= (decoded_test == decoded_true) && (valid_test == valid_true);
+        end
     end
 
-    // clocking
-    always begin
-        #5
-        clk = ~clk;
-    end
-
-    // initialize decoder module
+    // module instantiation
     decode #(
         .data_width(16),
         .encoding_width(21)
     ) decoder (
-        .clk(clk),
-        .rstb(rstb),
-        .encoded_data(encoded),
-        .decoded_data(decoded),
-        .valid(valid)
+        .clk            (clk),
+        .rstb           (rst),
+        .encoded_data   (encoded),
+        .decoded_data   (decoded_test),
+        .valid          (valid)
     );
 
-
-
+    test_mem testing (
+		.index 	(test_index),
+		.data	(test_full)
+	);
+    
 endmodule
