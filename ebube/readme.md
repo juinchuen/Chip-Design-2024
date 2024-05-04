@@ -1,6 +1,6 @@
 # Error Checking Module
 
-This module implements a Hamming(16, 21) code algorithm. Assuming that the user sends in 21-bit encoded data using the [Hamming code algorithm](!TODO link), this module retrieves the 16-bit decoded data and verifies that the decoding process was successfully completed.
+This module implements a Hamming(16, 21) code algorithm. Assuming that the user sends in 21-bit encoded data using the [Hamming code algorithm](https://en.wikipedia.org/wiki/Hamming_code), this module retrieves the 16-bit decoded data and verifies that the decoding process was successfully completed.
 
 ## Source Code
 
