@@ -16,10 +16,10 @@ module encode_tb ();
         #10 rstb = 0;
         #10 rstb = 1;
 
-        #10 encoded_data = 19008;
+        #10 raw_data = 19008;
         // 599040
 
-        #10 encoded_data = 44561;
+        #10 raw_data = 44561;
         // 1433996
 
         #30 $finish;
@@ -35,7 +35,7 @@ module encode_tb ();
     encode #(
     .data_width(16),
     .encoding_width(21)
-    ) encoder(
+    ) encoder (
     .clk(clk),
     .rstb(rstb),
     .raw_data(raw_data),

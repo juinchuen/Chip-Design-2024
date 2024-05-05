@@ -1,7 +1,7 @@
 module decode_tb ();
 
     // parameters
-    logic           clk, rstb, valid;
+    logic           clk, rstb, valid_in, valid_out;
     logic [20:0]    encoded;
     logic [15:0]    decoded;
 
@@ -9,6 +9,7 @@ module decode_tb ();
     initial begin
         clk = 0;
         rstb = 1;
+        valid_in = 1;
         encoded = 82;
         // should return 10
 
@@ -26,6 +27,12 @@ module decode_tb ();
 
         #10 encoded = 74752;
         // single bit error @ encoded[19] -> returns 19008
+
+        #10 encoded = 1433996;
+        // 44561
+
+        #10 encoded = 1433868;
+        // 44561
 
         #30 $finish;
     end
@@ -45,7 +52,8 @@ module decode_tb ();
         .rstb(rstb),
         .encoded_data(encoded),
         .decoded_data(decoded),
-        .valid(valid)
+        .valid_in(valid_in),
+        .valid_out(valid_out)
     );
 
 

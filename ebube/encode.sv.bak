@@ -20,7 +20,7 @@ module encode #(
         syndrome[0] = raw_data[0] ^ raw_data[1] ^ raw_data[3] ^ raw_data[4] ^ raw_data[6] ^ raw_data[8] ^ raw_data[10] ^ raw_data[11] ^ raw_data[13] ^ raw_data[15];
         syndrome[1] = raw_data[0] ^ raw_data[2] ^ raw_data[3] ^ raw_data[5] ^ raw_data[6] ^ raw_data[9] ^ raw_data[10] ^ raw_data[12] ^ raw_data[13];
         syndrome[2] = raw_data[1] ^ raw_data[2] ^ raw_data[3] ^ raw_data[7] ^ raw_data[8] ^ raw_data[9] ^ raw_data[10] ^ raw_data[14] ^ raw_data[15];
-        syndrome[3] = raw_data[4] ^ raw_data[5] ^ raw_data[6] ^ raw_data[7] ^ raw_data[8] ^ raw_data[9] ^ raw_data[10];
+        syndrome[3] = raw_data[4] ^ raw_data[5] ^ raw_data[6] ^ raw_data[7] ^ raw_data[8] ^ raw_data[9] ^ raw_data[10]
         syndrome[4] = raw_data[11] ^ raw_data[12] ^ raw_data[13] ^ raw_data[14] ^ raw_data[15];
 
         // arrange in encoded_data

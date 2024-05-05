@@ -1,0 +1,49 @@
+# //  ModelSim SE-64 2020.1 Jan 28 2020 Linux 4.18.0-513.24.1.el8_9.x86_64
+# //
+# //  Copyright 1991-2020 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  ModelSim SE-64 and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# do decode.do
+# -9
+# ** Warning: (vlib-34) Library already exists at "work".
+# Model Technology ModelSim SE-64 vmap 2020.1 Lib Mapping Utility 2020.01 Jan 28 2020
+# vmap work work 
+# Modifying modelsim.ini
+# Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
+# Start time: 17:26:33 on May 05,2024
+# vlog -reportprogress 300 -work work decode_tb.sv 
+# -- Compiling module decode_tb
+# 
+# Top level modules:
+# 	decode_tb
+# End time: 17:26:33 on May 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
+# Start time: 17:26:33 on May 05,2024
+# vlog -reportprogress 300 -work work decode.sv 
+# -- Compiling module decode
+# 
+# Top level modules:
+# 	decode
+# End time: 17:26:33 on May 05,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.decode_tb -wlf decode_tb.wlf 
+# Start time: 17:26:33 on May 05,2024
+# ** Note: (vsim-3812) Design is being optimized...
+# Loading sv_std.std
+# Loading work.decode_tb(fast)
+# Loading work.decode(fast)
+# ** Note: $finish    : decode_tb.sv(87)
+#    Time: 110 ns  Iteration: 0  Instance: /decode_tb
+# 1
+# Break in Module decode_tb at decode_tb.sv line 87
+# End time: 17:28:33 on May 05,2024, Elapsed time: 0:02:00
+# Errors: 0, Warnings: 0
