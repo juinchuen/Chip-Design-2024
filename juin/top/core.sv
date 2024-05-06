@@ -15,7 +15,7 @@ module core (
 
 );
 
-    typedef enum logic[2:0] {idle, receive_fft, compute_fft, transmit_fft, receive_fir, compute_fir} core_state_t;
+    typedef enum logic[2:0] {idle, receive_fft, compute_fft, transmit_fft, receive_fir, compute_fir, transmit_fir} core_state_t;
 
     core_state_t core_state;
 
@@ -120,6 +120,9 @@ module core (
               end
 
               tx_done_prev <= tx_done;
+            end
+
+            transmit_fir: begin
             end
 
           endcase
