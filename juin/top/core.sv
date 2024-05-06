@@ -51,6 +51,7 @@ module core (
               fft_init_flag <= 0;
               cache_counter <= 0;
               data_in_valid_prev <= 0;
+              assign core_busy = 0;
 
               if (data_in_valid && data_in[1:0] == 2'b00) begin
                 core_state <= receive_fft; // FFT mode: 00
