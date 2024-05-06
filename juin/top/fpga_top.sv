@@ -12,9 +12,9 @@ module fpga_top #(
 
     // global
     input logic rstb,
-	input logic clk,
-	
-	output logic gnd,
+	  input logic clk,
+
+	  output logic gnd,
 
 );
 
@@ -44,17 +44,17 @@ module fpga_top #(
 		.o_RX_Byte		(debug_rx_data)
 	);
 
-    transceiver #(
-        .CLKS_PER_BIT(CLKS_PER_BIT)
-    ) uTRX (
-        .ser_in             (ser_in),
-        .ser_out            (ser_out),
-        .data_send          (data),
-        .data_send_valid    (valid),    
-        .data_recv          (data),
-        .data_recv_valid    (valid),
-        .clk                (clk),
-        .rstb               (rstb)
-    );
+  transceiver #(
+      .CLKS_PER_BIT(CLKS_PER_BIT)
+  ) uTRX (
+      .ser_in             (ser_in),
+      .ser_out            (ser_out),
+      .data_send          (data),
+      .data_send_valid    (valid),    
+      .data_recv          (data),
+      .data_recv_valid    (valid),
+      .clk                (clk),
+      .rstb               (rstb)
+  );
 
 endmodule
