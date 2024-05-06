@@ -14,7 +14,7 @@ module fpga_top #(
     input logic rstb,
 	  input logic clk,
 
-	  output logic gnd,
+	  output logic gnd
 
 );
 
@@ -30,7 +30,7 @@ module fpga_top #(
         if (!rstb) begin
             led <= 8'haa;
         end else begin
-            if (rx_data_valid) led <= debug_rx_data;
+            if (debug_rx_data_valid) led <= debug_rx_data;
         end
     end
 	 
