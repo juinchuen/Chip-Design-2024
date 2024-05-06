@@ -1,6 +1,8 @@
 // this module helps the core transmit 16 bit values
 
-module transceiver (
+module transceiver #(
+    parameter CLKS_PER_BIT = 434
+)(
 
     // world side pins
     input logic ser_in,
@@ -119,7 +121,7 @@ module transceiver (
     end
 
     UART_RX #(
-		.CLKS_PER_BIT(434)
+		.CLKS_PER_BIT(CLKS_PER_BIT)
 	) uRecv (
 	
 		.i_Rst_L        (rstb),
@@ -131,7 +133,7 @@ module transceiver (
 	);
 
     UART_TX #(
-		.CLKS_PER_BIT(434)
+		.CLKS_PER_BIT(CLKS_PER_BIT)
 	) uTrans (
 	
 		.i_Rst_L		(rstb),

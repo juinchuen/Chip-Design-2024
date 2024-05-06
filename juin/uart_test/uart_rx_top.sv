@@ -12,10 +12,13 @@ module uart_rx_top (
 
    logic [15:0] data;
    logic valid;
-	
-	assign gnd = 0;
 
-    always @ (negedge clk) begin
+   logic [7:0]  rx_data;
+   logic        rx_data_valid;
+	
+    assign gnd = 0;
+
+   always @ (negedge clk) begin
         
         if (!rst) begin
 
@@ -23,11 +26,27 @@ module uart_rx_top (
 
         end else begin
 
-            if (valid) led <= led + 1;
+            if (rx_data_valid) begin
+
+                led <= rx_data;
+                
+            end
 
         end
 
     end
+	 
+    UART_RX #(
+		.CLKS_PER_BIT(434)
+	) uRecv (
+	
+		.i_Rst_L        (rst),
+		.i_Clock        (clk),
+		.i_RX_Serial	(ser_in),
+		.o_RX_DV        (rx_data_valid),
+		.o_RX_Byte		(rx_data)
+	
+	);
 
     transceiver uTRX (
 
@@ -38,7 +57,7 @@ module uart_rx_top (
         .data_recv          (data),
         .data_recv_valid    (valid),
         .clk                (clk),
-        .rstb               (rstb)
+        .rstb               (rst)
 
     );
 

@@ -1,0 +1,130 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.01, Jan 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/eio8311/chip-design/Chip-Design-2024/ebube
+T_opt
+!s110 1714947543
+VZiHhiUzVJ=;FOlVaY68Gf2
+04 9 4 work encode_tb fast 0
+=1-a4bb6d3fef1e-663805d7-25792-1a9357
+Z1 o-quiet -auto_acc_if_foreign -work work -L work +acc
+Z2 tCvgOpt 0
+n@_opt
+Z3 OL;O;2020.1;71
+R0
+T_opt1
+Z4 !s110 1714947993
+V[b6H<k`WdZ_71KkD<F1QK1
+04 9 4 work decode_tb fast 0
+=1-a4bb6d3fef1e-66380799-4a2b9-1b0a28
+R1
+R2
+n@_opt1
+R3
+vdecode
+Z5 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+R4
+!i10b 1
+!s100 f@oWEzY8R@CMAR9]AZa_^0
+Z6 !s11b Dg1SIo80bB@j0V0VzS_@n1
+ICZLS]36hUY:GIFj_UmG^20
+Z7 VDg1SIo80bB@j0V0VzS_@n1
+S1
+R0
+w1714946372
+8decode.sv
+Fdecode.sv
+!i122 10
+L0 1 57
+Z8 OL;L;2020.1;71
+r1
+!s85 0
+31
+Z9 !s108 1714947993.000000
+!s107 decode.sv|
+!s90 -reportprogress|300|-work|work|decode.sv|
+!i113 0
+Z10 o-work work -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R2
+vdecode_tb
+R5
+R4
+!i10b 1
+!s100 7MTb2;U>Yo6haGJ_CYYgk2
+R6
+I31A5BCYnYO9D7b5[hRK?:1
+R7
+S1
+R0
+w1714947983
+8decode_tb.sv
+Fdecode_tb.sv
+!i122 9
+L0 51 61
+R8
+r1
+!s85 0
+31
+R9
+!s107 decode_tb.sv|
+!s90 -reportprogress|300|-work|work|decode_tb.sv|
+!i113 0
+R10
+R2
+vencode
+R5
+Z11 !s110 1714947556
+!i10b 1
+!s100 fB^D4QHi;S]KWO<z<deQT2
+R6
+IbEcL7?A1MFSA:?nJJmME22
+R7
+S1
+R0
+w1714946889
+8encode.sv
+Fencode.sv
+!i122 6
+L0 1 49
+R8
+r1
+!s85 0
+31
+Z12 !s108 1714947556.000000
+!s107 encode.sv|
+!s90 -reportprogress|300|-work|work|encode.sv|
+!i113 0
+R10
+R2
+vencode_tb
+R5
+R11
+!i10b 1
+!s100 C4m6HZXIST5M_591UbWOJ0
+R6
+I_O`?zEPziBhoWZ5X;SE_T0
+R7
+S1
+R0
+w1714947434
+8encode_tb.sv
+Fencode_tb.sv
+!i122 5
+L0 1 48
+R8
+r1
+!s85 0
+31
+R12
+!s107 encode_tb.sv|
+!s90 -reportprogress|300|-work|work|encode_tb.sv|
+!i113 0
+R10
+R2
