@@ -1,18 +1,27 @@
 import serial
 
-ser = serial.Serial('COM7', 115200, timeout=1)
+ser = serial.Serial('COM7', 781250, timeout=1)
 
-send = [8, 230, 93]
+num = 0
 
-ser.write(bytes(send))
+msg = "let's see if this works "
 
-msg = ser.read(2)
+line = ""
 
-ser.close()
+for i in range(100):
 
-print(msg)
+    send = msg + str(num) + "\n"
 
-print(msg[0] * 256 + msg[1])
+    num = num + 1
 
-print(msg[1] * 256 + msg[0])
+    line += send
+
+print(len(line))
+
+ser.write(bytes(line, 'ascii'))
+
+print(ser.read(10000))
+    
+
+
 
