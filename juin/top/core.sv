@@ -19,7 +19,8 @@ module core (
 
 );
 
-    typedef enum logic[2:0] {idle, receive_fft, compute_fft, transmit_fft, receive_fir, compute_fir, transmit_fir} core_state_t;
+    typedef enum logic[2:0] {   IDLE, RECEIVE_FFT, COMPUTE_FFT, TRANSMIT_FFT,
+                                RECEIVE_FIR, COMPUTE_FIR, TRANSMIT_FIR, WIND_FIR, LOAD_FIR} core_state_t;
 
     core_state_t core_state;
 
@@ -31,7 +32,12 @@ module core (
     logic [15:0] fft_output [127:0];
 
     // fir signals
-    logic fir_init, fir_start, fir_done;
+    logic fir_start,    fir_done;
+    logic fir_wind,     fir_load;
+    logic [15:0] fir_data_out;
+
+    assign fir_wind = (core_state == WIND_FIR) & (data_in_valid & ~data_in_valid_prev);
+    assign fir_load = ((core_state == LOAD_FIR) | (core_state == RECEIVE_FIR)) & (data_in_valid & ~data_in_valid_prev);
 
     logic [15:0] fft_cache [127:0];
     logic [7:0]  cache_counter;
@@ -64,10 +70,10 @@ module core (
 
         if (!rstb) begin
 
-            core_state      <= idle;
+            core_state      <= IDLE;
 
-            fir_init        <= 0;
             fir_start       <= 0;
+            fir_done        <= 0;
 
             fft_init        <= 0;
             fft_start       <= 0;
@@ -81,30 +87,40 @@ module core (
 
             case (core_state)
 
-                idle: begin
+                IDLE: begin
 
                     // OHJUINC: We usually reset in the departing state,
                     //          so that the variables are already reset
-                    //          when we enter the idle state
+                    //          when we enter the IDLE state
                     // 
                     // fir_init      <= 0;
                     // fft_init      <= 0;
                     // cache_counter <= 0;
                     // data_in_valid_prev <= 0;
 
-                    if (data_in_valid && data_in[1:0] == 2'b00) begin
+                    cache_counter <= 0;
 
-                        core_state <= receive_fft; // FFT mode: 00
+                    if (data_in_valid && data_in[2:0] == 3'h0) begin
 
-                    end else if (data_in_valid && data_in[1:0] == 2'b01) begin
+                        core_state <= RECEIVE_FFT; // FFT mode: 00
 
-                        core_state <= receive_fir; // FIR mode: 01
+                    end else if (data_in_valid && data_in[2:0] == 3'h1) begin
+
+                        core_state <= RECEIVE_FIR; // FIR mode: 01
+
+                    end else if (data_in_valid && data_in[2:0] == 3'h2) begin
+
+                        core_state <= WIND_FIR;
+
+                    end else if (data_in_valid && data_in[2:0] == 3'h3) begin
+
+                        core_state <= LOAD_FIR;
 
                     end
 
                 end
 
-                receive_fft: begin
+                RECEIVE_FFT: begin
 
                     if (data_in_valid & ~data_in_valid_prev) begin // on rising edge of data_in_valid
 
@@ -117,7 +133,7 @@ module core (
                             fft_init        <= 1;
                             fft_start       <= 1;
                             core_busy       <= 1;
-                            core_state      <= compute_fft;
+                            core_state      <= COMPUTE_FFT;
 
                         end else begin
                             
@@ -127,7 +143,7 @@ module core (
                     end
                 end
 
-                compute_fft: begin
+                COMPUTE_FFT: begin
 
                     // OHJUINC: assign statements are not allowed in sequential blocks
                     //          assign statements are purely combinational constructs
@@ -136,7 +152,7 @@ module core (
 
                     if (fft_done) begin
 
-                        core_state      <= transmit_fft;
+                        core_state      <= TRANSMIT_FFT;
 
                         data_out        <= fft_output[0];
                         data_out_valid  <= 1;
@@ -145,7 +161,7 @@ module core (
                     end
                 end
 
-                transmit_fft: begin
+                TRANSMIT_FFT: begin
 
                     data_out_valid <= 0;
 
@@ -154,7 +170,7 @@ module core (
                         if (cache_counter == 128) begin
 
                             cache_counter   <= 0;
-                            core_state      <= idle;
+                            core_state      <= IDLE;
                             core_busy       <= 0;
 
                         end else begin
@@ -168,28 +184,85 @@ module core (
                     end
                 end
 
-            // receive_fir: begin
-            //   assign fir_data_in = data_in;
-            //   assign fir_data_valid = data_in_valid;
+                WIND_FIR: begin
 
-            //   if (fir_counter == 15) begin
-            //     fir_counter <= 0;
-            //     core_state <= compute_fir
-            //   end else begin
-            //     fir_counter <= fir_counter + 1;
-            //   end
-            // end
+                    if (data_in_valid & ~data_in_valid_prev) begin
 
-            // compute_fir: begin
-            //   assign core_busy = 1;
-            //   if (fir_done) begin
-            //     core_state <= transmit_fir;
-            //   end
-            // end
+                        if (cache_counter == 15) begin
 
+                            core_state      <= IDLE;
+                            cache_counter   <= 0;
+
+                        end else begin
+
+                            cache_counter   <= cache_counter + 1;
+
+                        end
+
+                    end
+
+                end
+
+                LOAD_FIR: begin
+
+                    if (data_in_valid & ~data_in_valid_prev) begin
+
+                        if (cache_counter == 15) begin
+
+                            core_state      <= IDLE;
+                            cache_counter   <= 0;
+
+                        end else begin
+
+                            cache_counter   <= cache_counter + 1;
+
+                        end
+
+                    end
+
+                end
+
+                RECEIVE_FIR: begin
+
+                    if (data_in_valid & ~data_in_valid_prev) begin
+
+                        core_state <= COMPUTE_FIR;
+
+                        fir_start <= 1;
+
+                    end
+
+                end
+
+                COMPUTE_FIR: begin
+
+                    fir_start <= 0;
+
+                    if (fir_done): begin
+
+                        core_state <= TRANSMIT_FIR;
+
+                        data_out <= fir_data_out;
+
+                        data_out_valid <= 1;
+
+                    end
+
+                end
+
+                TRANSMIT_FIR: begin
+
+                    data_out_valid <= 0;
+
+                    if (tx_done & ~tx_done_prev) begin
+
+                        core_state <= idle;
+
+                    end
+
+                end
           endcase
         end
-
     end
 
     fft #(
@@ -205,5 +278,18 @@ module core (
         .outputIm   (fft_output[127:64]),        
         .done       (fft_done)
     );
+
+    fir uFIR(
+        
+        .clk        (clk),
+        .rstb       (rstb),
+        .wind       (fir_wind),
+        .load       (fir_load),
+        .in_valid   (fir_start),
+        .data       (data_in),
+        .out_valid  (fir_done),
+        .out        (fir_data_out)
+
+    )
 
 endmodule
