@@ -41,6 +41,7 @@ module UART_TX
     if (~i_Rst_L)
     begin
       r_SM_Main <= 3'b000;
+      o_TX_Active <= 1'b0;
     end
     else
     begin

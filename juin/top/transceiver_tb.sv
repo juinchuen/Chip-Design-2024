@@ -4,10 +4,13 @@ module transceiver_tb ();
 
     logic [7:0] ms_data;
     logic ms_data_valid;
-    logic ser_mosi, ms_done;
+    logic ser_mosi, ms_done, ms_busy;
 
     logic [15:0] slv_data_recv;
     logic slv_data_recv_valid;
+
+    logic [20:0] encoded;
+    logic encode_valid;
 
     always #10 clk = ~clk;
 
@@ -21,7 +24,11 @@ module transceiver_tb ();
 
         @(posedge clk)
 
-        ms_data = 15;
+        @(posedge encode_valid)
+
+        @(posedge clk)
+
+        ms_data = {3'b0, encoded[20:16]};
         ms_data_valid = 1;
 
         @(posedge clk)
@@ -32,7 +39,8 @@ module transceiver_tb ();
 
         @(posedge clk)
 
-        ms_data = 15;
+        // ms_data = encoded[15:8];
+        ms_data = 8'he7;
         ms_data_valid = 1;
 
         @(posedge clk)
@@ -43,7 +51,7 @@ module transceiver_tb ();
 
         @(posedge clk)
 
-        ms_data = 15;
+        ms_data = encoded[7:0];
         ms_data_valid = 1;
 
         @(posedge clk)
@@ -60,6 +68,17 @@ module transceiver_tb ();
 
     end
 
+    encode #(
+        .data_width     (16),
+        .encoding_width (21)
+    ) uEnc (
+        .clk            (clk),
+        .rstb           (rstb),
+        .raw_data       (16'h466b),
+        .valid_in       (1'b1),
+        .encoded_data   (encoded),
+        .valid_out      (encode_valid)
+    );
 
     UART_TX #(
 		.CLKS_PER_BIT(434)
@@ -69,7 +88,7 @@ module transceiver_tb ();
    		.i_Clock		(clk),
    		.i_TX_DV		(ms_data_valid),
    		.i_TX_Byte		(ms_data), 
-   		.o_TX_Active	(),
+   		.o_TX_Active	(ms_busy),
    		.o_TX_Serial	(ser_mosi),
    		.o_TX_Done		(ms_done)
 	

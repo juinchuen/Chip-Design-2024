@@ -4,8 +4,9 @@ vmap work work
 
 # compile
 vlog -work work "../uart/Verilog/source/UART_RX.v"
-vlog -work work "../uart/Verilog/source//UART_TX.v"
+vlog -work work "../uart/Verilog/source/UART_TX.v"
 vlog -work work "../../ebube/decode.sv"
+vlog -work work "../../ebube/encode.sv"
 vlog -work work "transceiver.sv"
 vlog -work work "transceiver_tb.sv"
 
