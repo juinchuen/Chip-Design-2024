@@ -39,6 +39,27 @@ module core (
     logic data_in_valid_prev;
     logic tx_done_prev;
 
+    // int input_file, output_file;
+
+    // initial begin
+
+    //     input_file = $fopen("fft_in.txt", "w");
+    //     output_file = $fopen("fft_out.txt", "w");
+
+    // end
+
+    // always @ (posedge data_out_valid) begin
+
+    //     $fdisplay(output_file, "%d", data_out);
+
+    // end
+
+    // always @ (posedge data_in_valid) begin
+
+    //     $fdisplay(input_file, "%d", data_in);
+
+    // end
+
     always @ (negedge clk or negedge rstb) begin
 
         if (!rstb) begin

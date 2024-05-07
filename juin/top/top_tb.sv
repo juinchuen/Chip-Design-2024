@@ -7,7 +7,7 @@
             wait(!TX_BUSY)\
             @(posedge CLK)
 
-`define CLKS_PER_BIT 434
+`define CLKS_PER_BIT 16
 
 `define CLK_HALF_PERIOD 10
 
@@ -49,7 +49,7 @@ module top_tb();
 
         end
 
-        #30000000
+        #1000000
 
         $finish;
 
