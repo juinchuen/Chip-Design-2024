@@ -12,15 +12,22 @@ module fpga_top #(
 
     // global
     input logic rstb,
-	  input logic clk,
+	input logic clk,
 
-	  output logic gnd
+	output logic gnd
 
 );
 
-    logic [15:0] data;
-    logic valid;
+    // rx signals
+    logic [15:0]    rx_data;
+    logic           rx_data_valid;
 
+    // tx signals
+    logic [15:0]    tx_data;
+    logic           tx_data_valid;
+    logic           tx_done;
+
+    // debug led signals
     logic [7:0]  debug_rx_data;
     logic        debug_rx_data_valid;
 	
@@ -44,17 +51,29 @@ module fpga_top #(
 		.o_RX_Byte		(debug_rx_data)
 	);
 
-  transceiver #(
-      .CLKS_PER_BIT(CLKS_PER_BIT)
-  ) uTRX (
-      .ser_in             (ser_in),
-      .ser_out            (ser_out),
-      .data_send          (data),
-      .data_send_valid    (valid),    
-      .data_recv          (data),
-      .data_recv_valid    (valid),
-      .clk                (clk),
-      .rstb               (rstb)
-  );
+    transceiver #(
+        .CLKS_PER_BIT(CLKS_PER_BIT)
+    ) uTRX (
+        .ser_in             (ser_in),
+        .ser_out            (ser_out),
+        .data_send          (tx_data),
+        .data_send_valid    (tx_data_valid),
+        .data_send_done     (tx_done),    
+        .data_recv          (rx_data),
+        .data_recv_valid    (rx_data_valid),
+        .clk                (clk),
+        .rstb               (rstb)
+    );
+
+    core uCore(
+        .data_in        (rx_data),
+        .data_in_valid  (rx_data_valid),
+        .tx_done        (tx_done),
+        .data_out       (tx_data),
+        .data_out_valid (tx_data_valid),
+        .core_busy      (),
+        .clk            (clk),
+        .rstb           (rstb)
+    );
 
 endmodule

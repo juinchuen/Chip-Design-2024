@@ -36,9 +36,8 @@ module core (
     logic [15:0] fft_cache [127:0];
     logic [7:0]  cache_counter;
 
-    // OHJUINC: Not sure why we need to detect the rising edge
-    // logic data_in_valid_prev; // used for detecting data_in_valid's rising edge
-    // logic tx_done_prev; // used to create an edge for data_out_valid
+    logic data_in_valid_prev;
+    logic tx_done_prev;
 
     always @ (negedge clk or negedge rstb) begin
 
@@ -55,6 +54,9 @@ module core (
             cache_counter   <= 0;
 
         end else begin
+
+            data_in_valid_prev  <= data_in_valid;
+            tx_done_prev        <= tx_done;
 
             case (core_state)
 
@@ -83,12 +85,12 @@ module core (
 
                 receive_fft: begin
 
-                    if (data_in_valid) begin // on rising edge of data_in_valid
+                    if (data_in_valid & ~data_in_valid_prev) begin // on rising edge of data_in_valid
 
                         // write the input data to the current cache position
                         fft_cache[cache_counter] <= data_in;
 
-                        if (cache_counter == 63) begin
+                        if (cache_counter == 127) begin
 
                             cache_counter   <= 0;
                             fft_init        <= 1;
@@ -102,8 +104,6 @@ module core (
 
                         end
                     end
-
-                    data_in_valid_prev <= data_in_valid;
                 end
 
                 compute_fft: begin
@@ -128,11 +128,7 @@ module core (
 
                     data_out_valid <= 0;
 
-                    if (tx_done) begin
-
-                        data_out        <= fft_output[cache_counter];
-                        data_out_valid  <= 1;
-                        cache_counter   <= cache_counter + 1;
+                    if (tx_done & ~tx_done_prev) begin
                         
                         if (cache_counter == 128) begin
 
@@ -140,47 +136,56 @@ module core (
                             core_state      <= idle;
                             core_busy       <= 0;
 
+                        end else begin
+
+                            data_out        <= fft_output[cache_counter];
+                            data_out_valid  <= 1;
+                            cache_counter   <= cache_counter + 1;
+
                         end
 
                     end
                 end
 
-            receive_fir: begin
-              assign fir_data_in = data_in;
-              assign fir_data_valid = data_in_valid;
+            // receive_fir: begin
+            //   assign fir_data_in = data_in;
+            //   assign fir_data_valid = data_in_valid;
 
-              if (fir_counter == 15) begin
-                fir_counter <= 0;
-                core_state <= compute_fir
-              end else begin
-                fir_counter <= fir_counter + 1;
-              end
-            end
+            //   if (fir_counter == 15) begin
+            //     fir_counter <= 0;
+            //     core_state <= compute_fir
+            //   end else begin
+            //     fir_counter <= fir_counter + 1;
+            //   end
+            // end
 
-            compute_fir: begin
-              assign core_busy = 1;
-              if (fir_done) begin
-                core_state <= transmit_fir;
-              end
-            end
+            // compute_fir: begin
+            //   assign core_busy = 1;
+            //   if (fir_done) begin
+            //     core_state <= transmit_fir;
+            //   end
+            // end
 
           endcase
         end
 
     end
 
-    fft #(
-        .D_WIDTH        (64),
-        .LOG_2_WIDTH    (6)
-    ) uFFT ( 
-        .inputRe    (fft_cache[ 63: 0]),    
-        .inputIm    (fft_cache[127:64]),    
-        .start      (fft_start),    
-        .clk        (clk),    
-        .rst        (rstb),
-        .outputRe   (fft_output[ 63: 0]),        
-        .outputIm   (fft_output[127:64]),        
-        .done       (fft_done)
-    );
+    assign fft_done = 1;
+    assign fft_output = fft_cache;
+
+    // fft #(
+    //     .D_WIDTH        (64),
+    //     .LOG_2_WIDTH    (6)
+    // ) uFFT ( 
+    //     .inputRe    (fft_cache[ 63: 0]),    
+    //     .inputIm    (fft_cache[127:64]),    
+    //     .start      (fft_start),    
+    //     .clk        (clk),    
+    //     .rst        (rstb),
+    //     .outputRe   (fft_output[ 63: 0]),        
+    //     .outputIm   (fft_output[127:64]),        
+    //     .done       (fft_done)
+    // );
 
 endmodule

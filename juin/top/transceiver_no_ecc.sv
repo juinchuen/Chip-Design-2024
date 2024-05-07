@@ -11,7 +11,9 @@ module transceiver #(
 
     // fpga side pins
     input logic [15:0]  data_send,
-    input logic         data_send_valid,    
+    input logic         data_send_valid,
+
+    output logic        data_send_done,    
 
     output logic [15:0] data_recv,
     output logic        data_recv_valid,
@@ -32,6 +34,9 @@ module transceiver #(
     logic [7:0] tx_data;
     logic       tx_data_valid;
     logic       tx_done;
+
+    logic [7:0] rx_data;
+    logic       rx_data_valid;
 
     always @ (negedge clk or negedge rstb) begin : rx_block
 
@@ -62,11 +67,15 @@ module transceiver #(
 
             tx_data_valid <= 0;
 
+            data_send_done <= 0;
+
         end else begin
 
             case (tx_state)
 
                 idle: begin
+
+                    data_send_done <= 0;
 
                     if (data_send_valid) begin
 
@@ -101,6 +110,8 @@ module transceiver #(
                     if (tx_done) begin
 
                         tx_state <= idle;
+
+                        data_send_done <= 1;
 
                     end
 
