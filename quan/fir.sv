@@ -11,7 +11,7 @@
 
 module fir (
   input logic clk,
-  input logic rst,
+  input logic rstb,
   input logic wind,
   input logic load,
   input logic in_valid,
@@ -27,7 +27,7 @@ module fir (
     .LENGTH(16)
   ) D (
     .clk(clk),
-    .rst(rst),
+    .rstb(rstb),
     .ena(load),
     .data(data),
     .out0(d0),
@@ -54,7 +54,7 @@ module fir (
     .LENGTH(16)
   ) W (
     .clk(clk),
-    .rst(rst),
+    .rstb(rstb),
     .ena(wind),
     .data(data),
     .out0(w0),
@@ -140,8 +140,8 @@ module fir (
   // T0
   logic [31:0] P0, P1, P2, P3;
   logic in_valid_0;
-  always_ff @(posedge clk, posedge rst) begin
-    if (rst) begin
+  always_ff @(negedge clk or negedge rstb) begin
+    if (!rstb) begin
       P0 <= 0;
       P1 <= 0;
       P2 <= 0;
@@ -159,8 +159,8 @@ module fir (
   // T1
   logic [32:0] A0, A1;
   logic in_valid_1;
-  always_ff @(posedge clk, posedge rst) begin
-    if (rst) begin
+  always_ff @(negedge clk or negedge rstb) begin
+    if (!rstb) begin
       A0 <= 0;
       A1 <= 0;
       in_valid_1 <= 0;
@@ -174,8 +174,8 @@ module fir (
   // T2
   logic [35:0] A2, AC;
   logic [5:0] in_valid_2;
-  always_ff @(posedge clk, posedge rst) begin
-    if (rst) begin
+  always_ff @(negedge clk or negedge rstb) begin
+    if (!rstb) begin
       A2 <= 0;
       AC <= 0;
       in_valid_2 <= 0;
@@ -190,7 +190,7 @@ module fir (
   // out_valid if in_valid_2 is 1111
   sequence_detector sd (
     .clk(clk),
-    .rst(rst),
+    .rstb(rstb),
     .in(in_valid_2),
     .out(out_valid)
   );
@@ -202,8 +202,8 @@ module fir (
   // FSM
   FSM_State state, next_state;
 
-  always_ff @(posedge clk, posedge rst) begin
-    if (rst) begin
+  always_ff @(negedge clk or negedge rstb) begin
+    if (!rstb) begin
       state <= SU;
     end else begin
       state <= next_state;
@@ -244,7 +244,7 @@ module halfword_shift #(
   parameter LENGTH = 16
 ) (
   input  logic			clk,
-  input  logic 			rst,
+  input  logic 			rstb,
   input  logic 			ena,
   input  logic	[15:0]	data,
   output logic 	[15:0]  out0,
@@ -266,8 +266,8 @@ module halfword_shift #(
 );
   logic [15:0] q [0:LENGTH - 1];
   
-  always_ff @ (posedge clk, posedge rst) begin
-    if (rst) begin
+  always_ff @ (negedge clk or negedge rstb) begin
+    if (!rstb) begin
       for (int i = 0; i < LENGTH; i = i + 1) begin
         q[i] <= '0;
       end

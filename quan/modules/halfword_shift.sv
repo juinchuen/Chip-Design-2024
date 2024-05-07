@@ -2,7 +2,7 @@ module halfword_shift #(
   parameter LENGTH = 16
 ) (
   input  logic			clk,
-  input  logic 			rst,
+  input  logic 			rstb,
   input  logic 			ena,
   input  logic	[15:0]	data,
   output logic 	[15:0]  out0,
@@ -24,8 +24,8 @@ module halfword_shift #(
 );
   logic [15:0] q [0:LENGTH - 1];
   
-  always_ff @ (posedge clk, posedge rst) begin
-    if (rst) begin
+  always_ff @ (negedge clk or negedge rstb) begin
+    if (!rstb) begin
       for (int i = 0; i < LENGTH; i = i + 1) begin
         q[i] <= '0;
       end

@@ -21,7 +21,7 @@ logic [15:0] out;
 // Unit Under Test
 fir UUT (
 	.clk(clk),
-	.rst(rst),
+	.rstb(rst),
 	.wind(wind),
 	.load(load),
 	.in_valid(in_valid),
@@ -32,10 +32,13 @@ fir UUT (
 
 // Simulate Inputs
 initial begin
+
 	rst = 1;
+	#0
+	rst = 0;
 	#(CLK_PERIOD)
 
-	rst = 0;
+	rst = 1;
 	wind = 1;
 	data = 16'd1;
 	#(CLK_PERIOD * 16)

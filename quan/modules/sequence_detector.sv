@@ -1,6 +1,6 @@
 module sequence_detector (
   input logic clk,
-  input logic rst,
+  input logic rstb,
   input logic in,
   output logic out
 );
@@ -8,8 +8,8 @@ module sequence_detector (
 typedef enum logic [2:0] {S0, S1, S2, S3, S4, S5} FSM_State;
 FSM_State state, next_state;
 
-always_ff @ (posedge clk, posedge rst) begin
-  if (rst) begin
+always_ff @ (negedge clk or negedge rstb) begin
+  if (!rstb) begin
     state <= S0;
   end else begin
     state <= next_state;

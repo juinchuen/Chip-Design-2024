@@ -21,7 +21,7 @@ logic [15:0] out;
 // Unit Under Test
 fir UUT (
 	.clk(clk),
-	.rst(rst),
+	.rstb(rst),
 	.wind(wind),
 	.load(load),
 	.in_valid(in_valid),
