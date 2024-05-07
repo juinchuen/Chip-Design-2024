@@ -1,5 +1,5 @@
 module fpga_top #(
-    parameter CLKS_PER_BIT = 434 // for 50 MHz clk, 115200 baud rate
+    parameter CLKS_PER_BIT = 64 // for 50 MHz clk, 115200 baud rate
 )(
 
     // serial
@@ -50,6 +50,20 @@ module fpga_top #(
 		.o_RX_DV        (debug_rx_data_valid),
 		.o_RX_Byte		(debug_rx_data)
 	);
+
+    // UART_TX #(
+	// 	.CLKS_PER_BIT(CLKS_PER_BIT)
+	// ) uTrans (
+	
+	// 	.i_Rst_L		(rstb),
+   	// 	.i_Clock		(clk),
+   	// 	.i_TX_DV		(debug_rx_data_valid),
+   	// 	.i_TX_Byte		(debug_rx_data), 
+   	// 	.o_TX_Active	(),
+   	// 	.o_TX_Serial	(ser_out),
+   	// 	.o_TX_Done		()
+	
+	// );
 
     transceiver #(
         .CLKS_PER_BIT(CLKS_PER_BIT)

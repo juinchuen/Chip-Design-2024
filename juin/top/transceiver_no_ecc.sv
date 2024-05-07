@@ -44,6 +44,8 @@ module transceiver #(
 
             recv_counter <= 0;
 
+            data_recv_valid <= 0;
+
         end else begin
 
             if (rx_data_valid) begin
@@ -52,6 +54,10 @@ module transceiver #(
                 data_recv       <= data_recv << 8 | {8'b0, rx_data};
 
                 data_recv_valid <= recv_counter == 1;
+
+            end else begin
+
+                data_recv_valid <= 0;
 
             end
 
