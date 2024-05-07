@@ -171,21 +171,18 @@ module core (
 
     end
 
-    assign fft_done = 1;
-    assign fft_output = fft_cache;
-
-    // fft #(
-    //     .D_WIDTH        (64),
-    //     .LOG_2_WIDTH    (6)
-    // ) uFFT ( 
-    //     .inputRe    (fft_cache[ 63: 0]),    
-    //     .inputIm    (fft_cache[127:64]),    
-    //     .start      (fft_start),    
-    //     .clk        (clk),    
-    //     .rst        (rstb),
-    //     .outputRe   (fft_output[ 63: 0]),        
-    //     .outputIm   (fft_output[127:64]),        
-    //     .done       (fft_done)
-    // );
+    fft #(
+        .D_WIDTH        (64),
+        .LOG_2_WIDTH    (6)
+    ) uFFT ( 
+        .inputRe    (fft_cache[ 63: 0]),    
+        .inputIm    (fft_cache[127:64]),    
+        .start      (fft_start),    
+        .clk        (clk),    
+        .rst        (rstb),
+        .outputRe   (fft_output[ 63: 0]),        
+        .outputIm   (fft_output[127:64]),        
+        .done       (fft_done)
+    );
 
 endmodule
