@@ -6,8 +6,8 @@
   - Output "out_valid" is set 8 cycles after "in_valid" is set
 */
 
-`include "modules/halfword_shift.sv"
-`include "modules/sequence_detector.sv"
+// `include "modules/halfword_shift.sv"
+// `include "modules/sequence_detector.sv"
 
 module fir (
   input logic clk,

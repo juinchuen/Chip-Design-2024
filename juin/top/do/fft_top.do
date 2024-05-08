@@ -3,7 +3,7 @@ vlib work
 vmap work work
 
 # compile
-vlog -work work "top_tb.sv"
+vlog -work work "fft_top_tb.sv"
 vlog -work work "core.sv"
 vlog -work work "fpga_top.sv"
 vlog -work work "../uart/Verilog/source/UART_TX.v"

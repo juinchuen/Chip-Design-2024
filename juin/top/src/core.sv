@@ -1,3 +1,5 @@
+`define PRINT_IO
+
 module core (
 
     // receive channel
@@ -19,8 +21,9 @@ module core (
 
 );
 
-    typedef enum logic[2:0] {   IDLE, RECEIVE_FFT, COMPUTE_FFT, TRANSMIT_FFT,
-                                RECEIVE_FIR, COMPUTE_FIR, TRANSMIT_FIR, WIND_FIR, LOAD_FIR} core_state_t;
+    typedef enum logic[3:0] {   IDLE, RECEIVE_FFT, COMPUTE_FFT, TRANSMIT_FFT,
+                                RECEIVE_FIR, COMPUTE_FIR_1, COMPUTE_FIR_2,
+                                TRANSMIT_FIR, WIND_FIR, LOAD_FIR} core_state_t;
 
     core_state_t core_state;
 
@@ -36,35 +39,40 @@ module core (
     logic fir_wind,     fir_load;
     logic [15:0] fir_data_out;
 
-    assign fir_wind = (core_state == WIND_FIR) & (data_in_valid & ~data_in_valid_prev);
-    assign fir_load = ((core_state == LOAD_FIR) | (core_state == RECEIVE_FIR)) & (data_in_valid & ~data_in_valid_prev);
-
     logic [15:0] fft_cache [127:0];
     logic [7:0]  cache_counter;
 
     logic data_in_valid_prev;
     logic tx_done_prev;
 
-    // int input_file, output_file;
+    assign fir_wind = (core_state == WIND_FIR) & (data_in_valid & ~data_in_valid_prev);
+    assign fir_load = ((core_state == LOAD_FIR) | (core_state == RECEIVE_FIR)) & (data_in_valid & ~data_in_valid_prev);
 
-    // initial begin
+    // Print the inputs and outputs of the core
+    `ifdef PRINT_IO
 
-    //     input_file = $fopen("fft_in.txt", "w");
-    //     output_file = $fopen("fft_out.txt", "w");
+    int input_file, output_file;
 
-    // end
+    initial begin
 
-    // always @ (posedge data_out_valid) begin
+        input_file = $fopen("verif_data/fir_in.txt", "w");
+        output_file = $fopen("verif_data/fir_out.txt", "w");
 
-    //     $fdisplay(output_file, "%d", data_out);
+    end
 
-    // end
+    always @ (posedge data_out_valid) begin
 
-    // always @ (posedge data_in_valid) begin
+        $fdisplay(output_file, "%d", data_out);
 
-    //     $fdisplay(input_file, "%d", data_in);
+    end
 
-    // end
+    always @ (posedge data_in_valid) begin
+
+        $fdisplay(input_file, "%d", data_in);
+
+    end
+
+    `endif
 
     always @ (negedge clk or negedge rstb) begin
 
@@ -73,12 +81,13 @@ module core (
             core_state      <= IDLE;
 
             fir_start       <= 0;
-            fir_done        <= 0;
 
             fft_init        <= 0;
             fft_start       <= 0;
 
             cache_counter   <= 0;
+
+            data_out_valid <= 0;
 
         end else begin
 
@@ -226,25 +235,31 @@ module core (
 
                     if (data_in_valid & ~data_in_valid_prev) begin
 
-                        core_state <= COMPUTE_FIR;
-
-                        fir_start <= 1;
+                        core_state <= COMPUTE_FIR_1;
 
                     end
 
                 end
 
-                COMPUTE_FIR: begin
+                COMPUTE_FIR_1: begin
 
-                    fir_start <= 0;
+                    fir_start <= 1;
 
-                    if (fir_done): begin
+                    core_state <= COMPUTE_FIR_2;
+
+                end
+
+                COMPUTE_FIR_2: begin
+
+                    if (fir_done) begin
+
+                        fir_start <= 0;
 
                         core_state <= TRANSMIT_FIR;
 
-                        data_out <= fir_data_out;
-
                         data_out_valid <= 1;
+
+                        data_out <= fir_data_out;
 
                     end
 
@@ -256,7 +271,7 @@ module core (
 
                     if (tx_done & ~tx_done_prev) begin
 
-                        core_state <= idle;
+                        core_state <= IDLE;
 
                     end
 
@@ -290,6 +305,6 @@ module core (
         .out_valid  (fir_done),
         .out        (fir_data_out)
 
-    )
+    );
 
 endmodule
