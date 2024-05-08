@@ -9,10 +9,12 @@ import serial
 
 import time
 
+import sys as system
+
 class fft_audio:
 
-    def __init__(self, COM_port = "COM7", fs = 1000, duration = 5,\
-                device_id = 2, window_width = 64, fft_max_bits = 12, baudrate = 781250):
+    def __init__(self, COM_port = "COM7", fs = 1024, duration = 5,\
+                device_id = 2, window_width = 64, fft_max_bits = 4, baudrate = 781250):
 
         self.COM_port = COM_port
         self.fs =fs
@@ -24,10 +26,13 @@ class fft_audio:
         self.baudrate = baudrate
 
         self.ser = serial.Serial(COM_port, baudrate, timeout = 1)
+        self.ser.set_buffer_size(rx_size = 32768, tx_size = 32768)
 
     def record_audio(self):
 
         num = 3
+
+        self.sig = sd.rec(int((self.duration + 3) * self.fs), samplerate = self.fs, channels = 1, device=2)
 
         while num != 0:
 
@@ -39,22 +44,21 @@ class fft_audio:
 
         print("Say something!")
 
-        self.sig = sd.rec(int(self.duration * self.fs), samplerate = self.fs, channels = 1, device=2)
-
         sd.wait()
 
         self.sig = self.sig.flatten()
+
+        self.sig = self.sig[3072:]
 
         self.windlist = []
 
         index = 0
 
-        self.sig = self.sig - np.min(self.sig)
-        self.sig = self.sig / np.max(self.sig)
-        self.sig = 2 * self.sig - 1
-        self.sig = self.sig * 2 ** self.max_bits
+        scale = max(np.max(self.sig), -np.min(self.sig))
 
-        while (index + self.width + 1 < len(self.sig)):
+        self.sig = (self.sig / scale) * (2 ** self.max_bits)
+
+        while (index + self.width < len(self.sig)):
 
             self.windlist.append(self.sig[index : index + self.width])
 
@@ -82,35 +86,40 @@ class fft_audio:
     def fpga_fft(self):
 
         self.fft_fpga = []
+        self.fft_fpga_real = []
+        self.fft_fpga_imag = []
 
         for w in self.windlist:
 
             # send data to fpga
-            bytes = self.send_to_fpga(w)
+            self.send_to_fpga(w)
+
+        for j in range(158):
 
             raw = []
 
-            for i in range(int(len(bytes)/2)):
+            bytes = self.ser.read(256)
 
-                raw.append(int(bytes[2*i] * 256 + bytes[2*i+1]))
+            for i in range(128):
 
-            real = np.array(raw[:64]).astype(float)
-            imag = np.array(raw[64:]).astype(float)
+                raw.append(int.from_bytes(bytes[2*i:2*i+2], byteorder=system.byteorder, signed=True))
+
+            real = raw[:64]
+            imag = raw[64:] 
 
             abs = np.sqrt(np.multiply(real, real) + np.multiply(imag, imag))
 
             self.fft_fpga.append(abs)
+            self.fft_fpga_real.append(real)
+            self.fft_fpga_imag.append(imag)
 
         # process data
         self.fft_fpga = np.array(self.fft_fpga)
-        self.fft_fpga = np.absolute(self.fft_fpga)
         self.fft_fpga = self.fft_fpga.transpose()
-
         self.fft_fpga = self.fft_fpga[self.half:]
         self.fft_fpga = self.fft_fpga - np.min(self.fft_fpga)
         self.fft_fpga = self.fft_fpga / np.max(self.fft_fpga)
         self.fft_fpga = self.fft_fpga * 255
-
         plt.imshow(self.fft_fpga, cmap='gray', vmin = 0, vmax=255, interpolation='nearest', aspect=2)
 
     def send_to_fpga(self, window):
@@ -125,7 +134,9 @@ class fft_audio:
 
             self.ser.write(int("0").to_bytes(2,'big'))
 
-        return self.ser.read(512)
+        time.sleep(0.01)
+
+        # return self.ser.read(512)
 
 
 
