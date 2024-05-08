@@ -23,8 +23,6 @@ f_in.close()
 f_out.close()
 
 
-
-
 # for i in range(256):
 
 #     print("writing " + str(num))
