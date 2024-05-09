@@ -178,8 +178,8 @@ module fir (
       AC <= 0;
       in_valid_2 <= 0;
     end else begin
-      A2 <= in_valid_1 ? A0 + A1 : 0;
-      AC <= in_valid_1 ? AC + A2 : 0;
+      A2 <= in_valid_2 ? A0 + A1 : 0;
+      AC <= in_valid_2 ? AC + A2 : 0;
       in_valid_2 <= in_valid_1;
     end
   end
