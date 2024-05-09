@@ -1,4 +1,4 @@
-`define PRINT_IO
+// `define PRINT_IO
 
 module core (
 
@@ -48,31 +48,31 @@ module core (
     assign fir_wind = (core_state == WIND_FIR) & (data_in_valid & ~data_in_valid_prev);
     assign fir_load = ((core_state == LOAD_FIR) | (core_state == RECEIVE_FIR)) & (data_in_valid & ~data_in_valid_prev);
 
-    // Print the inputs and outputs of the core
-    `ifdef PRINT_IO
+    // // Print the inputs and outputs of the core
+    // `ifdef PRINT_IO
 
-    int input_file, output_file;
+    // int input_file, output_file;
 
-    initial begin
+    // initial begin
 
-        input_file = $fopen("verif_data/fir_in.txt", "w");
-        output_file = $fopen("verif_data/fir_out.txt", "w");
+    //     input_file = $fopen("verif_data/fir_in.txt", "w");
+    //     output_file = $fopen("verif_data/fir_out.txt", "w");
 
-    end
+    // end
 
-    always @ (posedge data_out_valid) begin
+    // always @ (posedge data_out_valid) begin
 
-        $fdisplay(output_file, "%d", data_out);
+    //     $fdisplay(output_file, "%d", data_out);
 
-    end
+    // end
 
-    always @ (posedge data_in_valid) begin
+    // always @ (posedge data_in_valid) begin
 
-        $fdisplay(input_file, "%d", data_in);
+    //     $fdisplay(input_file, "%d", data_in);
 
-    end
+    // end
 
-    `endif
+    // `endif
 
     always @ (negedge clk or negedge rstb) begin
 
@@ -88,6 +88,8 @@ module core (
             cache_counter   <= 0;
 
             data_out_valid <= 0;
+
+            core_busy <= 0;
 
         end else begin
 
@@ -235,6 +237,8 @@ module core (
 
                     if (data_in_valid & ~data_in_valid_prev) begin
 
+                        fir_start <= 1;
+
                         core_state <= COMPUTE_FIR_1;
 
                     end
@@ -280,19 +284,34 @@ module core (
         end
     end
 
-    fft #(
-        .D_WIDTH        (64),
-        .LOG_2_WIDTH    (6)
-    ) uFFT ( 
-        .inputRe    (fft_cache[ 63: 0]),    
-        .inputIm    (fft_cache[127:64]),    
-        .start      (fft_start),    
-        .clk        (clk),    
-        .rst        (rstb),
-        .outputRe   (fft_output[ 63: 0]),        
-        .outputIm   (fft_output[127:64]),        
-        .done       (fft_done)
-    );
+    // wire [1023:0] fft_cache_real, fft_cache_imag;
+    
+    // genvar i;
+
+    // generate
+
+    //     for (i = 0; i < 64; i = i + 1) begin
+
+    //         assign fft_cache_real[16 * i + 15   : 16 * i       ] = fft_cache[i];
+    //         assign fft_cache_imag[16 * i + 1039 : 16 * i + 1024] = fft_cache[i + 64];
+
+    //     end
+
+    // endgenerate
+
+    // fft #(
+    //     .D_WIDTH        (64),
+    //     .LOG_2_WIDTH    (6)
+    // ) uFFT ( 
+    //     .inputRe_cont    (fft_cache_real),    
+    //     .inputIm_cont    (fft_cache[127:64]),    
+    //     .start      (fft_start),    
+    //     .clk        (clk),    
+    //     .rst        (rstb),
+    //     .outputRe   (fft_output[ 63: 0]),        
+    //     .outputIm   (fft_output[127:64]),        
+    //     .done       (fft_done)
+    // );
 
     fir uFIR(
         

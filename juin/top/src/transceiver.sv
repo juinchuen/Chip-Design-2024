@@ -11,7 +11,9 @@ module transceiver #(
 
     // fpga side pins
     input logic [15:0]  data_send,
-    input logic         data_send_valid,    
+    input logic         data_send_valid,
+
+    output logic        data_send_done,    
 
     output logic [15:0] data_recv,
     output logic        data_recv_valid,
@@ -32,18 +34,23 @@ module transceiver #(
     logic dec_start;
 
     // transmitter variables
-    typedef enum logic[2:0] {idle, send_first, send_second} tx_state_t;
+    typedef enum logic[2:0] {idle, send_first, send_second, send_third} tx_state_t;
     tx_state_t tx_state;
 
     logic [7:0] tx_data;
     logic       tx_data_valid;
     logic       tx_done;
 
+    logic [20:0]    data_encode;
+    logic           data_encode_valid;
+
     always @ (negedge clk or negedge rstb) begin : rx_block
 
         if (!rstb) begin
 
             recv_counter <= 0;
+
+            data_recv_valid <= 0;
 
         end else begin
 		  
@@ -70,16 +77,20 @@ module transceiver #(
 
             tx_data_valid <= 0;
 
+            data_send_done <= 0;
+
         end else begin
 
             case (tx_state)
 
                 idle: begin
 
-                    if (data_send_valid) begin
+                    data_send_done <= 0;
+
+                    if (data_encode_valid) begin
 
                         tx_data_valid <= 1;
-                        tx_data <= data_send[15:8];
+                        tx_data <= {3'h0, data_encode[20:16]};
 
                         tx_state <= send_first;
 
@@ -94,7 +105,7 @@ module transceiver #(
                     if (tx_done) begin
 
                         tx_data_valid <= 1;
-                        tx_data <= data_send[7:0];
+                        tx_data <= data_encode[15:8];
 
                         tx_state <= send_second;
 
@@ -108,7 +119,24 @@ module transceiver #(
 
                     if (tx_done) begin
 
+                        tx_data_valid <= 1;
+                        tx_data <= data_encode[7:0];
+
+                        tx_state <= send_third;
+
+                    end
+                
+                end
+
+                send_third: begin
+
+                    tx_data_valid <= 0;
+
+                    if (tx_done) begin
+
                         tx_state <= idle;
+
+                        data_send_done <= 1;
 
                     end
 
@@ -156,6 +184,20 @@ module transceiver #(
         .valid_in       (dec_start),
         .decoded_data   (data_recv),
         .valid_out      (data_recv_valid)    
+    );
+
+    encode #(
+        .data_width     (16),
+        .encoding_width (21)
+    ) uEnc (
+
+        .clk            (clk),
+        .rstb           (rstb),
+        .raw_data       (data_send),
+        .valid_in       (data_send_valid),
+        .encoded_data   (),
+        .valid_out      ()
+
     );
 
 endmodule

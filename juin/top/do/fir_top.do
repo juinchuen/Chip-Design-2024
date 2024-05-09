@@ -27,7 +27,7 @@ add wave -noupdate -group TOP -radix hexadecimal /top_tb/uTop/*
 
 add wave -noupdate -group CORE -radix hexadecimal /top_tb/uTop/uCore/*
 
-add wave -noupdate -group FFT -radix hexadecimal /top_tb/uTop/uCore/uFFT/*
+# add wave -noupdate -group FFT -radix hexadecimal /top_tb/uTop/uCore/uFFT/*
 
 add wave -noupdate -group FIR -radix hexadecimal /top_tb/uTop/uCore/uFIR/*
 
