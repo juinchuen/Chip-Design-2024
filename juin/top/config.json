@@ -1,0 +1,21 @@
+{
+    "PDK": "sky130A",
+    "DESIGN_NAME": "fpga_top",
+    "VERILOG_FILES": [  "./src/core.sv", "./src/fpga_top.sv", "./src/transceiver.sv",
+                        "../uart/Verilog/source/UART_TX.v",
+                        "../uart/Verilog/source/UART_RX.v",
+                        "../../quan/fir.sv",
+                        "../../quan/modules/halfword_shift.sv",
+                        "../../quan/modules/sequence_detector.sv",
+                        "../../ebube/encode.sv",
+                        "../../ebube/decode.sv"
+                        ],
+    "CLOCK_PORT": "clk",
+    "CLOCK_PERIOD": 10,
+    "SYNTH_SIZING": 1,
+    "SYNTH_STRATEGY": "DELAY 4",
+    "DESIGN_REPAIR_MAX_WIRE_LENGTH": 500
+}
+
+
+

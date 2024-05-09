@@ -2,11 +2,11 @@ module fft #(
     parameter D_WIDTH = 64,
     parameter LOG_2_WIDTH = 6
 )( 
-  input logic [15:0] inputRe [((D_WIDTH) - 1):0],
-  input logic [15:0] inputIm [((D_WIDTH) - 1):0],
+  input logic [15:0] inputRe [(D_WIDTH - 1):0],
+  input logic [15:0] inputIm [(D_WIDTH - 1):0],
   input logic start, clk, rst,
-  output wire [15:0] outputRe [((D_WIDTH) - 1):0],
-  output wire [15:0] outputIm [((D_WIDTH) - 1):0],
+  output wire [15:0] outputRe [(D_WIDTH - 1):0],
+  output wire [15:0] outputIm [(D_WIDTH - 1):0],
   output wire done
   );
   wire [15:0] reButterflyIn [((D_WIDTH) - 1):0];
