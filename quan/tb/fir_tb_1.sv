@@ -93,10 +93,11 @@ initial begin
 
 	data = 16'd16;
 	#(CLK_PERIOD)
-	#(CLK_PERIOD / 2)
 
-	in_valid = 1;
 	load = 0;
+	// #(CLK_PERIOD)
+	
+	in_valid = 1;
 	#(CLK_PERIOD * 6)
 
 	in_valid = 0;

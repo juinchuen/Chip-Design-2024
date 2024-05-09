@@ -237,7 +237,7 @@ module core (
 
                     if (data_in_valid & ~data_in_valid_prev) begin
 
-                        fir_start <= 1;
+                        // fir_start <= 1;
 
                         core_state <= COMPUTE_FIR_1;
 
