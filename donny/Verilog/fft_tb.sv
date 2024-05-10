@@ -151,21 +151,23 @@
 
 module fft_tb();
     // declare stimuli
-    logic [15:0] inputRe [63:0];
-    logic [15:0] inputIm [63:0];
+    logic [1023 : 0] inputRe;
+    logic [1023 : 0] inputIm;
     logic start, clk, rst;
-    logic [15:0] outputRe [63:0];
-    logic [15:0] outputIm [63:0];
+    logic [1023 : 0] outputRe;
+    logic [1023 : 0] outputIm;
+    logic done;
 
     // instantiate uut
-     FFT fft(
+     fft fft(
         .inputRe(inputRe),
         .inputIm(inputIm),
         .start(start),
         .clk(clk),
         .rst(rst),
         .outputRe(outputRe),
-        .outputIm(outputIm)
+        .outputIm(outputIm),
+        .done(done)
     );
 
     // clock gen
@@ -178,13 +180,14 @@ module fft_tb();
         #5
         rst = 1;
 
+
         for (int i = 0; i < 64; i = i + 1) begin
             if (i < 32) begin
-                inputRe[i] = 16'b0000000000000100;
-                inputIm[i] = 16'b0000000000000000;
+                inputRe[i * 16 +: 16] = 16'b0000000000000100;
+                inputIm[i * 16 +: 16] = 16'b0000000000000000;
             end else begin
-                inputRe[i] = 16'b0000000000000000;
-                inputIm[i] = 16'b0000000000000000;
+                inputRe[i * 16 +: 16] = 16'b0000000000000000;
+                inputIm[i * 16 +: 16] = 16'b0000000000000000;
             end
         end
 
@@ -197,7 +200,7 @@ module fft_tb();
 
         #2000 
         for (int i = 0; i < 64; i = i + 1) begin
-            $display("outputRe[%0d] = %0d", i, outputRe[i]);
+            $display("outputRe[%0d] = %0d", i, outputRe[i * 16 +: 15]);
         end
         $finish;
     end
