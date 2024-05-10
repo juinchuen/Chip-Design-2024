@@ -11,61 +11,62 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# do fir_1.do
+# do fir_3.do
 # -9
 # ** Warning: (vlib-34) Library already exists at "work".
 # Model Technology ModelSim SE-64 vmap 2020.1 Lib Mapping Utility 2020.01 Jan 28 2020
 # vmap work work 
 # Modifying modelsim.ini
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 23:14:40 on May 08,2024
-# vlog -reportprogress 300 -work work ../tb/fir_tb_1.sv 
+# Start time: 19:55:55 on May 09,2024
+# vlog -reportprogress 300 -work work ../tb/fir_tb_3.sv 
 # -- Compiling module fir_tb
 # 
 # Top level modules:
 # 	fir_tb
-# End time: 23:14:40 on May 08,2024, Elapsed time: 0:00:00
+# End time: 19:55:55 on May 09,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 23:14:40 on May 08,2024
+# Start time: 19:55:55 on May 09,2024
 # vlog -reportprogress 300 -work work ../fir.sv 
 # -- Compiling module fir
 # 
 # Top level modules:
 # 	fir
-# End time: 23:14:40 on May 08,2024, Elapsed time: 0:00:00
+# End time: 19:55:55 on May 09,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 23:14:40 on May 08,2024
+# Start time: 19:55:55 on May 09,2024
 # vlog -reportprogress 300 -work work ../modules/halfword_shift.sv 
 # -- Compiling module halfword_shift
 # 
 # Top level modules:
 # 	halfword_shift
-# End time: 23:14:40 on May 08,2024, Elapsed time: 0:00:00
+# End time: 19:55:55 on May 09,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # Model Technology ModelSim SE-64 vlog 2020.1 Compiler 2020.01 Jan 28 2020
-# Start time: 23:14:40 on May 08,2024
+# Start time: 19:55:55 on May 09,2024
 # vlog -reportprogress 300 -work work ../modules/sequence_detector.sv 
 # -- Compiling module sequence_detector
 # 
 # Top level modules:
 # 	sequence_detector
-# End time: 23:14:40 on May 08,2024, Elapsed time: 0:00:00
+# End time: 19:55:55 on May 09,2024, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # vsim -classdebug -voptargs="+acc" "+notimingchecks" -L work work.fir_tb -wlf fir_tb.wlf 
-# Start time: 23:14:40 on May 08,2024
+# Start time: 19:55:55 on May 09,2024
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Note: (vopt-143) Recognized 1 FSM in module "fir(fast)".
 # Loading sv_std.std
 # Loading work.fir_tb(fast)
 # Loading work.fir(fast)
 # Loading work.halfword_shift(fast)
 # Loading work.sequence_detector(fast)
 # ** Warning: (vsim-3015) [PCDPC] - Port size (1) does not match connection size (6) for port 'in'. The port definition is at: ../modules/sequence_detector.sv(4).
-#    Time: 0 ns  Iteration: 0  Instance: /fir_tb/UUT/sd File: ../fir.sv Line: 189
-# ** Note: $finish    : ../tb/fir_tb_1.sv(114)
+#    Time: 0 ns  Iteration: 0  Instance: /fir_tb/UUT/sd File: ../fir.sv Line: 190
+# ** Note: $finish    : ../tb/fir_tb_3.sv(128)
 #    Time: 600 ns  Iteration: 0  Instance: /fir_tb
 # 1
-# Break in Module fir_tb at ../tb/fir_tb_1.sv line 114
-# End time: 16:57:24 on May 09,2024, Elapsed time: 17:42:44
+# Break in Module fir_tb at ../tb/fir_tb_3.sv line 128
+# End time: 19:56:18 on May 09,2024, Elapsed time: 0:00:23
 # Errors: 0, Warnings: 1

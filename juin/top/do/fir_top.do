@@ -3,19 +3,19 @@ vlib work
 vmap work work
 
 # compile
-vlog -work work "tb/fir_top_tb.sv"
-vlog -work work "src/core.sv"
-vlog -work work "src/fpga_top.sv"
-vlog -work work "../uart/Verilog/source/UART_TX.v"
-vlog -work work "../uart/Verilog/source/UART_RX.v"
-vlog -work work "src/transceiver_no_ecc.sv"
-vlog -work work "../../donny/Verilog/fft.sv"
-vlog -work work "../../donny/Verilog/registerMux.sv"
-vlog -work work "../../donny/Verilog/twiddle_factor_mux.sv"
-vlog -work work "../../donny/Verilog/signal_router.sv"
-vlog -work work "../../quan/fir.sv"
-vlog -work work "../../quan/modules/halfword_shift.sv"
-vlog -work work "../../quan/modules/sequence_detector.sv"
+vlog -work work "../tb/fir_top_tb.sv"
+vlog -work work "../src/core.sv"
+vlog -work work "../src/fpga_top.sv"
+vlog -work work "../../uart/Verilog/source/UART_TX.v"
+vlog -work work "../../uart/Verilog/source/UART_RX.v"
+vlog -work work "../src/transceiver_no_ecc.sv"
+vlog -work work "../../../donny/Verilog/fft.sv"
+vlog -work work "../../../donny/Verilog/registerMux.sv"
+vlog -work work "../../../donny/Verilog/twiddle_factor_mux.sv"
+vlog -work work "../../../donny/Verilog/signal_router.sv"
+vlog -work work "../../../quan/fir.sv"
+vlog -work work "../../../quan/modules/halfword_shift.sv"
+vlog -work work "../../../quan/modules/sequence_detector.sv"
 
 
 vsim -classdebug -voptargs=+acc +notimingchecks -L work work.top_tb -wlf top_tb.wlf

@@ -3,8 +3,10 @@ vlib work
 vmap work work
 
 # compile
-vlog -work work "tb/fir_tb_2.sv"
-vlog -work work "fir.sv"
+vlog -work work "../tb/fir_tb_2.sv"
+vlog -work work "../fir.sv"
+vlog -work work "../modules/halfword_shift.sv"
+vlog -work work "../modules/sequence_detector.sv"
 
 vsim -classdebug -voptargs=+acc +notimingchecks -L work work.fir_tb -wlf fir_tb.wlf
 

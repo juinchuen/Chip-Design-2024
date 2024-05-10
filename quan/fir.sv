@@ -137,20 +137,21 @@ module fir (
 
   // T0
   logic [31:0] P0, P1, P2, P3;
-  logic in_valid_0;
+  wire in_valid_0;
+  assign in_valid_0 = in_valid;
   always_ff @(negedge clk or negedge rstb) begin
     if (!rstb) begin
       P0 <= 0;
       P1 <= 0;
       P2 <= 0;
       P3 <= 0;
-      in_valid_0 <= 0;
+      // in_valid_0 <= 0;
     end else begin
-      P0 <= in_valid_0 ? D0 * W0 : 0;
-      P1 <= in_valid_0 ? D1 * W1 : 0;
-      P2 <= in_valid_0 ? D2 * W2 : 0;
-      P3 <= in_valid_0 ? D3 * W3 : 0;
-      in_valid_0 <= in_valid;
+      P0 <= in_valid ? D0 * W0 : 0;
+      P1 <= in_valid ? D1 * W1 : 0;
+      P2 <= in_valid ? D2 * W2 : 0;
+      P3 <= in_valid ? D3 * W3 : 0;
+      // in_valid_0 <= in_valid;
     end
   end
   
